@@ -6,12 +6,14 @@ export default function NotFound() {
   return (
     <Section className="flex min-h-[70vh] flex-col justify-center pt-44">
       <Eyebrow>404</Eyebrow>
-      <h1 className="mt-6 font-st-display text-st-h1">Page not found</h1>
+      <h1 className="mt-6 font-st-display text-st-h1">
+        This page took an unplanned detour.
+      </h1>
       <p className="mt-4 max-w-md text-st-body text-st-muted">
-        The page you&apos;re looking for doesn&apos;t exist or has moved.
+        Even the best plans have one. Let&apos;s get you back on track.
       </p>
       <div className="mt-10">
-        <Button href="/">Back to home</Button>
+        <Button href="/">Return home</Button>
       </div>
     </Section>
   );
