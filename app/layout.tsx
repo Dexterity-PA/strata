@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { IntroReveal } from "@/components/intro/intro-reveal";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteNav } from "@/components/layout/site-nav";
 import { MotionProvider } from "@/components/providers/motion-provider";
@@ -50,6 +51,8 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col">
         <MotionProvider>
           <SmoothScrollProvider>
+            {/* First-paint curtain; renders once per session, page paints beneath */}
+            <IntroReveal />
             <SiteNav />
             <main className="flex-1">{children}</main>
             <SiteFooter />
