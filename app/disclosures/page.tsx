@@ -1,15 +1,26 @@
 import type { Metadata } from "next";
 import { Section } from "@/components/layout/section";
+import { Eyebrow } from "@/components/ui/eyebrow";
 
 export const metadata: Metadata = {
   title: "Disclosures",
+  description:
+    "Strata is a student-led volunteer initiative providing financial education and planning support.",
 };
 
-/** Placeholder — page content is built in a later phase. */
 export default function Page() {
   return (
-    <Section className="min-h-[60vh] pt-44">
-      <h1 className="font-st-display text-st-h1">Disclosures</h1>
+    <Section container="narrow" className="min-h-[60vh] pt-44">
+      <Eyebrow>Legal</Eyebrow>
+      <h1 className="mt-6 font-st-display text-st-h1">Disclosures</h1>
+      <p className="mt-8 text-st-body-lg text-st-ink-soft">
+        Strata is a student-led volunteer initiative providing financial
+        education and planning support. It is not a registered investment
+        adviser, broker-dealer, or licensed financial advisory firm, and nothing
+        provided by Strata constitutes regulated financial, investment, legal,
+        or tax advice. Information is general and educational. For decisions
+        requiring a licensed professional, consult a qualified advisor.
+      </p>
     </Section>
   );
 }
