@@ -71,10 +71,10 @@ export function SiteFooter() {
             <ul className="flex flex-col gap-2.5 text-st-small text-st-paper/75">
               <li>
                 <a
-                  href="mailto:hello@stratafinancialplanning.com"
+                  href={`mailto:${SITE.email}`}
                   className="transition-colors duration-(--st-dur-fast) hover:text-st-paper"
                 >
-                  hello@stratafinancialplanning.com
+                  {SITE.email}
                 </a>
               </li>
             </ul>
@@ -86,7 +86,7 @@ export function SiteFooter() {
           <p>
             © {new Date().getFullYear()} {SITE.name}. All rights reserved.
           </p>
-          <p>Planning-first. Independent. Fiduciary.</p>
+          <p>Free financial education and planning support.</p>
         </div>
       </Container>
     </footer>

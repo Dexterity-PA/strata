@@ -24,30 +24,33 @@ interface ParallaxProps {
 export function Parallax({ children, speed = 0.3, className }: ParallaxProps) {
   const reducedMotion = useReducedMotion();
 
-  const scope = useGsapContext<HTMLDivElement>((_ctx, el) => {
-    if (reducedMotion) return;
-    const target = el.firstElementChild;
-    if (!target) return;
+  const scope = useGsapContext<HTMLDivElement>(
+    (_ctx, el) => {
+      if (reducedMotion) return;
+      const target = el.firstElementChild;
+      if (!target) return;
 
-    const drift = 24 * speed; // yPercent travel across the viewport pass
+      const drift = 24 * speed; // yPercent travel across the viewport pass
 
-    gsap.fromTo(
-      target,
-      { yPercent: drift, willChange: "transform" },
-      {
-        yPercent: -drift,
-        ease: "none",
-        scrollTrigger: {
-          trigger: el,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-          onLeave: () => gsap.set(target, { willChange: "auto" }),
-          onEnterBack: () => gsap.set(target, { willChange: "transform" }),
+      gsap.fromTo(
+        target,
+        { yPercent: drift, willChange: "transform" },
+        {
+          yPercent: -drift,
+          ease: "none",
+          scrollTrigger: {
+            trigger: el,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+            onLeave: () => gsap.set(target, { willChange: "auto" }),
+            onEnterBack: () => gsap.set(target, { willChange: "transform" }),
+          },
         },
-      },
-    );
-  }, [speed, reducedMotion]);
+      );
+    },
+    [speed, reducedMotion],
+  );
 
   return (
     <div ref={scope} className={cn(className)}>

@@ -4,6 +4,7 @@ export const SITE = {
   name: "Strata Financial Planning",
   shortName: "Strata",
   url: "https://stratafinancialplanning.com",
+  email: "praneeth.a2027@gmail.com",
   description:
     "Independent financial planning for people who want clarity, structure, and a long view.",
 };
@@ -11,6 +12,7 @@ export const SITE = {
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
+  { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
   { label: "Process", href: "/process" },
   { label: "Insights", href: "/insights" },

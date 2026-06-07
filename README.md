@@ -21,20 +21,21 @@ The foundation is built: design tokens, fonts, smooth scroll, animation utilitie
 
 All tokens live in `app/globals.css` under `@theme` and are prefixed `st`. Tailwind v4 generates utilities from them:
 
-| Token group | Examples | Utilities |
-| --- | --- | --- |
-| Color | `--color-st-ink` (deep navy), `--color-st-bg` (warm off-white), `--color-st-accent` (muted gold), `--color-st-accent-bright` (gold on dark), `--color-st-paper` (text on dark), `--color-st-muted`, `--color-st-line`, `--color-st-line-dark`, `--color-st-surface`, `--color-st-ink-soft` | `bg-st-ink`, `text-st-muted`, `border-st-line` |
-| Type scale (fluid) | `--text-st-display`, `--text-st-h1/h2/h3`, `--text-st-body-lg/body/small/eyebrow` (each with built-in line-height/tracking) | `text-st-h1` |
-| Fonts | `--font-st-display` (Fraunces serif), `--font-st-sans` (Inter) | `font-st-display`, `font-st-sans` |
-| Spacing | `--spacing-st-section`, `--spacing-st-section-sm`, `--spacing-st-gutter` | `py-st-section`, `px-st-gutter` |
-| Radius / shadow | `--radius-st-sm/md/lg`, `--shadow-st-sm/md/lg` | `rounded-st-md`, `shadow-st-md` |
-| Easing | `--ease-st-out`, `--ease-st-in-out` | `ease-st-out` |
-| Z-index (plain vars) | `--st-z-menu` (90), `--st-z-nav` (100), `--st-z-modal` (200), `--st-z-toast` (300) | `z-(--st-z-nav)` |
-| Durations (plain vars) | `--st-dur-fast/base/slow/reveal` (200/450/800/1100ms) | `duration-(--st-dur-base)` |
+| Token group            | Examples                                                                                                                                                                                                                                                                                   | Utilities                                      |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------- |
+| Color                  | `--color-st-ink` (deep navy), `--color-st-bg` (warm off-white), `--color-st-accent` (muted gold), `--color-st-accent-bright` (gold on dark), `--color-st-paper` (text on dark), `--color-st-muted`, `--color-st-line`, `--color-st-line-dark`, `--color-st-surface`, `--color-st-ink-soft` | `bg-st-ink`, `text-st-muted`, `border-st-line` |
+| Type scale (fluid)     | `--text-st-display`, `--text-st-h1/h2/h3`, `--text-st-body-lg/body/small/eyebrow` (each with built-in line-height/tracking)                                                                                                                                                                | `text-st-h1`                                   |
+| Fonts                  | `--font-st-display` (Fraunces serif), `--font-st-sans` (Inter)                                                                                                                                                                                                                             | `font-st-display`, `font-st-sans`              |
+| Spacing                | `--spacing-st-section`, `--spacing-st-section-sm`, `--spacing-st-gutter`                                                                                                                                                                                                                   | `py-st-section`, `px-st-gutter`                |
+| Radius / shadow        | `--radius-st-sm/md/lg`, `--shadow-st-sm/md/lg`                                                                                                                                                                                                                                             | `rounded-st-md`, `shadow-st-md`                |
+| Easing                 | `--ease-st-out`, `--ease-st-in-out`                                                                                                                                                                                                                                                        | `ease-st-out`                                  |
+| Z-index (plain vars)   | `--st-z-menu` (90), `--st-z-nav` (100), `--st-z-modal` (200), `--st-z-toast` (300)                                                                                                                                                                                                         | `z-(--st-z-nav)`                               |
+| Durations (plain vars) | `--st-dur-fast/base/slow/reveal` (200/450/800/1100ms)                                                                                                                                                                                                                                      | `duration-(--st-dur-base)`                     |
 
 **Rules:**
 
 - Never hard-code colors, easings, or durations — always use tokens.
+- **Register new `text-*` tokens with tailwind-merge.** `cn()` (`lib/utils.ts`) uses `extendTailwindMerge` to classify the custom `st-*` utilities: `--text-st-*` font sizes go in `ST_FONT_SIZES`, `--color-st-*` colors in `ST_COLORS`. Without this, tailwind-merge can't tell a custom size from a custom color (both render as `text-st-*`) and silently drops one when both are applied to an element. If you add a token in `globals.css`, add it to the matching list in `lib/utils.ts`.
 - JS animation code uses the mirrors in `lib/animation/motion.ts` (`EASE`, `EASE_CSS`, `DUR`, `STAGGER`). If you change a motion token, update both files.
 - The accent is **muted gold** and it is rationed: hairlines, eyebrows, the wordmark dot, hover states. Never large fills.
 
@@ -76,7 +77,7 @@ return <div ref={scope}>…</div>;
 **Gotchas learned in Phase 0:**
 
 - Always import gsap/ScrollTrigger from `@/lib/animation/gsap` (plugin registration lives there).
-- IntersectionObserver never fires for an element fully hidden by its *own* clip/mask. If a hidden state fully clips the element, observe an un-clipped parent and propagate variants (see `Reveal`/`SplitText` internals).
+- IntersectionObserver never fires for an element fully hidden by its _own_ clip/mask. If a hidden state fully clips the element, observe an un-clipped parent and propagate variants (see `Reveal`/`SplitText` internals).
 - `useLenis()` (from `components/providers/smooth-scroll-provider`) returns the live Lenis instance — use `lenis.stop()/start()` for scroll locks, `lenis.scrollTo()` for programmatic scrolling. It is `null` under reduced motion; always fall back gracefully.
 
 ## Layout & UI components
@@ -110,6 +111,6 @@ app/terms/**             app/disclosures/**
 Conventions for page sessions:
 
 - Build page sections from `<Section>` + the animation utilities; put page-specific components in `app/<route>/_components/` (route-private, underscore-prefixed).
-- Need a new *shared* component or token? Add it in your page first, flag it for promotion — don't edit shared dirs ad hoc.
+- Need a new _shared_ component or token? Add it in your page first, flag it for promotion — don't edit shared dirs ad hoc.
 - Export `metadata` per page (`title` feeds the root template `%s — Strata Financial Planning`).
 - The Home page currently contains labeled animation demos — replace them entirely when building the real page.
