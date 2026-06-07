@@ -1,29 +1,17 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Section } from "@/components/layout/section";
 import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal } from "@/components/animation/reveal";
 import { SplitText } from "@/components/animation/split-text";
+import { POSTS, formatDate, readingTime } from "./posts";
 
 export const metadata: Metadata = {
   title: "Insights",
   description:
     "Short, practical writing on the financial questions small businesses and individuals actually face, with no jargon and nothing to sell.",
 };
-
-interface Post {
-  slug: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  readingTime: string;
-}
-
-/**
- * Published posts render into the grid below. Empty for now — drop real
- * entries here (or swap in a data source) once the first pieces are ready.
- */
-const POSTS: Post[] = [];
 
 export default function Page() {
   return (
@@ -53,36 +41,54 @@ export default function Page() {
       </Section>
 
       <Section spacing="none" className="pb-st-section">
-        {POSTS.length > 0 ? (
-          <ul className="grid gap-px overflow-hidden rounded-st-md border border-st-line bg-st-line sm:grid-cols-2 lg:grid-cols-3">
-            {POSTS.map((post, i) => (
-              <li key={post.slug} className="bg-st-surface">
-                <Reveal variant="up" delay={i * 0.08} className="h-full">
-                  <article className="flex h-full flex-col p-8">
-                    <p className="font-st-sans text-st-small text-st-muted">
-                      {post.date} · {post.readingTime}
-                    </p>
-                    <h2 className="mt-4 font-st-display text-st-h3 text-st-ink">
-                      {post.title}
-                    </h2>
-                    <p className="mt-3 text-st-body text-st-muted">
-                      {post.excerpt}
-                    </p>
-                  </article>
-                </Reveal>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <Reveal variant="up">
-            <div className="flex min-h-72 flex-col items-center justify-center rounded-st-md border border-st-line bg-st-surface px-st-gutter py-16 text-center">
-              <span aria-hidden className="h-px w-10 bg-st-accent" />
-              <p className="mt-8 font-st-display text-st-h3 text-st-ink">
-                First pieces coming soon
-              </p>
-            </div>
-          </Reveal>
-        )}
+        <ul className="grid gap-px overflow-hidden rounded-st-md border border-st-line bg-st-line sm:grid-cols-2 lg:grid-cols-3">
+          {POSTS.map((post, i) => (
+            <li key={post.slug} className="bg-st-surface">
+              <Reveal variant="up" delay={i * 0.08} className="h-full">
+                <Link
+                  href={`/insights/${post.slug}`}
+                  className="group flex h-full flex-col p-8"
+                >
+                  <p className="font-st-sans text-st-small text-st-muted">
+                    {formatDate(post.date)} · {readingTime(post)}
+                  </p>
+                  <h2 className="mt-4 font-st-display text-st-h3 text-st-ink transition-colors duration-(--st-dur-fast) group-hover:text-st-accent">
+                    {post.title}
+                  </h2>
+                  <p className="mt-3 text-st-body text-st-muted">
+                    {post.excerpt}
+                  </p>
+                  <span className="mt-auto pt-8 font-st-sans text-st-small font-medium text-st-accent">
+                    Read the piece
+                    <span
+                      aria-hidden
+                      className="ml-2 inline-block transition-transform duration-(--st-dur-fast) ease-st-out group-hover:translate-x-1"
+                    >
+                      →
+                    </span>
+                  </span>
+                </Link>
+              </Reveal>
+            </li>
+          ))}
+          {/* Filler cell: keeps the last grid row complete (6 cells = even
+              rows at both 2 and 3 columns) so the gap color never shows
+              through as a blank block. */}
+          <li className="bg-st-surface">
+            <Reveal variant="up" delay={POSTS.length * 0.08} className="h-full">
+              <div className="flex h-full flex-col justify-center p-8">
+                <span aria-hidden className="h-px w-8 bg-st-accent" />
+                <p className="mt-6 font-st-display text-st-h3 text-st-ink">
+                  More on the way
+                </p>
+                <p className="mt-3 text-st-body text-st-muted">
+                  New pieces are added regularly. If there&rsquo;s a question
+                  you&rsquo;d like covered, send it over.
+                </p>
+              </div>
+            </Reveal>
+          </li>
+        </ul>
         <Reveal variant="fade" delay={0.15}>
           <div className="mt-12 text-center">
             <Button href="/contact">Start a conversation</Button>
