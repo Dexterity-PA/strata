@@ -25,8 +25,9 @@
   --color-st-line: #e2dccf;
   /* Hairline borders on dark/inverse backgrounds */
   --color-st-line-dark: #2c3c50;
-  /* The accent: muted gold. Restrained — used for details, never floods. */
-  --color-st-accent: #a07d45;
+  /* The accent: muted gold. Restrained — used for details, never floods.
+     Deep enough to pass WCAG AA (4.5:1) as small text on st-bg/st-surface. */
+  --color-st-accent: #84663a;
   /* Brighter gold for use on dark navy backgrounds */
   --color-st-accent-bright: #c9a86a;
   /* Off-white text on dark backgrounds */

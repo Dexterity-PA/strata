@@ -43,11 +43,26 @@ export default function ServicesPage() {
         eyebrow="02"
         title="For individuals & families"
         items={[
-          { lead: "Budgeting and cash flow that fits real life" },
-          { lead: "Debt payoff strategy" },
-          { lead: "Saving and goal planning" },
-          { lead: "Education and college funding basics" },
-          { lead: "Foundational investing concepts" },
+          {
+            lead: "Budgeting and cash flow that fits real life",
+            detail: "a simple system you'll actually keep using",
+          },
+          {
+            lead: "Debt payoff strategy",
+            detail: "a clear order of attack so progress feels real",
+          },
+          {
+            lead: "Saving and goal planning",
+            detail: "turn vague intentions into specific, reachable targets",
+          },
+          {
+            lead: "Education and college funding basics",
+            detail: "understand the options before the bills arrive",
+          },
+          {
+            lead: "Foundational investing concepts",
+            detail: "the core ideas explained without the jargon",
+          },
         ]}
       />
       <DifferentCta />

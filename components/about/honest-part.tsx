@@ -1,4 +1,5 @@
 import { Reveal } from "@/components/animation/reveal";
+import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Section } from "@/components/layout/section";
 
@@ -22,6 +23,15 @@ export function HonestPart() {
           help with, and when something calls for a licensed professional,
           I&rsquo;ll tell you directly.
         </p>
+      </Reveal>
+
+      <Reveal variant="fade" delay={0.3} className="mt-12">
+        <Button
+          href="/contact"
+          className="bg-st-paper text-st-ink hover:bg-st-surface hover:shadow-st-md"
+        >
+          Start a conversation
+        </Button>
       </Reveal>
     </Section>
   );

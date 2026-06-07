@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Section } from "@/components/layout/section";
+import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal } from "@/components/animation/reveal";
 import { SplitText } from "@/components/animation/split-text";
@@ -50,10 +51,12 @@ export default function Page() {
         container="narrow"
         className="pt-44 pb-st-section-sm"
       >
-        <Eyebrow>FAQ</Eyebrow>
+        <Reveal variant="fade" duration={0.8}>
+          <Eyebrow>FAQ</Eyebrow>
+        </Reveal>
         <SplitText
           as="h1"
-          delay={0.1}
+          delay={0.15}
           className="mt-6 font-st-display text-st-h1"
         >
           Frequently asked questions
@@ -63,6 +66,16 @@ export default function Page() {
       <Section spacing="none" container="narrow" className="pb-st-section">
         <Reveal variant="fade" delay={0.3}>
           <FaqAccordion items={FAQ_ITEMS} />
+        </Reveal>
+        <Reveal variant="up" delay={0.15}>
+          <div className="mt-16">
+            <p className="font-st-display text-st-h3 text-st-ink">
+              Still have a question?
+            </p>
+            <div className="mt-8">
+              <Button href="/contact">Start a conversation</Button>
+            </div>
+          </div>
         </Reveal>
       </Section>
     </>

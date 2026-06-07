@@ -134,7 +134,9 @@ export function ContactForm() {
               onChange={(e) => setField("role", e.target.value)}
               aria-invalid={Boolean(errors.role)}
               aria-describedby={errors.role ? "contact-role-error" : undefined}
-              className={values.role ? undefined : "text-st-muted/70"}
+              // Full-strength muted: the 70% placeholder tint fails WCAG AA
+              // contrast for real (visible) text on st-surface.
+              className={values.role ? undefined : "text-st-muted"}
             >
               <option value="" disabled>
                 Select one

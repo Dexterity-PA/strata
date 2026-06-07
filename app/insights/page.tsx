@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Section } from "@/components/layout/section";
+import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal } from "@/components/animation/reveal";
 import { SplitText } from "@/components/animation/split-text";
@@ -32,15 +33,17 @@ export default function Page() {
         container="narrow"
         className="pt-44 pb-st-section-sm"
       >
-        <Eyebrow>Insights</Eyebrow>
+        <Reveal variant="fade" duration={0.8}>
+          <Eyebrow>Insights</Eyebrow>
+        </Reveal>
         <SplitText
           as="h1"
-          delay={0.1}
+          delay={0.15}
           className="mt-6 font-st-display text-st-h1"
         >
           Notes on money, made readable
         </SplitText>
-        <Reveal variant="fade" delay={0.5}>
+        <Reveal variant="fade" delay={0.7} duration={0.9}>
           <p className="mt-6 max-w-xl text-st-body-lg text-st-muted">
             Short, practical writing on the financial questions small businesses
             and individuals actually face, with no jargon and nothing to sell.
@@ -80,6 +83,11 @@ export default function Page() {
             </div>
           </Reveal>
         )}
+        <Reveal variant="fade" delay={0.15}>
+          <div className="mt-12 text-center">
+            <Button href="/contact">Start a conversation</Button>
+          </div>
+        </Reveal>
       </Section>
     </>
   );
