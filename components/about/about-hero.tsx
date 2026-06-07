@@ -25,7 +25,7 @@ export function AboutHero() {
 
       <div className="mt-16 lg:grid lg:grid-cols-12 lg:gap-x-st-gutter">
         <div className="space-y-8 lg:col-span-7 lg:col-start-5">
-          <Reveal variant="fade" delay={0.5} duration={0.9}>
+          <Reveal variant="fade" delay={0.7} duration={0.9}>
             <p className="text-st-body-lg text-st-ink">
               I started Strata because I kept seeing the same thing: capable
               people and hardworking business owners making major financial
@@ -35,7 +35,7 @@ export function AboutHero() {
             </p>
           </Reveal>
 
-          <Reveal variant="fade" delay={0.65} duration={0.9}>
+          <Reveal variant="fade" delay={0.85} duration={0.9}>
             <p className="text-st-body-lg text-st-muted">
               Strata is my attempt to fix a small piece of that. It&rsquo;s a
               volunteer initiative offering free financial education and
@@ -44,7 +44,7 @@ export function AboutHero() {
             </p>
           </Reveal>
 
-          <Reveal variant="fade" delay={0.8} duration={0.9}>
+          <Reveal variant="fade" delay={1} duration={0.9}>
             <p className="text-st-body-lg text-st-muted">
               I&rsquo;m Praneeth Annapureddy, a high school student with a
               background in economics and finance and a long-standing interest

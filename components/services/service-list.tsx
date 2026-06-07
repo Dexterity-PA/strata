@@ -31,7 +31,9 @@ export function ServiceList({
 }: ServiceListProps) {
   return (
     <Section id={id} tone={tone}>
-      <Eyebrow>{eyebrow}</Eyebrow>
+      <Reveal variant="fade" duration={0.8}>
+        <Eyebrow>{eyebrow}</Eyebrow>
+      </Reveal>
       <Reveal variant="clip">
         <h2 className="mt-6 max-w-2xl font-st-display text-st-h1">{title}</h2>
       </Reveal>

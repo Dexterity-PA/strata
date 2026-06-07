@@ -7,15 +7,22 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 export function ServicesHero() {
   return (
     <Section className="pt-44">
-      <Eyebrow>Services</Eyebrow>
+      <Reveal variant="fade" duration={0.8}>
+        <Eyebrow>Services</Eyebrow>
+      </Reveal>
       <SplitText
         as="h1"
-        className="mt-6 font-st-display text-st-display"
-        delay={0.1}
+        className="mt-6 font-st-display text-st-h1"
+        delay={0.15}
       >
         Services
       </SplitText>
-      <Reveal variant="fade" delay={0.4} className="mt-8 max-w-2xl">
+      <Reveal
+        variant="fade"
+        delay={0.7}
+        duration={0.9}
+        className="mt-8 max-w-2xl"
+      >
         <p className="text-st-body-lg leading-relaxed text-st-muted">
           Strata offers financial education and planning support, not regulated
           financial advice. Everything here is designed to help you understand

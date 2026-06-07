@@ -1,6 +1,11 @@
+import type { Metadata } from "next";
 import { Section } from "@/components/layout/section";
 import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
+
+export const metadata: Metadata = {
+  title: "Page not found",
+};
 
 export default function NotFound() {
   return (

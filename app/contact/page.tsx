@@ -21,15 +21,17 @@ export default function Page() {
         container="narrow"
         className="pt-44 pb-st-section-sm"
       >
-        <Eyebrow>Contact</Eyebrow>
+        <Reveal variant="fade" duration={0.8}>
+          <Eyebrow>Contact</Eyebrow>
+        </Reveal>
         <SplitText
           as="h1"
-          delay={0.1}
+          delay={0.15}
           className="mt-6 font-st-display text-st-h1"
         >
           Let&apos;s talk about your finances, free of charge
         </SplitText>
-        <Reveal variant="fade" delay={0.5}>
+        <Reveal variant="fade" delay={0.7} duration={0.9}>
           <p className="mt-6 max-w-xl text-st-body-lg text-st-muted">
             The first step is just a conversation. Tell me a bit about your
             situation and I&apos;ll get back to you.
