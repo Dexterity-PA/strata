@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Strata Financial Planning — design tokens
+   All custom tokens are prefixed `st`. Tailwind v4 generates utilities from
+   the namespaced names below (e.g. `--color-st-ink` -> `bg-st-ink`,
+   `text-st-ink`; `--text-st-h1` -> `text-st-h1`; `--ease-st-out` ->
+   `ease-st-out`). Plain `--st-*` vars (z-index, durations) are consumed
+   directly via `var()` / arbitrary values.
+--------------------------------------------------------------------------- */
+
+@theme {
+  /* -- Color ---------------------------------------------------------- */
+  /* Deep navy ink — primary text and inverse-section background */
+  --color-st-ink: #0e1b2c;
+  /* Softer navy for secondary emphasis on light backgrounds */
+  --color-st-ink-soft: #2a3a4f;
+  /* Warm off-white page background */
+  --color-st-bg: #f7f4ee;
+  /* Pure-ish surface for cards / elevated panels */
+  --color-st-surface: #fffdf9;
+  /* Muted slate for secondary text */
+  --color-st-muted: #5f6b78;
+  /* Warm hairline borders on light backgrounds */
+  --color-st-line: #e2dccf;
+  /* Hairline borders on dark/inverse backgrounds */
+  --color-st-line-dark: #2c3c50;
+  /* The accent: muted gold. Restrained — used for details, never floods. */
+  --color-st-accent: #a07d45;
+  /* Brighter gold for use on dark navy backgrounds */
+  --color-st-accent-bright: #c9a86a;
+  /* Off-white text on dark backgrounds */
+  --color-st-paper: #f3efe6;
+
+  /* -- Type scale (fluid) --------------------------------------------- */
+  --text-st-display: clamp(2.75rem, 1.5rem + 5.5vw, 5rem);
+  --text-st-display--line-height: 1.04;
+  --text-st-display--letter-spacing: -0.02em;
+  --text-st-h1: clamp(2.25rem, 1.35rem + 4vw, 3.5rem);
+  --text-st-h1--line-height: 1.08;
+  --text-st-h1--letter-spacing: -0.015em;
+  --text-st-h2: clamp(1.75rem, 1.2rem + 2.4vw, 2.5rem);
+  --text-st-h2--line-height: 1.15;
+  --text-st-h2--letter-spacing: -0.01em;
+  --text-st-h3: clamp(1.25rem, 1.05rem + 0.9vw, 1.5rem);
+  --text-st-h3--line-height: 1.3;
+  --text-st-body-lg: 1.125rem;
+  --text-st-body-lg--line-height: 1.7;
+  --text-st-body: 1rem;
+  --text-st-body--line-height: 1.7;
+  --text-st-small: 0.875rem;
+  --text-st-small--line-height: 1.6;
+  --text-st-eyebrow: 0.75rem;
+  --text-st-eyebrow--line-height: 1.2;
+  --text-st-eyebrow--letter-spacing: 0.18em;
+
+  /* -- Spacing rhythm -------------------------------------------------- */
+  /* Standard vertical section padding: `py-st-section` */
+  --spacing-st-section: clamp(5rem, 3rem + 9vw, 8.5rem);
+  --spacing-st-section-sm: clamp(3rem, 2rem + 5vw, 5rem);
+  /* Horizontal page gutter: `px-st-gutter` */
+  --spacing-st-gutter: clamp(1.25rem, 0.6rem + 3vw, 2.5rem);
+
+  /* -- Radius (kept tight: the look is sharp, not bubbly) -------------- */
+  --radius-st-sm: 2px;
+  --radius-st-md: 4px;
+  --radius-st-lg: 10px;
+
+  /* -- Shadow (soft, low-contrast depth) ------------------------------- */
+  --shadow-st-sm: 0 1px 2px rgb(14 27 44 / 0.05);
+  --shadow-st-md:
+    0 2px 8px rgb(14 27 44 / 0.05), 0 10px 28px rgb(14 27 44 / 0.07);
+  --shadow-st-lg:
+    0 4px 16px rgb(14 27 44 / 0.07), 0 20px 56px rgb(14 27 44 / 0.1);
+
+  /* -- Motion easing (mirrored in lib/animation/motion.ts for JS) ------ */
+  --ease-st-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-st-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Fonts are injected by next/font on <html> (see lib/fonts.ts); reference
+   them inline so utilities resolve the live variable. */
+@theme inline {
+  --font-st-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-st-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+}
+
+/* Non-Tailwind tokens — consumed via var() in CSS and arbitrary values. */
+:root {
+  /* z-index layers */
+  --st-z-below: -1;
+  --st-z-base: 0;
+  --st-z-raised: 10;
+  --st-z-menu: 90;
+  --st-z-nav: 100;
+  --st-z-modal: 200;
+  --st-z-toast: 300;
+
+  /* Motion durations (mirrored in lib/animation/motion.ts for JS) */
+  --st-dur-fast: 200ms;
+  --st-dur-base: 450ms;
+  --st-dur-slow: 800ms;
+  --st-dur-reveal: 1100ms;
+}
+
+/* ---------------------------------------------------------------------------
+   Base styles
+--------------------------------------------------------------------------- */
+
+html {
+  scroll-behavior: auto; /* Lenis owns scrolling */
+}
+
+body {
+  background-color: var(--color-st-bg);
+  color: var(--color-st-ink);
+  font-family: var(--font-st-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background-color: var(--color-st-accent);
+  color: var(--color-st-paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-st-accent);
+  outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------------------
+   Reduced motion — hard global guard. JS utilities also check the same
+   media query (lib/animation/use-reduced-motion.ts); this catches anything
+   that slips through (CSS transitions, third-party animation).
+--------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
