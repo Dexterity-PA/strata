@@ -11,11 +11,8 @@ import { Button } from "@/components/ui/button";
 export function ClosingCta() {
   return (
     <Section tone="inverse" className="border-b border-st-line-dark">
-      {/* Color sits on the wrapper, not on SplitText: its className passes
-          through tailwind-merge, which treats the custom text-st-h1 (size)
-          and a text-st-* color as conflicting and drops the size. */}
-      <div className="mx-auto max-w-3xl text-center text-st-paper">
-        <SplitText as="h2" className="font-st-display text-st-h1">
+      <div className="mx-auto max-w-3xl text-center">
+        <SplitText as="h2" className="font-st-display text-st-h1 text-st-paper">
           No fees. No products. No catch.
         </SplitText>
         <Reveal variant="fade" delay={0.5}>
