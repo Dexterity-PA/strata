@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
-import { Section } from "@/components/layout/section";
+import { AboutHero } from "@/components/about/about-hero";
+import { Philosophy } from "@/components/about/philosophy";
+import { HonestPart } from "@/components/about/honest-part";
 
 export const metadata: Metadata = {
   title: "About",
+  description:
+    "Why Strata exists — a volunteer initiative offering free financial education and planning support.",
 };
 
-/** Placeholder — page content is built in a later phase. */
 export default function Page() {
   return (
-    <Section className="min-h-[60vh] pt-44">
-      <h1 className="font-st-display text-st-h1">About</h1>
-    </Section>
+    <>
+      <AboutHero />
+      <Philosophy />
+      <HonestPart />
+    </>
   );
 }
