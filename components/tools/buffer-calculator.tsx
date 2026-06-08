@@ -3,6 +3,7 @@
 import { useId, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { CopySummaryButton } from "@/components/tools/copy-summary-button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Input } from "@/components/ui/input";
 import { DUR, EASE } from "@/lib/animation/motion";
@@ -85,6 +86,46 @@ function parseAmount(raw: string): number | null {
 
 function pluralMonths(n: number): string {
   return `${n} ${n === 1 ? "month" : "months"}`;
+}
+
+/**
+ * Plain-text summary of the current estimate, for the "Copy summary" button.
+ * No em dashes (per the site copy rules), and the educational disclaimer line
+ * is always present.
+ */
+export function buildBufferSummary(
+  { minCost, slowMonths, slowIncome, busyMonths }: BufferInputs,
+  { monthlyGap, totalTarget, perBusyMonth, perWeek }: BufferResult,
+): string {
+  const lines = [
+    "Strata slow-season buffer estimate",
+    "",
+    `Bare-minimum monthly cost: ${formatCurrency(minCost)}`,
+    `Slow season: ${pluralMonths(slowMonths)} at ${formatCurrency(slowIncome)} income/mo`,
+    `Monthly gap: ${formatCurrency(monthlyGap)}  |  Buffer target: ${formatCurrency(totalTarget)}`,
+  ];
+
+  if (monthlyGap > 0 && slowMonths > 0) {
+    if (busyMonths > 0) {
+      lines.push(
+        `Set aside ~${formatCurrency(perBusyMonth)}/mo (~${formatCurrency(perWeek)}/wk) across your ${pluralMonths(busyMonths)} of busy season.`,
+      );
+    } else {
+      lines.push(
+        `That is ${formatCurrency(totalTarget)} in total. Add your busy-season length to see the monthly and weekly set-aside.`,
+      );
+    }
+  } else {
+    lines.push(
+      "Your expected income already covers the bare minimum, so there is no gap to fund.",
+    );
+  }
+
+  lines.push(
+    "",
+    "Educational estimate, not financial advice. stratafinancialplanning.com",
+  );
+  return lines.join("\n");
 }
 
 /**
@@ -396,6 +437,10 @@ export function BufferCalculator() {
           This is an educational estimate to help you plan, not financial
           advice.
         </p>
+
+        <CopySummaryButton
+          getSummary={() => buildBufferSummary(parsed, result)}
+        />
 
         <div className="pt-1">
           <Button href="/contact" variant="secondary">
