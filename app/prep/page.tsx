@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/prep" },
   title: "Prep sheet",
   description:
-    "A short, printable prep sheet for a first conversation with Strata: the handful of numbers and notes that make it productive. Education and planning support, not financial advice.",
+    "A short, printable prep sheet for your first conversation with Strata: the handful of numbers and notes that make it productive.",
 };
 
 /* ------------------------------------------------------------------ */

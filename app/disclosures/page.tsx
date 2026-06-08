@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/disclosures" },
   title: "Disclosures",
   description:
-    "Strata is a student-led volunteer initiative providing financial education and planning support.",
+    "Legal disclosures for Strata: a student-led volunteer initiative providing free financial education and planning support, not regulated advice.",
 };
 
 export default function Page() {

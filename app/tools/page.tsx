@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/tools" },
   title: "Tools",
   description:
-    "Free, interactive tools to help you plan: breakeven, cash runway, pricing and margin, a slow-season buffer, an emergency fund target, and two ways to look at debt. Educational estimates, not financial advice.",
+    "Six free tools: breakeven, cash runway, pricing and margin, slow-season buffer, emergency fund target, and two debt comparisons. Educational estimates.",
 };
 
 export default function ToolsPage() {
