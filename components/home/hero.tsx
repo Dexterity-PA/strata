@@ -5,6 +5,7 @@ import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { ScrollToButton } from "@/components/home/scroll-to-button";
+import { StrataMotif } from "@/components/strata/StrataMotif";
 
 /**
  * Full-viewport hero. The background carries two slow parallax layers —
@@ -25,12 +26,15 @@ export function Hero() {
             <div className="h-px w-full bg-st-ink/[0.05]" />
           </div>
         </Parallax>
-        {/* Thin gold ring, drifting against the scroll for foreground depth */}
+        {/* Concentric strata rings, drifting against the scroll for depth —
+            the same motif system used across the site, not a one-off circle */}
         <Parallax
           speed={-0.35}
-          className="absolute top-[6%] -right-32 hidden md:block lg:-right-16"
+          className="absolute top-[2%] -right-40 hidden md:block lg:-right-24"
         >
-          <div className="h-[30rem] w-[30rem] rounded-full border border-st-accent/15" />
+          <div className="relative h-[34rem] w-[34rem]">
+            <StrataMotif variant="rings" tone="paper" density="sparse" />
+          </div>
         </Parallax>
       </div>
 

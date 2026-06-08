@@ -24,6 +24,21 @@ export function AboutHero() {
       </SplitText>
 
       <div className="mt-16 lg:grid lg:grid-cols-12 lg:gap-x-st-gutter">
+        {/* Pulled quote from the letter, set in the display serif, filling
+            what was empty space beside the copy. No new claim — it's the
+            opening paragraph's own line. */}
+        <div className="hidden lg:col-span-4 lg:col-start-1 lg:block">
+          <Reveal variant="fade" delay={0.5} duration={0.9}>
+            <figure className="sticky top-32">
+              <span aria-hidden className="block h-px w-10 bg-st-accent/50" />
+              <blockquote className="mt-6 font-st-display text-st-h3 leading-snug text-st-ink">
+                The people who most need clear financial guidance are usually
+                the least able to pay for it.
+              </blockquote>
+            </figure>
+          </Reveal>
+        </div>
+
         <div className="space-y-8 lg:col-span-7 lg:col-start-5">
           <Reveal variant="fade" delay={0.7} duration={0.9}>
             <p className="text-st-body-lg text-st-ink">
