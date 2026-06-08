@@ -185,7 +185,7 @@ export function SegmentedControl<T extends string>({
             <label
               key={option.value}
               className={cn(
-                "cursor-pointer rounded-st-sm px-4 py-2 text-center font-st-sans text-st-small font-medium transition-colors duration-(--st-dur-fast)",
+                "inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-st-sm px-4 text-center font-st-sans text-st-small font-medium transition-colors duration-(--st-dur-fast)",
                 "focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-st-accent",
                 selected
                   ? "bg-st-ink text-st-paper"
