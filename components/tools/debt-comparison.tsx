@@ -15,6 +15,7 @@ import {
   useSpring,
 } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { CopySummaryButton } from "@/components/tools/copy-summary-button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Input } from "@/components/ui/input";
 import { Section } from "@/components/layout/section";
@@ -383,6 +384,16 @@ export function DebtComparison() {
           </AnimatePresence>
         </div>
 
+        {results ? (
+          <div className="mt-8">
+            <CopySummaryButton
+              getSummary={() =>
+                buildDebtSummary(results.avalanche, results.snowball)
+              }
+            />
+          </div>
+        ) : null}
+
         {/* ---- Disclaimer -------------------------------------------------- */}
         <p className="mt-10 text-st-small text-st-muted">
           This is an educational estimate, not personalized financial advice.
@@ -625,6 +636,45 @@ function buildVerdict(
     tone: "neutral",
     text: `Avalanche saves about ${savedUsd} in interest${timePhrase}. That's a real gap, but it only counts if you stay with the plan. If you've started a payoff before and stopped, the snowball's early wins may be worth more to you than the interest.`,
   };
+}
+
+/**
+ * Plain-text summary of the comparison, for the "Copy summary" button. Lists
+ * each strategy's payoff order, months to debt-free and total interest, plus
+ * the gap-aware verdict. No em dashes (per the site copy rules); the
+ * educational disclaimer line is always present.
+ */
+function buildDebtSummary(
+  avalanche: StrategyResult,
+  snowball: StrategyResult,
+): string {
+  const lines: string[] = ["Strata debt payoff comparison", ""];
+
+  const strategies = [
+    ["Avalanche (highest rate first)", avalanche],
+    ["Snowball (smallest balance first)", snowball],
+  ] as const;
+
+  for (const [heading, result] of strategies) {
+    lines.push(heading);
+    if (result.neverPaysOff) {
+      lines.push("  Does not pay off: the payments do not cover the interest.");
+    } else {
+      lines.push(`  Time to debt-free: ${formatMonths(result.months)}`);
+      lines.push(
+        `  Total interest: ${usd0.format(Math.round(result.totalInterest))}`,
+      );
+      lines.push(`  Payoff order: ${result.order.join(" > ")}`);
+    }
+    lines.push("");
+  }
+
+  lines.push(buildVerdict(avalanche, snowball).text);
+  lines.push(
+    "",
+    "Educational estimate, not financial advice. stratafinancialplanning.com",
+  );
+  return lines.join("\n");
 }
 
 function Results({
