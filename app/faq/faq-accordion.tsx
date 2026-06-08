@@ -12,6 +12,16 @@ export interface FaqItem {
 
 interface FaqAccordionProps {
   items: FaqItem[];
+  /**
+   * Which item starts open, or null for all closed. Lets a page open the
+   * first section while keeping later sections collapsed.
+   */
+  initialOpenIndex?: number | null;
+  /**
+   * Heading level wrapped around each question button. Use 3 when the
+   * accordion sits under a section heading so the outline stays correct.
+   */
+  headingLevel?: 2 | 3;
 }
 
 /**
@@ -19,10 +29,15 @@ interface FaqAccordionProps {
  * animated: the answer fades/slides in and the icon rotates, while the
  * row's height change is instant (no height/layout animation).
  */
-export function FaqAccordion({ items }: FaqAccordionProps) {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+export function FaqAccordion({
+  items,
+  initialOpenIndex = 0,
+  headingLevel = 2,
+}: FaqAccordionProps) {
+  const [openIndex, setOpenIndex] = useState<number | null>(initialOpenIndex);
   const reducedMotion = useReducedMotion();
   const baseId = useId();
+  const Heading = headingLevel === 3 ? "h3" : "h2";
 
   return (
     <div className="divide-y divide-st-line border-y border-st-line">
@@ -33,7 +48,7 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
 
         return (
           <div key={item.question}>
-            <h2>
+            <Heading>
               <button
                 type="button"
                 id={buttonId}
@@ -55,7 +70,7 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
                   <span className="absolute top-0 left-1/2 h-full w-px -translate-x-1/2 bg-st-accent" />
                 </span>
               </button>
-            </h2>
+            </Heading>
             <AnimatePresence initial={false}>
               {isOpen && (
                 <motion.div
