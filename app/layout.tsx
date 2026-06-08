@@ -48,7 +48,13 @@ export default function RootLayout({
       lang="en"
       className={`${fontDisplay.variable} ${fontSans.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">
+      {/* The intro reveal's pre-paint script sets body overflow:hidden to
+          lock scroll before hydration; that lock is inherently client-only
+          (it depends on sessionStorage + reduced-motion), so the server can't
+          render it. suppressHydrationWarning marks that single-attribute
+          difference as intentional. The lock is applied/released and
+          fail-safed in IntroReveal. */}
+      <body className="flex min-h-full flex-col" suppressHydrationWarning>
         <MotionProvider>
           <SmoothScrollProvider>
             {/* First-paint curtain; renders once per session, page paints beneath */}
