@@ -290,7 +290,7 @@ export function GuidedIntake() {
                       key={chip}
                       type="button"
                       onClick={() => pickChip(chip)}
-                      className="rounded-st-sm border border-st-line bg-st-surface px-3.5 py-2 font-st-sans text-st-small text-st-ink transition-colors duration-(--st-dur-fast) hover:border-st-accent hover:text-st-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-st-accent"
+                      className="inline-flex min-h-11 items-center rounded-st-sm border border-st-line bg-st-surface px-3.5 font-st-sans text-st-small text-st-ink transition-colors duration-(--st-dur-fast) hover:border-st-accent hover:text-st-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-st-accent"
                     >
                       {chip}
                     </button>
@@ -363,7 +363,7 @@ export function GuidedIntake() {
             <button
               type="button"
               onClick={() => goToStep((step - 1) as 1 | 2 | 3)}
-              className="font-st-sans text-st-small font-medium text-st-muted underline decoration-st-line underline-offset-4 transition-colors duration-(--st-dur-fast) hover:text-st-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-st-accent"
+              className="inline-flex min-h-11 min-w-11 items-center justify-center font-st-sans text-st-small font-medium text-st-muted underline decoration-st-line underline-offset-4 transition-colors duration-(--st-dur-fast) hover:text-st-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-st-accent"
             >
               Back
             </button>

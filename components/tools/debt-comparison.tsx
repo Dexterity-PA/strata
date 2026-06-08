@@ -315,7 +315,7 @@ export function DebtComparison({ embedded = false }: DebtComparisonProps) {
           <button
             type="button"
             onClick={addDebt}
-            className="inline-flex items-center gap-2 font-st-sans text-st-small font-medium text-st-accent underline decoration-st-accent/40 decoration-1 underline-offset-4 transition-colors duration-(--st-dur-fast) hover:decoration-st-accent"
+            className="inline-flex min-h-11 items-center gap-2 font-st-sans text-st-small font-medium text-st-accent underline decoration-st-accent/40 decoration-1 underline-offset-4 transition-colors duration-(--st-dur-fast) hover:decoration-st-accent"
           >
             <span aria-hidden className="text-st-body leading-none">
               +
@@ -507,7 +507,7 @@ function DebtFields({
           onClick={() => onRemove(debt.id)}
           disabled={!canRemove}
           aria-label={`Remove ${label}`}
-          className="rounded-st-sm p-2 text-st-muted transition-colors duration-(--st-dur-fast) hover:text-st-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-st-accent disabled:pointer-events-none disabled:opacity-30"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-st-sm text-st-muted transition-colors duration-(--st-dur-fast) hover:text-st-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-st-accent disabled:pointer-events-none disabled:opacity-30"
         >
           <svg
             aria-hidden

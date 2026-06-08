@@ -26,7 +26,7 @@ export function CopySummaryButton({
       <button
         type="button"
         onClick={() => void copy(getSummary())}
-        className="inline-flex items-center gap-2 rounded-st-sm font-st-sans text-st-small font-medium text-st-accent underline decoration-st-accent/40 decoration-1 underline-offset-4 transition-colors duration-(--st-dur-fast) hover:decoration-st-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-st-accent"
+        className="inline-flex min-h-11 items-center gap-2 rounded-st-sm font-st-sans text-st-small font-medium text-st-accent underline decoration-st-accent/40 decoration-1 underline-offset-4 transition-colors duration-(--st-dur-fast) hover:decoration-st-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-st-accent"
       >
         <svg
           aria-hidden

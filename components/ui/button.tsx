@@ -27,7 +27,7 @@ const variantClasses: Record<ButtonVariant, string> = {
   secondary:
     "border border-st-ink/25 text-st-ink px-7 py-3.5 hover:border-st-accent hover:text-st-accent",
   ghost:
-    "px-1 py-1 text-st-ink underline decoration-st-accent/40 decoration-1 underline-offset-6 hover:decoration-st-accent hover:text-st-accent",
+    "min-h-11 px-1 py-1 text-st-ink underline decoration-st-accent/40 decoration-1 underline-offset-6 hover:decoration-st-accent hover:text-st-accent",
 };
 
 /**

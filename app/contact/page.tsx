@@ -20,7 +20,7 @@ export default function Page() {
       <Section
         spacing="none"
         container="narrow"
-        className="pt-44 pb-st-section-sm"
+        className="pt-28 pb-st-section-sm sm:pt-44"
       >
         <Reveal variant="fade" duration={0.8}>
           <Eyebrow>Contact</Eyebrow>
@@ -42,7 +42,7 @@ export default function Page() {
       </Section>
 
       <Section spacing="none" container="narrow" className="pb-st-section">
-        <Reveal variant="up" delay={0.2}>
+        <Reveal variant="up" delay={0.2} trigger="mount">
           <GuidedIntake />
           <p className="mt-10 border-t border-st-line pt-8 text-st-body text-st-muted">
             Or email directly:{" "}
