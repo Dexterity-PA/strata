@@ -6,10 +6,10 @@ import { Resend } from "resend";
  * via Resend. RESEND_API_KEY is read here only — never shipped to the client.
  */
 
-// TODO: swap to a verified domain sender (e.g. "Strata <hello@stratafinancialplanning.com>")
-// once the domain is verified in Resend. onboarding@resend.dev is the
-// sandbox sender and only delivers to the account owner's inbox.
-const FROM_ADDRESS = "Strata Website <onboarding@resend.dev>";
+// Verified domain sender. The stratafinancialplanning.com domain is verified
+// in Resend, so mail can be delivered to any recipient (not just the account
+// owner's inbox, as the onboarding@resend.dev sandbox sender was limited to).
+const FROM_ADDRESS = "Strata <hello@stratafinancialplanning.com>";
 const TO_ADDRESS = "praneeth.a2027@gmail.com";
 
 const MAX_MESSAGE_LENGTH = 5000;

@@ -4,7 +4,7 @@ export const SITE = {
   name: "Strata Financial Planning",
   shortName: "Strata",
   url: "https://stratafinancialplanning.com",
-  email: "praneeth.a2027@gmail.com",
+  email: "hello@stratafinancialplanning.com",
   description:
     "Free financial education and planning support for people who want clarity and a long view.",
 };
