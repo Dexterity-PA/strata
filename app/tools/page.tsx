@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BufferCalculator } from "@/components/tools/buffer-calculator";
-import { DebtComparison } from "@/components/tools/debt-comparison";
 import { TOOLS } from "@/components/tools/tools-catalog";
+import { LegacyToolHashRedirect } from "@/components/tools/legacy-hash-redirect";
 import { Section } from "@/components/layout/section";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal } from "@/components/animation/reveal";
@@ -94,47 +93,9 @@ export default function ToolsPage() {
         </div>
       </Section>
 
-      {/*
-        The two original calculators still live here for now. Their cards above
-        link to these anchors. A later session migrates them into
-        /tools/slow-season-buffer and /tools/debt-payoff routes; when it does,
-        update the two anchor hrefs in tools-catalog.ts and remove these blocks.
-      */}
-      <Section
-        id="slow-season-buffer"
-        container="none"
-        className="scroll-mt-24 border-t border-st-line bg-st-bg"
-      >
-        <div className="mx-auto w-full max-w-5xl px-st-gutter">
-          <header className="mb-12 max-w-2xl lg:mb-16">
-            <Reveal variant="fade">
-              <Eyebrow>Interactive tool</Eyebrow>
-            </Reveal>
-            <SplitText
-              as="h2"
-              className="mt-5 font-st-display text-st-h2 text-st-ink"
-            >
-              Slow-season buffer estimator
-            </SplitText>
-            <Reveal variant="up" delay={0.1}>
-              <p className="mt-6 font-st-sans text-st-body-lg leading-relaxed text-st-muted">
-                If your business has a slow season, you already know when it
-                starts. Put in four numbers and see the buffer that gets you
-                through it: the gap, the season&rsquo;s target, and what to set
-                aside each busy month and week to reach it.
-              </p>
-            </Reveal>
-          </header>
-
-          <Reveal variant="up" delay={0.05}>
-            <BufferCalculator />
-          </Reveal>
-        </div>
-      </Section>
-
-      <div id="avalanche-or-snowball" className="scroll-mt-24">
-        <DebtComparison />
-      </div>
+      {/* Forward old /tools#slow-season-buffer and #avalanche-or-snowball
+          bookmarks to the per-tool routes they moved to. */}
+      <LegacyToolHashRedirect />
     </>
   );
 }

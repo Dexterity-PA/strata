@@ -190,7 +190,18 @@ function AnimatedCurrency({ value }: { value: number }) {
   return <>{usd0.format(reducedMotion ? value : Math.max(0, shown))}</>;
 }
 
-export function DebtComparison() {
+interface DebtComparisonProps {
+  /**
+   * When true, render only the calculator (inputs, results, disclaimer)
+   * without the self-contained section and heading. The /tools/debt route
+   * sets this because its shared route shell already supplies the section,
+   * the "All tools" back-link, and the page heading. Left false, the
+   * component stays self-contained for drop-in use in a post.
+   */
+  embedded?: boolean;
+}
+
+export function DebtComparison({ embedded = false }: DebtComparisonProps) {
   const [debts, setDebts] = useState<DebtRow[]>(DEFAULT_DEBTS);
   const [extra, setExtra] = useState<string>(DEFAULT_EXTRA);
   const nextId = useRef(DEFAULT_DEBTS.length + 1);
@@ -247,6 +258,157 @@ export function DebtComparison() {
     ? { duration: 0 }
     : { duration: DUR.base, ease: EASE.out };
 
+  const content = (
+    <>
+      {/* ---- Inputs ------------------------------------------------------ */}
+      <div className={embedded ? undefined : "mt-12"}>
+        {/* Column headers, desktop only; each input carries its own label. */}
+        <div className="hidden gap-3 px-1 pb-2 sm:grid sm:grid-cols-[1.4fr_1fr_0.8fr_1fr_auto]">
+          <span className="font-st-sans text-st-small font-medium text-st-muted">
+            Debt
+          </span>
+          <span className="font-st-sans text-st-small font-medium text-st-muted">
+            Balance
+          </span>
+          <span className="font-st-sans text-st-small font-medium text-st-muted">
+            APR
+          </span>
+          <span className="font-st-sans text-st-small font-medium text-st-muted">
+            Min. / mo
+          </span>
+          <span className="sr-only">Remove</span>
+        </div>
+
+        <ul className="grid gap-4 sm:gap-3">
+          <AnimatePresence initial={false}>
+            {debts.map((debt, index) => (
+              <motion.li
+                key={debt.id}
+                layout={!reducedMotion}
+                initial={
+                  reducedMotion ? false : { opacity: 0, height: 0, y: -8 }
+                }
+                animate={
+                  reducedMotion ? {} : { opacity: 1, height: "auto", y: 0 }
+                }
+                exit={reducedMotion ? {} : { opacity: 0, height: 0, y: -8 }}
+                transition={
+                  reducedMotion
+                    ? { duration: 0 }
+                    : { duration: DUR.fast, ease: EASE.out }
+                }
+                className="overflow-hidden rounded-st-md border border-st-line bg-st-surface p-4 sm:border-0 sm:bg-transparent sm:p-0"
+              >
+                <DebtFields
+                  debt={debt}
+                  index={index}
+                  canRemove={debts.length > 1}
+                  onChange={updateDebt}
+                  onRemove={removeDebt}
+                />
+              </motion.li>
+            ))}
+          </AnimatePresence>
+        </ul>
+
+        <div className="mt-4">
+          <button
+            type="button"
+            onClick={addDebt}
+            className="inline-flex items-center gap-2 font-st-sans text-st-small font-medium text-st-accent underline decoration-st-accent/40 decoration-1 underline-offset-4 transition-colors duration-(--st-dur-fast) hover:decoration-st-accent"
+          >
+            <span aria-hidden className="text-st-body leading-none">
+              +
+            </span>
+            Add a debt
+          </button>
+        </div>
+
+        {/* Extra monthly payment */}
+        <div className="mt-8 flex flex-col gap-2 border-t border-st-line pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <label
+            htmlFor={`${headingId}-extra`}
+            className="font-st-sans text-st-body font-medium text-st-ink"
+          >
+            Extra you can pay each month
+            <span className="mt-0.5 block font-normal text-st-small text-st-muted">
+              On top of every minimum above.
+            </span>
+          </label>
+          <div className="sm:w-48">
+            <AdornedInput
+              id={`${headingId}-extra`}
+              prefix="$"
+              value={extra}
+              onValueChange={setExtra}
+              aria-label="Extra monthly payment in dollars"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* ---- Results ----------------------------------------------------- */}
+      <div className="mt-12" aria-live="polite">
+        <AnimatePresence mode="wait" initial={false}>
+          {results === null ? (
+            <motion.p
+              key="empty"
+              initial={reducedMotion ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={reducedMotion ? {} : { opacity: 0 }}
+              transition={transition}
+              className="rounded-st-md border border-dashed border-st-line bg-st-surface px-6 py-10 text-center text-st-body text-st-muted"
+            >
+              Add at least one debt with a balance to see the comparison.
+            </motion.p>
+          ) : (
+            <motion.div
+              key="results"
+              initial={reducedMotion ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={reducedMotion ? {} : { opacity: 0 }}
+              transition={transition}
+            >
+              <Results
+                avalanche={results.avalanche}
+                snowball={results.snowball}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {results ? (
+        <div className="mt-8">
+          <CopySummaryButton
+            getSummary={() =>
+              buildDebtSummary(results.avalanche, results.snowball)
+            }
+          />
+        </div>
+      ) : null}
+
+      {/* ---- Disclaimer -------------------------------------------------- */}
+      <p className="mt-10 text-st-small text-st-muted">
+        This is an educational estimate, not personalized financial advice. Real
+        statements round to the cent and may add fees this tool can&apos;t see.
+        Want to run your own numbers both ways, free?{" "}
+        <Button href="/contact" variant="ghost" className="text-st-small">
+          Get in touch
+        </Button>
+        .
+      </p>
+    </>
+  );
+
+  // The /tools/debt route wraps this in the shared tool shell, which already
+  // provides the section and heading, so it only needs the calculator itself.
+  if (embedded) {
+    return content;
+  }
+
+  // Self-contained: owns its section and heading so it drops into a post with
+  // a plain <DebtComparison />.
   return (
     <Section spacing="base" container="none" aria-labelledby={headingId}>
       <Container size="wide" className="max-w-4xl">
@@ -265,145 +427,7 @@ export function DebtComparison() {
             you.
           </p>
         </header>
-
-        {/* ---- Inputs ------------------------------------------------------ */}
-        <div className="mt-12">
-          {/* Column headers, desktop only; each input carries its own label. */}
-          <div className="hidden gap-3 px-1 pb-2 sm:grid sm:grid-cols-[1.4fr_1fr_0.8fr_1fr_auto]">
-            <span className="font-st-sans text-st-small font-medium text-st-muted">
-              Debt
-            </span>
-            <span className="font-st-sans text-st-small font-medium text-st-muted">
-              Balance
-            </span>
-            <span className="font-st-sans text-st-small font-medium text-st-muted">
-              APR
-            </span>
-            <span className="font-st-sans text-st-small font-medium text-st-muted">
-              Min. / mo
-            </span>
-            <span className="sr-only">Remove</span>
-          </div>
-
-          <ul className="grid gap-4 sm:gap-3">
-            <AnimatePresence initial={false}>
-              {debts.map((debt, index) => (
-                <motion.li
-                  key={debt.id}
-                  layout={!reducedMotion}
-                  initial={
-                    reducedMotion ? false : { opacity: 0, height: 0, y: -8 }
-                  }
-                  animate={
-                    reducedMotion ? {} : { opacity: 1, height: "auto", y: 0 }
-                  }
-                  exit={reducedMotion ? {} : { opacity: 0, height: 0, y: -8 }}
-                  transition={
-                    reducedMotion
-                      ? { duration: 0 }
-                      : { duration: DUR.fast, ease: EASE.out }
-                  }
-                  className="overflow-hidden rounded-st-md border border-st-line bg-st-surface p-4 sm:border-0 sm:bg-transparent sm:p-0"
-                >
-                  <DebtFields
-                    debt={debt}
-                    index={index}
-                    canRemove={debts.length > 1}
-                    onChange={updateDebt}
-                    onRemove={removeDebt}
-                  />
-                </motion.li>
-              ))}
-            </AnimatePresence>
-          </ul>
-
-          <div className="mt-4">
-            <button
-              type="button"
-              onClick={addDebt}
-              className="inline-flex items-center gap-2 font-st-sans text-st-small font-medium text-st-accent underline decoration-st-accent/40 decoration-1 underline-offset-4 transition-colors duration-(--st-dur-fast) hover:decoration-st-accent"
-            >
-              <span aria-hidden className="text-st-body leading-none">
-                +
-              </span>
-              Add a debt
-            </button>
-          </div>
-
-          {/* Extra monthly payment */}
-          <div className="mt-8 flex flex-col gap-2 border-t border-st-line pt-6 sm:flex-row sm:items-center sm:justify-between">
-            <label
-              htmlFor={`${headingId}-extra`}
-              className="font-st-sans text-st-body font-medium text-st-ink"
-            >
-              Extra you can pay each month
-              <span className="mt-0.5 block font-normal text-st-small text-st-muted">
-                On top of every minimum above.
-              </span>
-            </label>
-            <div className="sm:w-48">
-              <AdornedInput
-                id={`${headingId}-extra`}
-                prefix="$"
-                value={extra}
-                onValueChange={setExtra}
-                aria-label="Extra monthly payment in dollars"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* ---- Results ----------------------------------------------------- */}
-        <div className="mt-12" aria-live="polite">
-          <AnimatePresence mode="wait" initial={false}>
-            {results === null ? (
-              <motion.p
-                key="empty"
-                initial={reducedMotion ? false : { opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={reducedMotion ? {} : { opacity: 0 }}
-                transition={transition}
-                className="rounded-st-md border border-dashed border-st-line bg-st-surface px-6 py-10 text-center text-st-body text-st-muted"
-              >
-                Add at least one debt with a balance to see the comparison.
-              </motion.p>
-            ) : (
-              <motion.div
-                key="results"
-                initial={reducedMotion ? false : { opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={reducedMotion ? {} : { opacity: 0 }}
-                transition={transition}
-              >
-                <Results
-                  avalanche={results.avalanche}
-                  snowball={results.snowball}
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-
-        {results ? (
-          <div className="mt-8">
-            <CopySummaryButton
-              getSummary={() =>
-                buildDebtSummary(results.avalanche, results.snowball)
-              }
-            />
-          </div>
-        ) : null}
-
-        {/* ---- Disclaimer -------------------------------------------------- */}
-        <p className="mt-10 text-st-small text-st-muted">
-          This is an educational estimate, not personalized financial advice.
-          Real statements round to the cent and may add fees this tool
-          can&apos;t see. Want to run your own numbers both ways, free?{" "}
-          <Button href="/contact" variant="ghost" className="text-st-small">
-            Get in touch
-          </Button>
-          .
-        </p>
+        {content}
       </Container>
     </Section>
   );
