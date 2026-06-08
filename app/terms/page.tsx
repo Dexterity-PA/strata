@@ -12,14 +12,14 @@ const SECTIONS = [
   {
     heading: "What Strata is",
     body: [
-      "Strata is a student-led volunteer initiative offering free financial education and planning support. There are no fees, no paid tier, and nothing for sale — using this site costs you nothing, now or later.",
+      "Strata is a student-led volunteer initiative offering free financial education and planning support. There are no fees, no paid tier, and nothing for sale. Using this site costs you nothing, now or later.",
     ],
   },
   {
     heading: "Education, not regulated advice",
     body: [
       "Strata is not a registered investment adviser, broker-dealer, or licensed financial advisory firm. Everything on this site, and everything shared in conversations with Strata, is general and educational. It is not regulated financial, investment, legal, or tax advice.",
-      "Financial decisions are yours to make. For decisions that require a licensed professional, consult a qualified advisor — and where that's the case, we'll say so and point you to one.",
+      "Financial decisions are yours to make. For decisions that require a licensed professional, consult a qualified advisor. Where that's the case, we'll say so and point you to one.",
     ],
   },
   {

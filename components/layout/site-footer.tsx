@@ -14,7 +14,7 @@ export function SiteFooter() {
             <Link
               href="/"
               className="font-st-display text-3xl tracking-tight"
-              aria-label={`${SITE.name} — home`}
+              aria-label={`${SITE.name}, home`}
             >
               Strata
               <span aria-hidden className="text-st-accent-bright">

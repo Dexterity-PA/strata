@@ -25,7 +25,7 @@ export function AboutHero() {
 
       <div className="mt-16 lg:grid lg:grid-cols-12 lg:gap-x-st-gutter">
         {/* Pulled quote from the letter, set in the display serif, filling
-            what was empty space beside the copy. No new claim — it's the
+            what was empty space beside the copy. No new claim; it's the
             opening paragraph's own line. */}
         <div className="hidden lg:col-span-4 lg:col-start-1 lg:block">
           <Reveal variant="fade" delay={0.5} duration={0.9}>
