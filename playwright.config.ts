@@ -8,10 +8,8 @@ import { defineConfig, devices } from "@playwright/test";
  * accident). Playwright starts the server itself via the webServer block, so
  * "playwright test" is the only command needed.
  *
- * reducedMotion is forced to "reduce" for every test. The site gates all of
- * its framer-motion and GSAP reveals behind a prefers-reduced-motion check,
- * so this renders content in its final, static state and keeps the specs from
- * racing scroll and entrance animations.
+ * The specs use Playwright's auto-waiting (locators wait for elements to be
+ * actionable), which lets entrance reveals settle before each interaction.
  */
 
 const PORT = 3100;
@@ -26,7 +24,6 @@ export default defineConfig({
   reporter: "list",
   use: {
     baseURL: BASE_URL,
-    reducedMotion: "reduce",
     trace: "on-first-retry",
   },
   projects: [

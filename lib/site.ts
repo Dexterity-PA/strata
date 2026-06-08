@@ -18,6 +18,8 @@ export const NAV_LINKS = [
   { label: "How it works", href: "/how-it-works" },
   { label: "Insights", href: "/insights" },
   { label: "Tools", href: "/tools" },
+  { label: "Resources", href: "/resources" },
+  { label: "Glossary", href: "/glossary" },
   { label: "Contact", href: "/contact" },
 ] as const;
 
