@@ -1,12 +1,14 @@
 "use client";
 
-import { useId, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import {
   GLOSSARY_CATEGORIES,
+  termAnchorId,
   type GlossaryCategory,
   type GlossaryTerm,
 } from "@/app/glossary/terms";
+import { useReducedMotion } from "@/lib/animation/use-reduced-motion";
 import { AlphabetIndex } from "./alphabet-index";
 import { TermCard } from "./term-card";
 
@@ -28,13 +30,16 @@ interface TermGroup {
 
 /**
  * Searchable, filterable glossary. Filtering and grouping run on the client so
- * results update as you type. Without JavaScript the list still renders every
- * term on the server, so no content is hidden behind interactivity.
+ * results update as you type. The full list renders on first paint (empty
+ * query, no category), so no content is hidden behind interactivity.
  */
 export function GlossaryBrowser({ terms }: GlossaryBrowserProps) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<GlossaryCategory | null>(null);
+  const [scrollNonce, setScrollNonce] = useState(0);
+  const pendingTargetRef = useRef<string | null>(null);
   const searchId = useId();
+  const reducedMotion = useReducedMotion();
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -69,6 +74,29 @@ export function GlossaryBrowser({ terms }: GlossaryBrowserProps) {
     () => new Set(groups.map((g) => g.key)),
     [groups],
   );
+
+  // A "see also" click clears filters (so the target is always present) and
+  // bumps a nonce. The effect then runs after the list has re-rendered and
+  // scrolls to the term. The pending term lives in a ref so resolving it never
+  // triggers another render, and the nonce guarantees the scroll fires even
+  // when no filter was active to change.
+  useEffect(() => {
+    const target = pendingTargetRef.current;
+    if (!target) return;
+    pendingTargetRef.current = null;
+    const el = document.getElementById(termAnchorId(target));
+    el?.scrollIntoView({
+      behavior: reducedMotion ? "auto" : "smooth",
+      block: "start",
+    });
+  }, [scrollNonce, reducedMotion]);
+
+  function selectTerm(term: string) {
+    pendingTargetRef.current = term;
+    setQuery("");
+    setCategory(null);
+    setScrollNonce((n) => n + 1);
+  }
 
   const hasResults = filtered.length > 0;
 
@@ -116,8 +144,11 @@ export function GlossaryBrowser({ terms }: GlossaryBrowserProps) {
         </div>
       </div>
 
-      {/* Result count and A to Z jump bar. */}
-      <div className="mt-10 flex flex-col gap-6 border-t border-st-line pt-6 lg:flex-row lg:items-center lg:justify-between">
+      {/* Result count and A to Z jump bar. Sticks below the fixed nav on
+          desktop so the index stays reachable while the list scrolls. On
+          smaller screens the alphabet wraps to several rows, so it stays in
+          flow rather than pinning a tall strip over the content. */}
+      <div className="mt-10 flex flex-col gap-6 border-t border-st-line bg-st-bg pt-6 lg:sticky lg:top-16 lg:z-10 lg:flex-row lg:items-center lg:justify-between lg:pb-5">
         <p
           aria-live="polite"
           className="font-st-sans text-st-small text-st-muted"
@@ -134,7 +165,7 @@ export function GlossaryBrowser({ terms }: GlossaryBrowserProps) {
             <section
               key={group.key}
               id={`g-${group.anchor}`}
-              className="scroll-mt-32"
+              className="scroll-mt-40"
             >
               <div className="flex items-center gap-4">
                 <h2 className="font-st-display text-st-h2 text-st-accent">
@@ -144,7 +175,11 @@ export function GlossaryBrowser({ terms }: GlossaryBrowserProps) {
               </div>
               <div className="mt-6 grid gap-px overflow-hidden rounded-st-md border border-st-line bg-st-line sm:grid-cols-2 lg:grid-cols-3">
                 {group.entries.map((entry) => (
-                  <TermCard key={entry.term} entry={entry} />
+                  <TermCard
+                    key={entry.term}
+                    entry={entry}
+                    onSelectTerm={selectTerm}
+                  />
                 ))}
               </div>
             </section>

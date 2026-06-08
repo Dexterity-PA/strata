@@ -59,9 +59,11 @@ export default function GlossaryPage() {
         </Container>
       </Section>
 
-      {/* Browser: search, filter, and the A to Z list. */}
+      {/* Browser: search, filter, and the A to Z list. A fade (no transform)
+          keeps the sticky A to Z bar inside working: a transformed ancestor
+          would re-anchor position: sticky and break it. */}
       <Section spacing="none" container="wide" className="pb-st-section">
-        <Reveal variant="up" delay={0.1}>
+        <Reveal variant="fade" delay={0.1}>
           <GlossaryBrowser terms={GLOSSARY_TERMS} />
         </Reveal>
       </Section>
