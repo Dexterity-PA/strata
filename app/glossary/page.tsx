@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/glossary" },
   title: "Glossary",
   description:
-    "A plain-language glossary of personal and small-business finance terms, from APR to working capital. Search, filter by topic, or browse from A to Z. Educational and free.",
+    "A plain-language glossary of personal and small-business finance terms. Search by keyword, filter by category, or browse A to Z. Educational and free.",
 };
 
 export default function GlossaryPage() {

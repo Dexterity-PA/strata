@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/tools/buffer" },
   title: "Slow-season buffer",
   description:
-    "Size the cushion that carries you through a slow season: the monthly gap, the season's target, and what to set aside each busy month and week. An educational estimate, not financial advice.",
+    "Size the cushion for a slow season: the monthly shortfall, the target to cover it, and what to set aside each busy month. Educational estimate.",
 };
 
 export default function BufferPage() {

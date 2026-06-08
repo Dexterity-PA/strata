@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/resources" },
   title: "Resources",
   description:
-    "Free guides and worksheets to download and use on your own: budget and cash flow templates, a slow-season planning checklist, and debt payoff worksheets. Educational templates, not financial advice.",
+    "Free guides and worksheets: budget and cash flow templates, a slow-season planning checklist, and debt payoff worksheets. Download and use on your own.",
 };
 
 export default function ResourcesPage() {
