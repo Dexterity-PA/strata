@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/pricing" },
   title: "Pricing",
   description:
     "Strata is a volunteer initiative. There are no fees, no tiers, and no paid version waiting behind a door.",

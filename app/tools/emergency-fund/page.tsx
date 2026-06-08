@@ -3,6 +3,7 @@ import { EmergencyFund } from "@/components/tools/emergency-fund";
 import { ToolPage } from "@/components/tools/tool-page";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/tools/emergency-fund" },
   title: "Emergency fund target",
   description:
     "Work out how big your emergency fund should be, the gap to get there, and how long it takes to build. An educational estimate, not financial advice.",

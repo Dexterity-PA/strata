@@ -24,7 +24,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = getPost(slug);
   if (!post) return {};
-  return { title: post.title, description: post.excerpt };
+  return {
+    title: post.title,
+    description: post.excerpt,
+    alternates: { canonical: `/insights/${post.slug}` },
+  };
 }
 
 // Drop cap on the opening paragraph for typographic rhythm; the rest of the

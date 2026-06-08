@@ -8,6 +8,7 @@ import { SplitText } from "@/components/animation/split-text";
 import { POSTS, formatDate, readingTime } from "./posts";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/insights" },
   title: "Insights",
   description:
     "Short, practical writing on the financial questions small businesses and individuals actually face, with no jargon and nothing to sell.",

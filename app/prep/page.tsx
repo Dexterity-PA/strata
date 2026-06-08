@@ -6,6 +6,7 @@ import { PrintButton } from "@/components/prep/print-button";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/prep" },
   title: "Prep sheet",
   description:
     "A short, printable prep sheet for a first conversation with Strata: the handful of numbers and notes that make it productive. Education and planning support, not financial advice.",

@@ -3,6 +3,7 @@ import { BreakevenCalculator } from "@/components/tools/breakeven-calculator";
 import { ToolPage } from "@/components/tools/tool-page";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/tools/breakeven" },
   title: "Breakeven calculator",
   description:
     "Work out how many units, and how much in sales, you need to cover your costs. An educational estimate, not financial advice.",
