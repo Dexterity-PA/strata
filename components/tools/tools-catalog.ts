@@ -61,4 +61,11 @@ export const TOOLS: ToolCard[] = [
     description: "Compare two debt payoff orders and see what each one costs.",
     audience: "Individuals",
   },
+  {
+    name: "Compound growth visualizer",
+    href: "/tools/compound",
+    description:
+      "See how an amount could grow over time, and what waiting a few years would cost.",
+    audience: "Individuals",
+  },
 ];

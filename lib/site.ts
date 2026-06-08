@@ -14,8 +14,10 @@ export const NAV_LINKS = [
   { label: "Services", href: "/services" },
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
+  { label: "Mission", href: "/mission" },
   { label: "Process", href: "/process" },
   { label: "How it works", href: "/how-it-works" },
+  { label: "Case studies", href: "/case-studies" },
   { label: "Insights", href: "/insights" },
   { label: "Tools", href: "/tools" },
   { label: "Resources", href: "/resources" },
@@ -27,9 +29,11 @@ export const LEGAL_LINKS = [
   { label: "Privacy", href: "/privacy" },
   { label: "Terms", href: "/terms" },
   { label: "Disclosures", href: "/disclosures" },
+  { label: "Your information", href: "/your-information" },
 ] as const;
 
 export const FOOTER_EXPLORE_LINKS = [
   ...NAV_LINKS.filter((l) => l.href !== "/"),
+  { label: "For schools", href: "/partners" },
   { label: "FAQ", href: "/faq" },
 ] as const;

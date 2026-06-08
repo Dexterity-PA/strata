@@ -1282,7 +1282,7 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   {
     term: "Mortgage Points",
     definition:
-      "Upfront fees paid to a lender to reduce the interest rate on a mortgage. One point equals one percent of the loan amount. Paying points makes sense when a borrower plans to hold the loan long enough to recoup the upfront cost.",
+      "Upfront fees paid to a lender to reduce the interest rate on a mortgage. One point equals one percent of the loan amount. Whether points lower the total cost depends on how long the borrower keeps the loan.",
     category: "Real Estate & Mortgages",
     seeAlso: ["Mortgage", "Closing Costs", "Interest Rate"],
   },

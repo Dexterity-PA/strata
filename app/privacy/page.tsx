@@ -14,7 +14,7 @@ const SECTIONS = [
     heading: "What we collect",
     body: [
       "The only personal information Strata collects is what you choose to send us: your name, email address, whether you're reaching out as an individual or a small business, and your message, through the contact form or by emailing us directly.",
-      "There are no accounts, no payments, and no forms beyond the contact form. Our hosting provider may keep routine technical logs (like IP addresses) to operate the site, as virtually all websites do.",
+      "There are no accounts and no payments. Besides the contact form, the only other form is the newsletter signup, which collects just your email address. Our hosting provider may keep routine technical logs (like IP addresses) to operate the site, as virtually all websites do.",
     ],
   },
   {
