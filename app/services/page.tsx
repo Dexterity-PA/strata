@@ -35,7 +35,10 @@ export default function ServicesPage() {
             lead: "Growth readiness",
             detail: "figure out when it's safe to hire, expand, or invest",
           },
-          { lead: "Simple, plain-language financial reviews" },
+          {
+            lead: "Simple, plain-language financial reviews",
+            detail: "a clear read on your numbers, in language that makes sense",
+          },
         ]}
       />
       <ServiceList
