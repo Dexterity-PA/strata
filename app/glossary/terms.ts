@@ -468,6 +468,13 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
 
   // ── Taxes ────────────────────────────────────────────────────────────────
   {
+    term: "Qualified Dividend",
+    definition:
+      "A dividend that meets IRS holding-period and source requirements, so it is taxed at the lower long-term capital gains rates rather than as ordinary income. Dividends that do not meet these rules are taxed as ordinary income and are called nonqualified dividends.",
+    category: "Taxes",
+    seeAlso: ["Dividend", "Capital Gains Tax", "Tax Bracket"],
+  },
+  {
     term: "Taxable Income",
     definition:
       "The portion of your income that is actually used to calculate the tax you owe, after deductions are applied.",
@@ -609,6 +616,13 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   },
 
   // ── Retirement ───────────────────────────────────────────────────────────
+  {
+    term: "Keogh Plan",
+    definition:
+      "An older type of tax-deferred retirement plan for self-employed people and unincorporated businesses. Newer accounts such as the SEP IRA and solo 401(k) have largely taken its place, though the name still appears in some tax rules.",
+    category: "Retirement",
+    seeAlso: ["Pension", "Traditional IRA", "Self-Employment Tax"],
+  },
   {
     term: "401(k)",
     definition:
@@ -999,6 +1013,20 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
 
   // ── Banking & Accounts ───────────────────────────────────────────────────
   {
+    term: "Joint Account",
+    definition:
+      "A bank or brokerage account owned by two or more people, each of whom can usually deposit, withdraw, and view activity. It is common among spouses, partners, and family members managing shared money.",
+    category: "Banking & Accounts",
+    seeAlso: ["Checking Account", "Savings Account", "Beneficiary"],
+  },
+  {
+    term: "Know Your Customer (KYC)",
+    definition:
+      "The process financial firms use to verify a customer's identity before opening an account, typically by collecting a name, address, date of birth, and an identification number. It is part of wider rules meant to prevent fraud and money laundering.",
+    category: "Banking & Accounts",
+    seeAlso: ["Checking Account", "Wire Transfer"],
+  },
+  {
     term: "Checking Account",
     definition:
       "A bank account designed for frequent transactions, such as paying bills, making purchases, and receiving direct deposits. Most checking accounts come with a debit card and checks.",
@@ -1188,6 +1216,13 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
 
   // ── Real Estate & Mortgages ───────────────────────────────────────────────
   {
+    term: "Jumbo Loan",
+    definition:
+      "A mortgage larger than the limits set for loans the government-sponsored buyers Fannie Mae and Freddie Mac will purchase. Because it cannot be sold to them, it often carries stricter credit and down payment requirements.",
+    category: "Real Estate & Mortgages",
+    seeAlso: ["Mortgage", "Down Payment", "Interest Rate"],
+  },
+  {
     term: "Mortgage",
     definition:
       "A loan used to purchase real estate, where the property itself serves as collateral. The borrower makes monthly payments that cover both principal and interest over the loan term.",
@@ -1372,6 +1407,20 @@ export const GLOSSARY_TERMS: readonly GlossaryTerm[] = [
   },
 
   // ── Investing Vehicles ───────────────────────────────────────────────────
+  {
+    term: "Junk Bond",
+    definition:
+      "A bond from an issuer with a lower credit rating, meaning a higher risk that the issuer fails to repay. To attract buyers it pays a higher interest rate, which is why it is also called a high-yield bond.",
+    category: "Investing Vehicles",
+    seeAlso: ["Bond", "Corporate Bond", "Interest Rate"],
+  },
+  {
+    term: "Quote",
+    definition:
+      "The current price information for a security, typically showing the highest price buyers will pay and the lowest price sellers will accept. Quotes update continuously while a market is open.",
+    category: "Investing Vehicles",
+    seeAlso: ["Bid-Ask Spread", "Stock", "Brokerage Account"],
+  },
   {
     term: "Stock",
     definition:
