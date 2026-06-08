@@ -146,3 +146,49 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Strata motif system (components/strata/StrataMotif.tsx)
+
+   Layered "strata" contour tokens for the decorative motif. Navy/paper
+   resolve to the existing brand tokens: navy = --color-st-ink (#0e1b2c),
+   paper = --color-st-paper, gold accent kept as the literal #84663a so the
+   hairline reads identically regardless of token churn.
+--------------------------------------------------------------------------- */
+
+:root {
+  /* Faint navy hairline — the standard strata line on light backgrounds */
+  --strata-line: color-mix(in srgb, var(--color-st-ink) 8%, transparent);
+  /* Slightly heavier navy hairline — used for the lowest/anchoring line */
+  --strata-line-strong: color-mix(in srgb, var(--color-st-ink) 14%, transparent);
+  /* The single warm gold hairline that threads through each motif */
+  --strata-gold-hair: color-mix(in srgb, #84663a 22%, transparent);
+  /* Soft low-contrast lift for motif-bearing surfaces */
+  --strata-shadow-soft:
+    0 1px 2px rgb(14 27 44 / 0.04), 0 8px 24px rgb(14 27 44 / 0.06);
+  /* Paper grain intensity — texture you feel, not see */
+  --strata-grain-opacity: 0.025;
+}
+
+/* ---------------------------------------------------------------------------
+   Paper grain — opt-in subtle fractal-noise texture.
+
+   Apply `.strata-grain` to any element to overlay a barely-there grain. The
+   grain is painted by an absolutely-positioned ::after, so the element MUST
+   establish a positioning context — `.strata-grain` sets position:relative
+   for you. The overlay is pointer-events:none and never intercepts input.
+--------------------------------------------------------------------------- */
+
+.strata-grain {
+  position: relative;
+}
+
+.strata-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--strata-grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='strataGrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23strataGrain)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
