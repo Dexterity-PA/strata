@@ -160,7 +160,11 @@ body {
   /* Faint navy hairline — the standard strata line on light backgrounds */
   --strata-line: color-mix(in srgb, var(--color-st-ink) 8%, transparent);
   /* Slightly heavier navy hairline — used for the lowest/anchoring line */
-  --strata-line-strong: color-mix(in srgb, var(--color-st-ink) 14%, transparent);
+  --strata-line-strong: color-mix(
+    in srgb,
+    var(--color-st-ink) 14%,
+    transparent
+  );
   /* The single warm gold hairline that threads through each motif */
   --strata-gold-hair: color-mix(in srgb, #84663a 22%, transparent);
   /* Soft low-contrast lift for motif-bearing surfaces */
@@ -191,4 +195,31 @@ body {
   opacity: var(--strata-grain-opacity);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='strataGrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23strataGrain)'/%3E%3C/svg%3E");
   background-size: 180px 180px;
+}
+
+/* ---------------------------------------------------------------------------
+   Print
+   Added for the printable prep sheet (/prep): drop the site chrome and any
+   screen-only controls so a printed or saved-to-PDF page is just content.
+   Scoped to @media print, so it never affects the on-screen site.
+--------------------------------------------------------------------------- */
+@media print {
+  /* Drop the site chrome (nav + footer render outside <main>) and any
+     screen-only control. Content-level header/footer inside <main> stay
+     visible, so a page's own masthead and disclaimer still print. */
+  body header,
+  body footer,
+  .no-print {
+    display: none !important;
+  }
+
+  main header,
+  main footer {
+    display: revert !important;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+  }
 }
