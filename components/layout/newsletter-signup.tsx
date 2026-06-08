@@ -72,7 +72,7 @@ export function NewsletterSignup() {
 
       {subscribed ? (
         <p role="status" className="text-st-small text-st-paper">
-          You&apos;re in — thanks for subscribing.
+          You&apos;re in. Thanks for subscribing.
         </p>
       ) : (
         <form

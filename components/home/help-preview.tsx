@@ -38,7 +38,7 @@ export function HelpPreview() {
 
         <Reveal variant="up" delay={0.2}>
           <p className="mt-12 max-w-2xl text-st-body-lg text-st-muted">
-            Nothing is sold. Nothing is upmarked. The work is free because
+            Nothing is sold. Nothing is marked up. The work is free because
             access is the point.
           </p>
         </Reveal>

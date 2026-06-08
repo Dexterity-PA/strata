@@ -15,8 +15,6 @@ interface Palette {
   line: string;
   strong: string;
   gold: string;
-  band: string;
-  bandGold: string;
 }
 
 const PALETTES: Record<Tone, Palette> = {
@@ -24,15 +22,11 @@ const PALETTES: Record<Tone, Palette> = {
     line: "var(--strata-line)",
     strong: "var(--strata-line-strong)",
     gold: "var(--strata-gold-hair)",
-    band: "var(--color-st-ink)",
-    bandGold: "var(--color-st-accent)",
   },
   navy: {
     line: "color-mix(in srgb, var(--color-st-paper) 8%, transparent)",
     strong: "color-mix(in srgb, var(--color-st-paper) 14%, transparent)",
     gold: "color-mix(in srgb, var(--color-st-accent-bright) 30%, transparent)",
-    band: "var(--color-st-paper)",
-    bandGold: "var(--color-st-accent-bright)",
   },
 };
 
@@ -149,19 +143,22 @@ function buildBands(density: Density, palette: Palette): Band[] {
 
   for (let i = 0; i < count; i += 1) {
     const t = i / (count - 1);
-    const centerY = top + span * t + Math.sin(i * 1.7) * 10;
-    const height = 78 + Math.sin(i * 0.9) * 16;
-    bands.push({
-      centerY,
-      height,
-      color: i === goldIndex ? palette.bandGold : palette.band,
-    });
+    const centerY = top + span * t + Math.sin(i * 1.7) * 8;
+    const height = 64 + Math.sin(i * 0.9) * 14;
+    const isLast = i === count - 1;
+    // Same restrained palette as "lines": faint hairline tone for most
+    // bands, the heavier line for the anchoring band, one gold accent.
+    const color =
+      i === goldIndex ? palette.gold : isLast ? palette.strong : palette.line;
+    bands.push({ centerY, height, color });
   }
   return bands;
 }
 
-const BAND_LAYERS = 10;
-const BAND_LAYER_OPACITY = 0.028;
+// Peak alpha at the flat middle of each band. Multiplies the already-faint
+// palette colors, so bands read as near-flat sediment with feathered edges —
+// no bright center highlight, no metallic gradient.
+const BAND_PEAK_OPACITY = 0.75;
 
 /** Decorative "strata" motif — stratified contour lines in the brand palette. */
 export function StrataMotif({
@@ -186,22 +183,38 @@ export function StrataMotif({
         preserveAspectRatio="none"
         className={rootClass}
       >
-        {bands.map((band, bi) => (
-          <g key={bi} fill={band.color}>
-            {Array.from({ length: BAND_LAYERS }, (_, li) => {
-              const h = band.height * (1 - (0.82 * li) / (BAND_LAYERS - 1));
-              return (
-                <rect
-                  key={li}
-                  x={0}
-                  y={band.centerY - h / 2}
-                  width={1200}
-                  height={h}
-                  opacity={BAND_LAYER_OPACITY}
+        <defs>
+          {bands.map((band, bi) => {
+            const id = `strata-band-${tone}-${density}-${bi}`;
+            // Vertical feather: transparent edges, a flat low-alpha plateau
+            // through the middle. No center spike — the calm cousin of lines.
+            return (
+              <linearGradient key={bi} id={id} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor={band.color} stopOpacity={0} />
+                <stop
+                  offset="22%"
+                  stopColor={band.color}
+                  stopOpacity={BAND_PEAK_OPACITY}
                 />
-              );
-            })}
-          </g>
+                <stop
+                  offset="78%"
+                  stopColor={band.color}
+                  stopOpacity={BAND_PEAK_OPACITY}
+                />
+                <stop offset="100%" stopColor={band.color} stopOpacity={0} />
+              </linearGradient>
+            );
+          })}
+        </defs>
+        {bands.map((band, bi) => (
+          <rect
+            key={bi}
+            x={0}
+            y={band.centerY - band.height / 2}
+            width={1200}
+            height={band.height}
+            fill={`url(#strata-band-${tone}-${density}-${bi})`}
+          />
         ))}
       </svg>
     );

@@ -15,6 +15,7 @@ import {
   useSpring,
 } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { CopySummaryButton } from "@/components/tools/copy-summary-button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Input } from "@/components/ui/input";
 import { Section } from "@/components/layout/section";
@@ -24,7 +25,7 @@ import { useReducedMotion } from "@/lib/animation/use-reduced-motion";
 import { cn } from "@/lib/utils";
 
 /* ---------------------------------------------------------------------------
-   Debt payoff comparator — avalanche vs. snowball.
+   Debt payoff comparator: avalanche vs. snowball.
 
    Self-contained client component. To surface it, import DebtComparison into
    /tools or a post. It owns its own <Section> so it drops in as a complete
@@ -38,7 +39,7 @@ import { cn } from "@/lib/utils";
 
 type Strategy = "avalanche" | "snowball";
 
-/** A debt row as edited in the UI — values are raw strings while typing. */
+/** A debt row as edited in the UI; values are raw strings while typing. */
 interface DebtRow {
   id: string;
   name: string;
@@ -64,7 +65,7 @@ interface StrategyResult {
   neverPaysOff: boolean;
 }
 
-const MAX_MONTHS = 1200; // 100 years — past this we call it "never pays off".
+const MAX_MONTHS = 1200; // 100 years, past this we call it "never pays off".
 const EPS = 0.005; // half a cent: below this a balance is considered cleared.
 
 const DEFAULT_DEBTS: DebtRow[] = [
@@ -167,7 +168,7 @@ const usd0 = new Intl.NumberFormat("en-US", {
 });
 
 function formatMonths(months: number): string {
-  if (months <= 0) return "—";
+  if (months <= 0) return "-";
   if (months < 12) return `${months} mo`;
   const years = Math.floor(months / 12);
   const rem = months % 12;
@@ -189,7 +190,18 @@ function AnimatedCurrency({ value }: { value: number }) {
   return <>{usd0.format(reducedMotion ? value : Math.max(0, shown))}</>;
 }
 
-export function DebtComparison() {
+interface DebtComparisonProps {
+  /**
+   * When true, render only the calculator (inputs, results, disclaimer)
+   * without the self-contained section and heading. The /tools/debt route
+   * sets this because its shared route shell already supplies the section,
+   * the "All tools" back-link, and the page heading. Left false, the
+   * component stays self-contained for drop-in use in a post.
+   */
+  embedded?: boolean;
+}
+
+export function DebtComparison({ embedded = false }: DebtComparisonProps) {
   const [debts, setDebts] = useState<DebtRow[]>(DEFAULT_DEBTS);
   const [extra, setExtra] = useState<string>(DEFAULT_EXTRA);
   const nextId = useRef(DEFAULT_DEBTS.length + 1);
@@ -246,6 +258,157 @@ export function DebtComparison() {
     ? { duration: 0 }
     : { duration: DUR.base, ease: EASE.out };
 
+  const content = (
+    <>
+      {/* ---- Inputs ------------------------------------------------------ */}
+      <div className={embedded ? undefined : "mt-12"}>
+        {/* Column headers, desktop only; each input carries its own label. */}
+        <div className="hidden gap-3 px-1 pb-2 sm:grid sm:grid-cols-[1.4fr_1fr_0.8fr_1fr_auto]">
+          <span className="font-st-sans text-st-small font-medium text-st-muted">
+            Debt
+          </span>
+          <span className="font-st-sans text-st-small font-medium text-st-muted">
+            Balance
+          </span>
+          <span className="font-st-sans text-st-small font-medium text-st-muted">
+            APR
+          </span>
+          <span className="font-st-sans text-st-small font-medium text-st-muted">
+            Min. / mo
+          </span>
+          <span className="sr-only">Remove</span>
+        </div>
+
+        <ul className="grid gap-4 sm:gap-3">
+          <AnimatePresence initial={false}>
+            {debts.map((debt, index) => (
+              <motion.li
+                key={debt.id}
+                layout={!reducedMotion}
+                initial={
+                  reducedMotion ? false : { opacity: 0, height: 0, y: -8 }
+                }
+                animate={
+                  reducedMotion ? {} : { opacity: 1, height: "auto", y: 0 }
+                }
+                exit={reducedMotion ? {} : { opacity: 0, height: 0, y: -8 }}
+                transition={
+                  reducedMotion
+                    ? { duration: 0 }
+                    : { duration: DUR.fast, ease: EASE.out }
+                }
+                className="overflow-hidden rounded-st-md border border-st-line bg-st-surface p-4 sm:border-0 sm:bg-transparent sm:p-0"
+              >
+                <DebtFields
+                  debt={debt}
+                  index={index}
+                  canRemove={debts.length > 1}
+                  onChange={updateDebt}
+                  onRemove={removeDebt}
+                />
+              </motion.li>
+            ))}
+          </AnimatePresence>
+        </ul>
+
+        <div className="mt-4">
+          <button
+            type="button"
+            onClick={addDebt}
+            className="inline-flex items-center gap-2 font-st-sans text-st-small font-medium text-st-accent underline decoration-st-accent/40 decoration-1 underline-offset-4 transition-colors duration-(--st-dur-fast) hover:decoration-st-accent"
+          >
+            <span aria-hidden className="text-st-body leading-none">
+              +
+            </span>
+            Add a debt
+          </button>
+        </div>
+
+        {/* Extra monthly payment */}
+        <div className="mt-8 flex flex-col gap-2 border-t border-st-line pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <label
+            htmlFor={`${headingId}-extra`}
+            className="font-st-sans text-st-body font-medium text-st-ink"
+          >
+            Extra you can pay each month
+            <span className="mt-0.5 block font-normal text-st-small text-st-muted">
+              On top of every minimum above.
+            </span>
+          </label>
+          <div className="sm:w-48">
+            <AdornedInput
+              id={`${headingId}-extra`}
+              prefix="$"
+              value={extra}
+              onValueChange={setExtra}
+              aria-label="Extra monthly payment in dollars"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* ---- Results ----------------------------------------------------- */}
+      <div className="mt-12" aria-live="polite">
+        <AnimatePresence mode="wait" initial={false}>
+          {results === null ? (
+            <motion.p
+              key="empty"
+              initial={reducedMotion ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={reducedMotion ? {} : { opacity: 0 }}
+              transition={transition}
+              className="rounded-st-md border border-dashed border-st-line bg-st-surface px-6 py-10 text-center text-st-body text-st-muted"
+            >
+              Add at least one debt with a balance to see the comparison.
+            </motion.p>
+          ) : (
+            <motion.div
+              key="results"
+              initial={reducedMotion ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={reducedMotion ? {} : { opacity: 0 }}
+              transition={transition}
+            >
+              <Results
+                avalanche={results.avalanche}
+                snowball={results.snowball}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {results ? (
+        <div className="mt-8">
+          <CopySummaryButton
+            getSummary={() =>
+              buildDebtSummary(results.avalanche, results.snowball)
+            }
+          />
+        </div>
+      ) : null}
+
+      {/* ---- Disclaimer -------------------------------------------------- */}
+      <p className="mt-10 text-st-small text-st-muted">
+        This is an educational estimate, not personalized financial advice. Real
+        statements round to the cent and may add fees this tool can&apos;t see.
+        Want to run your own numbers both ways, free?{" "}
+        <Button href="/contact" variant="ghost" className="text-st-small">
+          Get in touch
+        </Button>
+        .
+      </p>
+    </>
+  );
+
+  // The /tools/debt route wraps this in the shared tool shell, which already
+  // provides the section and heading, so it only needs the calculator itself.
+  if (embedded) {
+    return content;
+  }
+
+  // Self-contained: owns its section and heading so it drops into a post with
+  // a plain <DebtComparison />.
   return (
     <Section spacing="base" container="none" aria-labelledby={headingId}>
       <Container size="wide" className="max-w-4xl">
@@ -259,140 +422,12 @@ export function DebtComparison() {
           </h2>
           <p className="mt-4 text-st-body-lg text-st-muted">
             List your debts and the extra you can put toward them each month.
-            We&apos;ll run both payoff orders — highest rate first (avalanche)
-            and smallest balance first (snowball) — and show what each one costs
+            We&apos;ll run both payoff orders, highest rate first (avalanche)
+            and smallest balance first (snowball), and show what each one costs
             you.
           </p>
         </header>
-
-        {/* ---- Inputs ------------------------------------------------------ */}
-        <div className="mt-12">
-          {/* Column headers — desktop only; each input carries its own label. */}
-          <div className="hidden gap-3 px-1 pb-2 sm:grid sm:grid-cols-[1.4fr_1fr_0.8fr_1fr_auto]">
-            <span className="font-st-sans text-st-small font-medium text-st-muted">
-              Debt
-            </span>
-            <span className="font-st-sans text-st-small font-medium text-st-muted">
-              Balance
-            </span>
-            <span className="font-st-sans text-st-small font-medium text-st-muted">
-              APR
-            </span>
-            <span className="font-st-sans text-st-small font-medium text-st-muted">
-              Min. / mo
-            </span>
-            <span className="sr-only">Remove</span>
-          </div>
-
-          <ul className="grid gap-4 sm:gap-3">
-            <AnimatePresence initial={false}>
-              {debts.map((debt, index) => (
-                <motion.li
-                  key={debt.id}
-                  layout={!reducedMotion}
-                  initial={
-                    reducedMotion ? false : { opacity: 0, height: 0, y: -8 }
-                  }
-                  animate={
-                    reducedMotion ? {} : { opacity: 1, height: "auto", y: 0 }
-                  }
-                  exit={reducedMotion ? {} : { opacity: 0, height: 0, y: -8 }}
-                  transition={
-                    reducedMotion
-                      ? { duration: 0 }
-                      : { duration: DUR.fast, ease: EASE.out }
-                  }
-                  className="overflow-hidden rounded-st-md border border-st-line bg-st-surface p-4 sm:border-0 sm:bg-transparent sm:p-0"
-                >
-                  <DebtFields
-                    debt={debt}
-                    index={index}
-                    canRemove={debts.length > 1}
-                    onChange={updateDebt}
-                    onRemove={removeDebt}
-                  />
-                </motion.li>
-              ))}
-            </AnimatePresence>
-          </ul>
-
-          <div className="mt-4">
-            <button
-              type="button"
-              onClick={addDebt}
-              className="inline-flex items-center gap-2 font-st-sans text-st-small font-medium text-st-accent underline decoration-st-accent/40 decoration-1 underline-offset-4 transition-colors duration-(--st-dur-fast) hover:decoration-st-accent"
-            >
-              <span aria-hidden className="text-st-body leading-none">
-                +
-              </span>
-              Add a debt
-            </button>
-          </div>
-
-          {/* Extra monthly payment */}
-          <div className="mt-8 flex flex-col gap-2 border-t border-st-line pt-6 sm:flex-row sm:items-center sm:justify-between">
-            <label
-              htmlFor={`${headingId}-extra`}
-              className="font-st-sans text-st-body font-medium text-st-ink"
-            >
-              Extra you can pay each month
-              <span className="mt-0.5 block font-normal text-st-small text-st-muted">
-                On top of every minimum above.
-              </span>
-            </label>
-            <div className="sm:w-48">
-              <AdornedInput
-                id={`${headingId}-extra`}
-                prefix="$"
-                value={extra}
-                onValueChange={setExtra}
-                aria-label="Extra monthly payment in dollars"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* ---- Results ----------------------------------------------------- */}
-        <div className="mt-12" aria-live="polite">
-          <AnimatePresence mode="wait" initial={false}>
-            {results === null ? (
-              <motion.p
-                key="empty"
-                initial={reducedMotion ? false : { opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={reducedMotion ? {} : { opacity: 0 }}
-                transition={transition}
-                className="rounded-st-md border border-dashed border-st-line bg-st-surface px-6 py-10 text-center text-st-body text-st-muted"
-              >
-                Add at least one debt with a balance to see the comparison.
-              </motion.p>
-            ) : (
-              <motion.div
-                key="results"
-                initial={reducedMotion ? false : { opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={reducedMotion ? {} : { opacity: 0 }}
-                transition={transition}
-              >
-                <Results
-                  avalanche={results.avalanche}
-                  snowball={results.snowball}
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-
-        {/* ---- Disclaimer -------------------------------------------------- */}
-        <p className="mt-10 text-st-small text-st-muted">
-          This is an educational estimate, not personalized financial advice.
-          Real statements round to the cent and may add fees this tool
-          can&apos;t see. Want to run your own numbers both ways, free?{" "}
-          <Button href="/contact" variant="ghost" className="text-st-small">
-            Get in touch
-          </Button>
-          .
-        </p>
+        {content}
       </Container>
     </Section>
   );
@@ -584,14 +619,14 @@ function buildVerdict(
   if (avalanche.neverPaysOff && snowball.neverPaysOff) {
     return {
       tone: "warn",
-      text: "With these minimums and extra, the balances don't shrink — the interest is outrunning the payments, so the debt never clears. Try a larger monthly payment, or check that each minimum is right.",
+      text: "With these minimums and extra, the balances don't shrink. The interest is outrunning the payments, so the debt never clears. Try a larger monthly payment, or check that each minimum is right.",
     };
   }
   if (avalanche.neverPaysOff || snowball.neverPaysOff) {
     const winner = avalanche.neverPaysOff ? "Snowball" : "Avalanche";
     return {
       tone: "warn",
-      text: `Only the ${winner.toLowerCase()} order clears these debts with this budget — the other lets a high-rate balance outgrow its payment. Here, ${winner.toLowerCase()} isn't just cheaper, it's the one that actually finishes.`,
+      text: `Only the ${winner.toLowerCase()} order clears these debts with this budget. The other lets a high-rate balance outgrow its payment. Here, ${winner.toLowerCase()} isn't just cheaper, it's the one that actually finishes.`,
     };
   }
 
@@ -610,21 +645,60 @@ function buildVerdict(
   if (interestSaved < 1 && monthsSaved === 0) {
     return {
       tone: "neutral",
-      text: "These two come out essentially identical for your numbers. Pick the one you'll actually stick with — for a lot of people that's the snowball, because closing a whole account early is a real motivator.",
+      text: "These two come out essentially identical for your numbers. Pick the one you'll actually stick with. For a lot of people that's the snowball, because closing a whole account early is a real motivator.",
     };
   }
 
   if (interestSaved < closeThreshold && monthsSaved <= 1) {
     return {
       tone: "neutral",
-      text: `Avalanche saves about ${savedUsd} in interest${timePhrase} — a slim margin. If the snowball's quick wins help you keep going, that's an easy trade to justify.`,
+      text: `Avalanche saves about ${savedUsd} in interest${timePhrase}, a slim margin. If the snowball's quick wins help you keep going, that's an easy trade to justify.`,
     };
   }
 
   return {
     tone: "neutral",
-    text: `Avalanche saves about ${savedUsd} in interest${timePhrase}. That's a real gap — but it only counts if you stay with the plan. If you've started a payoff before and stopped, the snowball's early wins may be worth more to you than the interest.`,
+    text: `Avalanche saves about ${savedUsd} in interest${timePhrase}. That's a real gap, but it only counts if you stay with the plan. If you've started a payoff before and stopped, the snowball's early wins may be worth more to you than the interest.`,
   };
+}
+
+/**
+ * Plain-text summary of the comparison, for the "Copy summary" button. Lists
+ * each strategy's payoff order, months to debt-free and total interest, plus
+ * the gap-aware verdict. No em dashes (per the site copy rules); the
+ * educational disclaimer line is always present.
+ */
+function buildDebtSummary(
+  avalanche: StrategyResult,
+  snowball: StrategyResult,
+): string {
+  const lines: string[] = ["Strata debt payoff comparison", ""];
+
+  const strategies = [
+    ["Avalanche (highest rate first)", avalanche],
+    ["Snowball (smallest balance first)", snowball],
+  ] as const;
+
+  for (const [heading, result] of strategies) {
+    lines.push(heading);
+    if (result.neverPaysOff) {
+      lines.push("  Does not pay off: the payments do not cover the interest.");
+    } else {
+      lines.push(`  Time to debt-free: ${formatMonths(result.months)}`);
+      lines.push(
+        `  Total interest: ${usd0.format(Math.round(result.totalInterest))}`,
+      );
+      lines.push(`  Payoff order: ${result.order.join(" > ")}`);
+    }
+    lines.push("");
+  }
+
+  lines.push(buildVerdict(avalanche, snowball).text);
+  lines.push(
+    "",
+    "Educational estimate, not financial advice. stratafinancialplanning.com",
+  );
+  return lines.join("\n");
 }
 
 function Results({
@@ -694,7 +768,7 @@ function StrategyCard({
 
       {result.neverPaysOff ? (
         <p className="mt-6 text-st-body text-st-accent">
-          Doesn&apos;t pay off — the payments don&apos;t cover the interest.
+          Doesn&apos;t pay off: the payments don&apos;t cover the interest.
         </p>
       ) : (
         <>

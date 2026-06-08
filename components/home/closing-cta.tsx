@@ -24,7 +24,7 @@ export function ClosingCta() {
           <div className="mt-11">
             <Button
               href="/contact"
-              className="bg-st-paper text-st-ink hover:bg-st-surface hover:shadow-st-md"
+              className="bg-st-accent-bright text-st-ink hover:bg-st-accent-bright hover:shadow-st-md"
             >
               Get started
             </Button>

@@ -79,7 +79,7 @@ export function SiteNav() {
         <Link
           href="/"
           className="font-st-display text-2xl tracking-tight text-st-ink"
-          aria-label={`${SITE.name} — home`}
+          aria-label={`${SITE.name}, home`}
         >
           Strata
           <span aria-hidden className="text-st-accent">

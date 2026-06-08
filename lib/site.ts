@@ -6,7 +6,7 @@ export const SITE = {
   url: "https://stratafinancialplanning.com",
   email: "praneeth.a2027@gmail.com",
   description:
-    "Independent financial planning for people who want clarity, structure, and a long view.",
+    "Free financial education and planning support for people who want clarity and a long view.",
 };
 
 export const NAV_LINKS = [
@@ -15,7 +15,9 @@ export const NAV_LINKS = [
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
   { label: "Process", href: "/process" },
+  { label: "How it works", href: "/how-it-works" },
   { label: "Insights", href: "/insights" },
+  { label: "Tools", href: "/tools" },
   { label: "Contact", href: "/contact" },
 ] as const;
 

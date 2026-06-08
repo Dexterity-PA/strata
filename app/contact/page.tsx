@@ -3,12 +3,12 @@ import { Section } from "@/components/layout/section";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal } from "@/components/animation/reveal";
 import { SplitText } from "@/components/animation/split-text";
-import { ContactForm } from "@/components/contact/contact-form";
+import { GuidedIntake } from "@/components/contact/guided-intake";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "The first step is just a conversation. Tell me a bit about your situation and I'll get back to you.",
+    "The first step is just a few short questions. Tell me what is on your mind and I'll get back to you, usually within a few days.",
 };
 
 const CONTACT_EMAIL = "praneeth.a2027@gmail.com";
@@ -33,15 +33,16 @@ export default function Page() {
         </SplitText>
         <Reveal variant="fade" delay={0.7} duration={0.9}>
           <p className="mt-6 max-w-xl text-st-body-lg text-st-muted">
-            The first step is just a conversation. Tell me a bit about your
-            situation and I&apos;ll get back to you.
+            The first step is just a few short questions, no pressure and no
+            obligation. Tell me what is on your mind and I&apos;ll get back to
+            you, usually within a few days.
           </p>
         </Reveal>
       </Section>
 
       <Section spacing="none" container="narrow" className="pb-st-section">
         <Reveal variant="up" delay={0.2}>
-          <ContactForm />
+          <GuidedIntake />
           <p className="mt-10 border-t border-st-line pt-8 text-st-body text-st-muted">
             Or email directly:{" "}
             <a

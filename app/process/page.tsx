@@ -9,7 +9,7 @@ import { ProcessSteps } from "./process-steps";
 export const metadata: Metadata = {
   title: "Process",
   description:
-    "Five simple steps — every step is free, and you're never under any obligation to continue.",
+    "Five simple steps. Every step is free, and you're never under any obligation to continue.",
 };
 
 export default function Page() {

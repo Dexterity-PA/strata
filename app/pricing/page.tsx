@@ -39,7 +39,7 @@ export default function PricingPage() {
           </p>
         </Reveal>
         <Reveal variant="fade" delay={0.95} duration={0.9} className="mt-12">
-          <Button href="/contact">Start your free engagement</Button>
+          <Button href="/contact">Start your free conversation</Button>
         </Reveal>
       </div>
     </Section>

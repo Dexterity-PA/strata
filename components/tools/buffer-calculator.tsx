@@ -3,6 +3,7 @@
 import { useId, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { CopySummaryButton } from "@/components/tools/copy-summary-button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Input } from "@/components/ui/input";
 import { DUR, EASE } from "@/lib/animation/motion";
@@ -13,7 +14,7 @@ import { cn } from "@/lib/utils";
 /*  Pure calculation                                                  */
 /* ------------------------------------------------------------------ */
 
-// 52 weeks spread across 12 months — the same conversion the
+// 52 weeks spread across 12 months, the same conversion the
 // "planning-for-the-slow-season" post uses to turn a monthly set-aside
 // into a weekly one ($2,500/mo → ~$577/wk).
 const WEEKS_PER_MONTH = 52 / 12;
@@ -88,10 +89,50 @@ function pluralMonths(n: number): string {
 }
 
 /**
+ * Plain-text summary of the current estimate, for the "Copy summary" button.
+ * No em dashes (per the site copy rules), and the educational disclaimer line
+ * is always present.
+ */
+export function buildBufferSummary(
+  { minCost, slowMonths, slowIncome, busyMonths }: BufferInputs,
+  { monthlyGap, totalTarget, perBusyMonth, perWeek }: BufferResult,
+): string {
+  const lines = [
+    "Strata slow-season buffer estimate",
+    "",
+    `Bare-minimum monthly cost: ${formatCurrency(minCost)}`,
+    `Slow season: ${pluralMonths(slowMonths)} at ${formatCurrency(slowIncome)} income/mo`,
+    `Monthly gap: ${formatCurrency(monthlyGap)}  |  Buffer target: ${formatCurrency(totalTarget)}`,
+  ];
+
+  if (monthlyGap > 0 && slowMonths > 0) {
+    if (busyMonths > 0) {
+      lines.push(
+        `Set aside ~${formatCurrency(perBusyMonth)}/mo (~${formatCurrency(perWeek)}/wk) across your ${pluralMonths(busyMonths)} of busy season.`,
+      );
+    } else {
+      lines.push(
+        `That is ${formatCurrency(totalTarget)} in total. Add your busy-season length to see the monthly and weekly set-aside.`,
+      );
+    }
+  } else {
+    lines.push(
+      "Your expected income already covers the bare minimum, so there is no gap to fund.",
+    );
+  }
+
+  lines.push(
+    "",
+    "Educational estimate, not financial advice. stratafinancialplanning.com",
+  );
+  return lines.join("\n");
+}
+
+/**
  * "a" vs "an" for a dollar figure, by how the number is spoken: anything
  * led by "eight" (8, 80, 8,000…) or by "eleven"/"eighteen" as the top unit
  * (11, 18, 11,000, 18,000…) takes "an". Keeps the live sentence reading
- * naturally — "an $8,000/mo gap", not "a $8,000/mo gap".
+ * naturally: "an $8,000/mo gap", not "a $8,000/mo gap".
  */
 function indefiniteArticle(amount: number): "a" | "an" {
   const digits = String(Math.max(0, Math.round(amount)));
@@ -103,7 +144,7 @@ function indefiniteArticle(amount: number): "a" | "an" {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Animated figure — crossfades on change, transform/opacity only    */
+/*  Animated figure: crossfades on change, transform/opacity only    */
 /* ------------------------------------------------------------------ */
 
 function AnimatedFigure({ value }: { value: string }) {
@@ -296,7 +337,7 @@ export function BufferCalculator() {
           <strong className="font-semibold text-st-ink">
             {formatCurrency(result.totalTarget)}
           </strong>{" "}
-          in total — add your busy-season length to see the monthly and weekly
+          in total. Add your busy-season length to see the monthly and weekly
           set-aside.
         </>
       )}
@@ -305,7 +346,7 @@ export function BufferCalculator() {
     <>
       Enter your bare-minimum monthly cost and a slow-season length above. If
       your expected income already covers the bare minimum, you have no gap to
-      fund — which is its own kind of good news.
+      fund, which is its own kind of good news.
     </>
   );
 
@@ -314,7 +355,7 @@ export function BufferCalculator() {
       {/* Inputs */}
       <form
         className="flex flex-col gap-7"
-        // Live tool — nothing to submit anywhere.
+        // Live tool, nothing to submit anywhere.
         onSubmit={(event) => event.preventDefault()}
         aria-label="Slow-season buffer inputs"
       >
@@ -379,11 +420,11 @@ export function BufferCalculator() {
             />
             <Stat
               label="Per busy month"
-              value={hasBusyMonths ? formatCurrency(result.perBusyMonth) : "—"}
+              value={hasBusyMonths ? formatCurrency(result.perBusyMonth) : "-"}
             />
             <Stat
               label="Per busy week"
-              value={hasBusyMonths ? formatCurrency(result.perWeek) : "—"}
+              value={hasBusyMonths ? formatCurrency(result.perWeek) : "-"}
             />
           </div>
         </div>
@@ -396,6 +437,10 @@ export function BufferCalculator() {
           This is an educational estimate to help you plan, not financial
           advice.
         </p>
+
+        <CopySummaryButton
+          getSummary={() => buildBufferSummary(parsed, result)}
+        />
 
         <div className="pt-1">
           <Button href="/contact" variant="secondary">
