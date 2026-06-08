@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 /*  Pure calculation                                                  */
 /* ------------------------------------------------------------------ */
 
-// 52 weeks spread across 12 months — the same conversion the
+// 52 weeks spread across 12 months, the same conversion the
 // "planning-for-the-slow-season" post uses to turn a monthly set-aside
 // into a weekly one ($2,500/mo → ~$577/wk).
 const WEEKS_PER_MONTH = 52 / 12;
@@ -91,7 +91,7 @@ function pluralMonths(n: number): string {
  * "a" vs "an" for a dollar figure, by how the number is spoken: anything
  * led by "eight" (8, 80, 8,000…) or by "eleven"/"eighteen" as the top unit
  * (11, 18, 11,000, 18,000…) takes "an". Keeps the live sentence reading
- * naturally — "an $8,000/mo gap", not "a $8,000/mo gap".
+ * naturally: "an $8,000/mo gap", not "a $8,000/mo gap".
  */
 function indefiniteArticle(amount: number): "a" | "an" {
   const digits = String(Math.max(0, Math.round(amount)));
@@ -103,7 +103,7 @@ function indefiniteArticle(amount: number): "a" | "an" {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Animated figure — crossfades on change, transform/opacity only    */
+/*  Animated figure: crossfades on change, transform/opacity only    */
 /* ------------------------------------------------------------------ */
 
 function AnimatedFigure({ value }: { value: string }) {
@@ -296,7 +296,7 @@ export function BufferCalculator() {
           <strong className="font-semibold text-st-ink">
             {formatCurrency(result.totalTarget)}
           </strong>{" "}
-          in total — add your busy-season length to see the monthly and weekly
+          in total. Add your busy-season length to see the monthly and weekly
           set-aside.
         </>
       )}
@@ -305,7 +305,7 @@ export function BufferCalculator() {
     <>
       Enter your bare-minimum monthly cost and a slow-season length above. If
       your expected income already covers the bare minimum, you have no gap to
-      fund — which is its own kind of good news.
+      fund, which is its own kind of good news.
     </>
   );
 
@@ -314,7 +314,7 @@ export function BufferCalculator() {
       {/* Inputs */}
       <form
         className="flex flex-col gap-7"
-        // Live tool — nothing to submit anywhere.
+        // Live tool, nothing to submit anywhere.
         onSubmit={(event) => event.preventDefault()}
         aria-label="Slow-season buffer inputs"
       >
@@ -379,11 +379,11 @@ export function BufferCalculator() {
             />
             <Stat
               label="Per busy month"
-              value={hasBusyMonths ? formatCurrency(result.perBusyMonth) : "—"}
+              value={hasBusyMonths ? formatCurrency(result.perBusyMonth) : "-"}
             />
             <Stat
               label="Per busy week"
-              value={hasBusyMonths ? formatCurrency(result.perWeek) : "—"}
+              value={hasBusyMonths ? formatCurrency(result.perWeek) : "-"}
             />
           </div>
         </div>
