@@ -4,6 +4,7 @@ import { ServiceList } from "@/components/services/service-list";
 import { ServicesHero } from "@/components/services/services-hero";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/services" },
   title: "Services",
   description:
     "Strata offers financial education and planning support, not regulated financial advice. It's all free.",

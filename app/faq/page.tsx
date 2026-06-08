@@ -7,6 +7,7 @@ import { SplitText } from "@/components/animation/split-text";
 import { FaqAccordion, type FaqItem } from "./faq-accordion";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/faq" },
   title: "FAQ",
   description:
     "Answers to common questions about Strata's free, volunteer-led financial education and planning support.",

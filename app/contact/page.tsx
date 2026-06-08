@@ -6,6 +6,7 @@ import { SplitText } from "@/components/animation/split-text";
 import { GuidedIntake } from "@/components/contact/guided-intake";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/contact" },
   title: "Contact",
   description:
     "The first step is just a few short questions. Tell me what is on your mind and I'll get back to you, usually within a few days.",

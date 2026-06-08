@@ -3,6 +3,7 @@ import { DebtComparison } from "@/components/tools/debt-comparison";
 import { ToolPage } from "@/components/tools/tool-page";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/tools/debt" },
   title: "Avalanche or snowball",
   description:
     "Compare two debt payoff orders, highest rate first and smallest balance first, and see how long each takes and what it costs in interest. An educational estimate, not financial advice.",

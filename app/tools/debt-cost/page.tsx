@@ -3,6 +3,7 @@ import { DebtCost } from "@/components/tools/debt-cost";
 import { ToolPage } from "@/components/tools/tool-page";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/tools/debt-cost" },
   title: "Single-debt cost",
   description:
     "See how long one debt takes to pay off and how much interest it costs at your current payment. An educational estimate, not financial advice.",

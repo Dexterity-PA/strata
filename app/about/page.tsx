@@ -4,6 +4,7 @@ import { Philosophy } from "@/components/about/philosophy";
 import { HonestPart } from "@/components/about/honest-part";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/about" },
   title: "About",
   description:
     "Why Strata exists. A volunteer initiative offering free financial education and planning support.",

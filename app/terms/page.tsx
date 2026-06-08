@@ -3,6 +3,7 @@ import { Section } from "@/components/layout/section";
 import { Eyebrow } from "@/components/ui/eyebrow";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/terms" },
   title: "Terms of Service",
   description:
     "The plain-language terms for using Strata's free, educational website.",

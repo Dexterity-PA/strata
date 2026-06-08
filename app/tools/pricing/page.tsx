@@ -3,6 +3,7 @@ import { PricingMargin } from "@/components/tools/pricing-margin";
 import { ToolPage } from "@/components/tools/tool-page";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/tools/pricing" },
   title: "Pricing and margin checker",
   description:
     "Set a price from a target margin, or check the margin and markup a price gives you. An educational estimate, not financial advice.",

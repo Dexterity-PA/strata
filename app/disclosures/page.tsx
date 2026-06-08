@@ -3,6 +3,7 @@ import { Section } from "@/components/layout/section";
 import { Eyebrow } from "@/components/ui/eyebrow";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/disclosures" },
   title: "Disclosures",
   description:
     "Strata is a student-led volunteer initiative providing financial education and planning support.",

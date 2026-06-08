@@ -3,6 +3,7 @@ import { CashRunway } from "@/components/tools/cash-runway";
 import { ToolPage } from "@/components/tools/tool-page";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/tools/runway" },
   title: "Cash runway",
   description:
     "See how many months your cash lasts at your current burn, and roughly when it runs out. An educational estimate, not financial advice.",

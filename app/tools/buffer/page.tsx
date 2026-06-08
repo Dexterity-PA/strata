@@ -3,6 +3,7 @@ import { BufferCalculator } from "@/components/tools/buffer-calculator";
 import { ToolPage } from "@/components/tools/tool-page";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/tools/buffer" },
   title: "Slow-season buffer",
   description:
     "Size the cushion that carries you through a slow season: the monthly gap, the season's target, and what to set aside each busy month and week. An educational estimate, not financial advice.",

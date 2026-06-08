@@ -8,6 +8,7 @@ import { SplitText } from "@/components/animation/split-text";
 import { StrataMotif } from "@/components/strata/StrataMotif";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/how-it-works" },
   title: "How it works",
   description:
     "Exactly what Strata is, what happens when you reach out, and why it is free. Education and planning support, never licensed financial advice.",

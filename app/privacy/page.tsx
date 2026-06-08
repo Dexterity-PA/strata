@@ -3,6 +3,7 @@ import { Section } from "@/components/layout/section";
 import { Eyebrow } from "@/components/ui/eyebrow";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/privacy" },
   title: "Privacy Policy",
   description:
     "How Strata handles the small amount of information you share with us.",

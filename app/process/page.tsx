@@ -7,6 +7,7 @@ import { Section } from "@/components/layout/section";
 import { ProcessSteps } from "./process-steps";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/process" },
   title: "Process",
   description:
     "Five simple steps. Every step is free, and you're never under any obligation to continue.",
