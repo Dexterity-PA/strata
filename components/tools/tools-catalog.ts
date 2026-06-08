@@ -1,17 +1,14 @@
 /**
  * The tools index: one entry per card on /tools.
  *
- * The five new tools each link to their own route. The two original
- * calculators (slow-season buffer, avalanche vs. snowball) still live on the
- * /tools page itself for now, so their cards link to anchors there. A later
- * session migrates those two into /tools/<slug> routes; when it does, only the
- * `href` values below need to change.
+ * Every tool now has its own /tools/<slug> route, so each card links straight
+ * out to one. The index itself is just the intro and this card grid.
  */
 
 export interface ToolCard {
   /** Display name, set in Fraunces on the card. */
   name: string;
-  /** Where the card links: a route for new tools, an anchor for the originals. */
+  /** The /tools/<slug> route this card opens. */
   href: string;
   /** One-line, plain-language description of what the tool does. */
   description: string;
@@ -42,7 +39,7 @@ export const TOOLS: ToolCard[] = [
   },
   {
     name: "Slow-season buffer",
-    href: "/tools#slow-season-buffer",
+    href: "/tools/buffer",
     description: "Size the cushion that carries you through a slow season.",
     audience: "Business",
   },
@@ -60,7 +57,7 @@ export const TOOLS: ToolCard[] = [
   },
   {
     name: "Avalanche or snowball",
-    href: "/tools#avalanche-or-snowball",
+    href: "/tools/debt",
     description: "Compare two debt payoff orders and see what each one costs.",
     audience: "Individuals",
   },
