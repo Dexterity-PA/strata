@@ -17,6 +17,8 @@ const STATIC_ROUTES = [
   "/prep",
   "/insights",
   "/faq",
+  "/glossary",
+  "/resources",
   "/contact",
   "/tools",
   "/tools/breakeven",

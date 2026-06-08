@@ -6,11 +6,9 @@ test.describe("faq accordion", () => {
 
     // The first item starts open, so use a closed one to exercise the toggle.
     const toggle = page.getByRole("button", {
-      name: "Are you a licensed financial advisor?",
+      name: "Are you licensed financial professionals?",
     });
-    const answer = page.getByText(
-      "Strata provides financial education and planning support",
-    );
+    const answer = page.getByText("not a licensed professional service");
 
     await expect(toggle).toHaveAttribute("aria-expanded", "false");
     await expect(answer).toBeHidden();
