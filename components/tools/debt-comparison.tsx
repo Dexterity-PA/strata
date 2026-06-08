@@ -24,7 +24,7 @@ import { useReducedMotion } from "@/lib/animation/use-reduced-motion";
 import { cn } from "@/lib/utils";
 
 /* ---------------------------------------------------------------------------
-   Debt payoff comparator — avalanche vs. snowball.
+   Debt payoff comparator: avalanche vs. snowball.
 
    Self-contained client component. To surface it, import DebtComparison into
    /tools or a post. It owns its own <Section> so it drops in as a complete
@@ -38,7 +38,7 @@ import { cn } from "@/lib/utils";
 
 type Strategy = "avalanche" | "snowball";
 
-/** A debt row as edited in the UI — values are raw strings while typing. */
+/** A debt row as edited in the UI; values are raw strings while typing. */
 interface DebtRow {
   id: string;
   name: string;
@@ -64,7 +64,7 @@ interface StrategyResult {
   neverPaysOff: boolean;
 }
 
-const MAX_MONTHS = 1200; // 100 years — past this we call it "never pays off".
+const MAX_MONTHS = 1200; // 100 years, past this we call it "never pays off".
 const EPS = 0.005; // half a cent: below this a balance is considered cleared.
 
 const DEFAULT_DEBTS: DebtRow[] = [
@@ -167,7 +167,7 @@ const usd0 = new Intl.NumberFormat("en-US", {
 });
 
 function formatMonths(months: number): string {
-  if (months <= 0) return "—";
+  if (months <= 0) return "-";
   if (months < 12) return `${months} mo`;
   const years = Math.floor(months / 12);
   const rem = months % 12;
@@ -259,15 +259,15 @@ export function DebtComparison() {
           </h2>
           <p className="mt-4 text-st-body-lg text-st-muted">
             List your debts and the extra you can put toward them each month.
-            We&apos;ll run both payoff orders — highest rate first (avalanche)
-            and smallest balance first (snowball) — and show what each one costs
+            We&apos;ll run both payoff orders, highest rate first (avalanche)
+            and smallest balance first (snowball), and show what each one costs
             you.
           </p>
         </header>
 
         {/* ---- Inputs ------------------------------------------------------ */}
         <div className="mt-12">
-          {/* Column headers — desktop only; each input carries its own label. */}
+          {/* Column headers, desktop only; each input carries its own label. */}
           <div className="hidden gap-3 px-1 pb-2 sm:grid sm:grid-cols-[1.4fr_1fr_0.8fr_1fr_auto]">
             <span className="font-st-sans text-st-small font-medium text-st-muted">
               Debt
@@ -584,14 +584,14 @@ function buildVerdict(
   if (avalanche.neverPaysOff && snowball.neverPaysOff) {
     return {
       tone: "warn",
-      text: "With these minimums and extra, the balances don't shrink — the interest is outrunning the payments, so the debt never clears. Try a larger monthly payment, or check that each minimum is right.",
+      text: "With these minimums and extra, the balances don't shrink. The interest is outrunning the payments, so the debt never clears. Try a larger monthly payment, or check that each minimum is right.",
     };
   }
   if (avalanche.neverPaysOff || snowball.neverPaysOff) {
     const winner = avalanche.neverPaysOff ? "Snowball" : "Avalanche";
     return {
       tone: "warn",
-      text: `Only the ${winner.toLowerCase()} order clears these debts with this budget — the other lets a high-rate balance outgrow its payment. Here, ${winner.toLowerCase()} isn't just cheaper, it's the one that actually finishes.`,
+      text: `Only the ${winner.toLowerCase()} order clears these debts with this budget. The other lets a high-rate balance outgrow its payment. Here, ${winner.toLowerCase()} isn't just cheaper, it's the one that actually finishes.`,
     };
   }
 
@@ -610,20 +610,20 @@ function buildVerdict(
   if (interestSaved < 1 && monthsSaved === 0) {
     return {
       tone: "neutral",
-      text: "These two come out essentially identical for your numbers. Pick the one you'll actually stick with — for a lot of people that's the snowball, because closing a whole account early is a real motivator.",
+      text: "These two come out essentially identical for your numbers. Pick the one you'll actually stick with. For a lot of people that's the snowball, because closing a whole account early is a real motivator.",
     };
   }
 
   if (interestSaved < closeThreshold && monthsSaved <= 1) {
     return {
       tone: "neutral",
-      text: `Avalanche saves about ${savedUsd} in interest${timePhrase} — a slim margin. If the snowball's quick wins help you keep going, that's an easy trade to justify.`,
+      text: `Avalanche saves about ${savedUsd} in interest${timePhrase}, a slim margin. If the snowball's quick wins help you keep going, that's an easy trade to justify.`,
     };
   }
 
   return {
     tone: "neutral",
-    text: `Avalanche saves about ${savedUsd} in interest${timePhrase}. That's a real gap — but it only counts if you stay with the plan. If you've started a payoff before and stopped, the snowball's early wins may be worth more to you than the interest.`,
+    text: `Avalanche saves about ${savedUsd} in interest${timePhrase}. That's a real gap, but it only counts if you stay with the plan. If you've started a payoff before and stopped, the snowball's early wins may be worth more to you than the interest.`,
   };
 }
 
@@ -694,7 +694,7 @@ function StrategyCard({
 
       {result.neverPaysOff ? (
         <p className="mt-6 text-st-body text-st-accent">
-          Doesn&apos;t pay off — the payments don&apos;t cover the interest.
+          Doesn&apos;t pay off: the payments don&apos;t cover the interest.
         </p>
       ) : (
         <>
