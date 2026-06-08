@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Section } from "@/components/layout/section";
 import { Eyebrow } from "@/components/ui/eyebrow";
@@ -149,12 +150,12 @@ export default async function Page({ params }: PageProps) {
               financial guidance. For decisions that turn on your specific
               circumstances, consider speaking with a qualified licensed
               professional. See our{" "}
-              <a
+              <Link
                 href="/disclosures"
                 className="underline decoration-st-accent/40 underline-offset-4 hover:text-st-accent hover:decoration-st-accent"
               >
                 disclosures
-              </a>
+              </Link>
               .
             </p>
           </Reveal>
