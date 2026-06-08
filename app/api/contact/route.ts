@@ -15,7 +15,7 @@ const TO_ADDRESS = "praneeth.a2027@gmail.com";
 const MAX_MESSAGE_LENGTH = 5000;
 const MAX_FIELD_LENGTH = 200;
 
-// Mirrors the client-side pattern in contact-form.tsx.
+// Mirrors the client-side pattern in guided-intake.tsx.
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // Values must match the form's "You are" select options exactly.
@@ -29,6 +29,8 @@ interface Submission {
   email: string;
   role: string;
   message: string;
+  /** Optional "anything else" note from the guided intake. */
+  details: string;
 }
 
 function parseSubmission(
@@ -37,7 +39,10 @@ function parseSubmission(
   if (typeof body !== "object" || body === null) {
     return { error: "Invalid request body." };
   }
-  const { name, email, role, message } = body as Record<string, unknown>;
+  const { name, email, role, message, details } = body as Record<
+    string,
+    unknown
+  >;
 
   if (typeof name !== "string" || !name.trim()) {
     return { error: "Please enter your name." };
@@ -65,12 +70,24 @@ function parseSubmission(
     };
   }
 
+  // Optional "anything else" note from the guided intake.
+  let trimmedDetails = "";
+  if (typeof details === "string") {
+    trimmedDetails = details.trim();
+    if (trimmedDetails.length > MAX_MESSAGE_LENGTH) {
+      return {
+        error: `The extra note is too long (max ${MAX_MESSAGE_LENGTH} characters).`,
+      };
+    }
+  }
+
   return {
     data: {
       name: name.trim(),
       email: email.trim(),
       role,
       message: message.trim(),
+      details: trimmedDetails,
     },
   };
 }
@@ -109,7 +126,7 @@ export async function POST(request: Request) {
       { status: 400 },
     );
   }
-  const { name, email, role, message } = parsed.data;
+  const { name, email, role, message, details } = parsed.data;
   const audience = AUDIENCE_LABELS[role];
 
   const apiKey = process.env.RESEND_API_KEY;
@@ -136,16 +153,23 @@ export async function POST(request: Request) {
       `Email: ${email}`,
       `You are: ${audience}`,
       "",
-      "Message:",
+      "Question on their mind:",
       message,
+      ...(details ? ["", "Anything else:", details] : []),
     ].join("\n"),
     html: [
       "<p>New inquiry from the Strata contact form.</p>",
       `<p><strong>Name:</strong> ${escapeHtml(name)}<br/>`,
       `<strong>Email:</strong> ${escapeHtml(email)}<br/>`,
       `<strong>You are:</strong> ${escapeHtml(audience)}</p>`,
-      "<p><strong>Message:</strong></p>",
+      "<p><strong>Question on their mind:</strong></p>",
       `<p>${escapeHtml(message).replace(/\n/g, "<br/>")}</p>`,
+      ...(details
+        ? [
+            "<p><strong>Anything else:</strong></p>",
+            `<p>${escapeHtml(details).replace(/\n/g, "<br/>")}</p>`,
+          ]
+        : []),
     ].join("\n"),
   });
 
