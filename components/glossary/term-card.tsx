@@ -22,7 +22,7 @@ export function TermCard({ entry, onSelectTerm }: TermCardProps) {
   return (
     <article
       id={termAnchorId(entry.term)}
-      className="flex h-full scroll-mt-40 flex-col bg-st-surface p-7 lg:p-8"
+      className="flex h-full scroll-mt-40 flex-col border-b border-r border-st-line bg-st-surface p-7 lg:p-8"
     >
       <div className="flex items-start justify-between gap-4">
         <h3 className="font-st-display text-st-h3 text-st-ink">{entry.term}</h3>
