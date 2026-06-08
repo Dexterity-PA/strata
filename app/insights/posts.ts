@@ -6,7 +6,11 @@
 
 export type PostBlock =
   | { type: "p"; text: string }
-  | { type: "h2"; text: string };
+  | { type: "h2"; text: string }
+  | { type: "quote"; text: string };
+
+/** An interactive tool embedded near the end of an article body. */
+export type PostTool = "buffer" | "debt";
 
 export interface Post {
   slug: string;
@@ -16,6 +20,8 @@ export interface Post {
   /** Publication date, ISO format (YYYY-MM-DD). */
   date: string;
   body: PostBlock[];
+  /** When set, the matching calculator renders inline near the body's end. */
+  tool?: PostTool;
 }
 
 const WORDS_PER_MINUTE = 200;
@@ -162,6 +168,7 @@ export const POSTS: Post[] = [
         text: "If you want help finding your own bare-minimum number, reach out. It’s free, it takes one conversation, and you’ll leave with an actual figure instead of the dread.",
       },
     ],
+    tool: "buffer",
   },
   {
     slug: "where-your-money-actually-goes",
@@ -266,6 +273,7 @@ export const POSTS: Post[] = [
         text: "This is education, not personalized advice, and your situation may have wrinkles a short post can’t see. If you want to sit down and run your numbers both ways, that’s a thing I’m glad to do with you, free, no pitch. Reach out.",
       },
     ],
+    tool: "debt",
   },
   {
     slug: "why-good-guidance-is-unevenly-distributed",

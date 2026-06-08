@@ -12,7 +12,7 @@ const SECTIONS = [
   {
     heading: "What we collect",
     body: [
-      "The only personal information Strata collects is what you choose to send us: your name, email address, whether you're reaching out as an individual or a small business, and your message — through the contact form or by emailing us directly.",
+      "The only personal information Strata collects is what you choose to send us: your name, email address, whether you're reaching out as an individual or a small business, and your message, through the contact form or by emailing us directly.",
       "There are no accounts, no payments, and no forms beyond the contact form. Our hosting provider may keep routine technical logs (like IP addresses) to operate the site, as virtually all websites do.",
     ],
   },
@@ -47,7 +47,7 @@ export default function Page() {
       </p>
       <p className="mt-8 text-st-body-lg text-st-ink-soft">
         Strata is a free, student-led volunteer initiative. We collect as little
-        information as possible — only what you send us when you get in touch —
+        information as possible, only what you send us when you get in touch,
         and this page explains plainly what happens to it.
       </p>
       <div className="mt-12 space-y-10">

@@ -9,7 +9,7 @@ import { SplitText } from "@/components/animation/split-text";
 export const metadata: Metadata = {
   title: "Tools",
   description:
-    "Free, interactive tools to help you plan — a slow-season buffer estimator and an avalanche-vs-snowball debt payoff comparator. Educational estimates, not financial advice.",
+    "Free, interactive tools to help you plan. A slow-season buffer estimator and an avalanche-vs-snowball debt payoff comparator. Educational estimates, not financial advice.",
 };
 
 export default function ToolsPage() {
@@ -31,7 +31,7 @@ export default function ToolsPage() {
               <p className="mt-6 font-st-sans text-st-body-lg leading-relaxed text-st-muted">
                 If your business has a slow season, you already know when it
                 starts. Put in four numbers and see the buffer that gets you
-                through it — the gap, the season&rsquo;s target, and what to set
+                through it: the gap, the season&rsquo;s target, and what to set
                 aside each busy month and week to reach it.
               </p>
             </Reveal>

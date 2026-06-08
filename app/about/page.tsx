@@ -6,7 +6,7 @@ import { HonestPart } from "@/components/about/honest-part";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Why Strata exists — a volunteer initiative offering free financial education and planning support.",
+    "Why Strata exists. A volunteer initiative offering free financial education and planning support.",
 };
 
 export default function Page() {
