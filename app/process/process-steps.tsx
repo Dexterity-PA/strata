@@ -58,6 +58,30 @@ export function ProcessSteps() {
         return;
       }
 
+      // Scrubbed gold rail fill — the visual spine of the flow.
+      //
+      // Bounds are absolute scroll positions anchored to the SAME line the
+      // dots activate on ("top 62%"): the fill begins exactly as the first
+      // marker reaches that line and completes as the last one does, so the
+      // line and the dots advance together. The container's old "top 70%"
+      // start sat above the viewport's trigger line at rest, so the rail
+      // rested ~7% pre-filled at scroll 0; worse, that pre-fill grew on
+      // taller viewports. Reading transform-immune layout offsets (recomputed
+      // on every refresh) and clamping the start to 0 keeps the rail empty
+      // until the user has actually scrolled into the section.
+      const first = markers[0];
+      const last = markers[markers.length - 1];
+      const ACTIVATE = 0.62; // matches each dot's "top 62%" trigger below
+      const markerScrollStart = (m: HTMLElement) => {
+        const li = m.parentElement as HTMLElement;
+        const top =
+          el.getBoundingClientRect().top +
+          window.scrollY +
+          li.offsetTop +
+          m.offsetTop;
+        return top - window.innerHeight * ACTIVATE;
+      };
+
       // Transform-only entrance per marker, independent of the fill state.
       markers.forEach((m) => {
         gsap.from(m, {
@@ -96,8 +120,8 @@ export function ProcessSteps() {
           ease: "none",
           scrollTrigger: {
             trigger: el,
-            start: "top 70%",
-            end: "bottom 65%",
+            start: () => Math.max(0, markerScrollStart(first)),
+            end: () => markerScrollStart(last),
             scrub: true,
             onRefresh: computeThresholds,
             onUpdate: (self) => {
