@@ -32,7 +32,7 @@ const SECTIONS = [
   {
     heading: "Questions",
     body: [
-      "If anything here is unclear, or you want to know what information we have about you, email praneeth.a2027@gmail.com.",
+      "If anything here is unclear, or you want to know what information we have about you, email hello@stratafinancialplanning.com.",
     ],
   },
 ];

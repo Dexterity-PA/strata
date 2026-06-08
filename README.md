@@ -24,7 +24,7 @@ The contact form (`app/api/contact/route.ts`) sends mail through [Resend](https:
 - **Locally:** copy `.env.example` to `.env.local` and paste a key from [resend.com/api-keys](https://resend.com/api-keys).
 - **Vercel:** add `RESEND_API_KEY` under Project → Settings → Environment Variables.
 
-The key is read server-side only. The from-address is currently the Resend sandbox sender (`onboarding@resend.dev`), which only delivers to the Resend account owner's inbox — once the domain is verified in Resend, swap `FROM_ADDRESS` in `app/api/contact/route.ts` to a domain sender.
+The key is read server-side only. The from-address (`FROM_ADDRESS` in `app/api/contact/route.ts`) is the verified domain sender `Strata <hello@stratafinancialplanning.com>`, which delivers to any recipient.
 
 ---
 

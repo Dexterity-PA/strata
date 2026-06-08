@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     "The first step is just a few short questions. Tell me what is on your mind and I'll get back to you, usually within a few days.",
 };
 
-const CONTACT_EMAIL = "praneeth.a2027@gmail.com";
+const CONTACT_EMAIL = "hello@stratafinancialplanning.com";
 
 export default function Page() {
   return (
