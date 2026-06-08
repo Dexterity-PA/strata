@@ -1,7 +1,7 @@
 "use client";
 
 import { Reveal } from "@/components/animation/reveal";
-import { gsap, ScrollTrigger } from "@/lib/animation/gsap";
+import { gsap } from "@/lib/animation/gsap";
 import { DUR, EASE_CSS } from "@/lib/animation/motion";
 import { useGsapContext } from "@/lib/animation/use-gsap-context";
 import { useReducedMotion } from "@/lib/animation/use-reduced-motion";
@@ -34,9 +34,10 @@ const STEPS = [
  *
  * A gold progress line is scrubbed (scaleY, transform-only) to scroll
  * position via ScrollTrigger, which is already synced to the Lenis ticker.
- * Each step's marker scales in as it enters the viewport and then "fills"
- * gold as the rail passes it, so the markers read as a progress meter rather
- * than static bullets. Title/body rise in via <Reveal>.
+ * Each step's marker scales in as it enters the viewport, then "fills" gold
+ * the instant the rail's fill crosses that marker's vertical center. Fill and
+ * rail share ONE ScrollTrigger progress value, so a dot can never light up
+ * before the line reaches it. Title/body rise in via <Reveal>.
  *
  * Reduced motion: the rail renders complete, every marker renders filled and
  * in place, and <Reveal> renders its children statically — the whole flow is
@@ -57,7 +58,36 @@ export function ProcessSteps() {
         return;
       }
 
-      // Scrubbed gold rail fill — the visual spine of the flow.
+      // Transform-only entrance per marker, independent of the fill state.
+      markers.forEach((m) => {
+        gsap.from(m, {
+          scale: 0,
+          autoAlpha: 0,
+          duration: DUR.base,
+          ease: EASE_CSS.out,
+          scrollTrigger: { trigger: m, start: "top 85%" },
+        });
+      });
+
+      // Each marker fills exactly when the scrubbed rail reaches its center.
+      // Thresholds are progress values (0..1) on the SAME ScrollTrigger that
+      // drives the rail, so a dot can never fill before the line passes it.
+      // Measured from layout offsets (not rects) so the entrance scale above
+      // does not skew the geometry; recomputed on every ScrollTrigger refresh.
+      const track = el.querySelector<HTMLElement>(".js-track");
+      let thresholds: number[] = [];
+      const computeThresholds = () => {
+        const trackTop = track?.offsetTop ?? 0;
+        const trackHeight = track?.offsetHeight ?? 0;
+        thresholds = markers.map((m) => {
+          const li = m.parentElement as HTMLElement;
+          const center = li.offsetTop + m.offsetTop + m.offsetHeight / 2;
+          return trackHeight > 0 ? (center - trackTop) / trackHeight : 0;
+        });
+      };
+
+      // One scrub source: the rail fill (scaleY) and every dot's state both
+      // read from self.progress, so they advance in lockstep.
       gsap.fromTo(
         ".js-progress",
         { scaleY: 0 },
@@ -69,28 +99,19 @@ export function ProcessSteps() {
             start: "top 70%",
             end: "bottom 65%",
             scrub: true,
+            onRefresh: computeThresholds,
+            onUpdate: (self) => {
+              const p = self.progress;
+              markers.forEach((m, i) => {
+                const want = p >= thresholds[i] ? "true" : "false";
+                if (m.getAttribute("data-active") !== want) {
+                  m.setAttribute("data-active", want);
+                }
+              });
+            },
           },
         },
       );
-
-      // Per-marker: a transform-only entrance, plus an activation toggle that
-      // fills the dot gold roughly as the scrubbed rail reaches it.
-      markers.forEach((m) => {
-        gsap.from(m, {
-          scale: 0,
-          autoAlpha: 0,
-          duration: DUR.base,
-          ease: EASE_CSS.out,
-          scrollTrigger: { trigger: m, start: "top 85%" },
-        });
-
-        ScrollTrigger.create({
-          trigger: m,
-          start: "top 62%",
-          onEnter: () => m.setAttribute("data-active", "true"),
-          onLeaveBack: () => m.setAttribute("data-active", "false"),
-        });
-      });
     },
     [reduced],
   );
@@ -100,7 +121,7 @@ export function ProcessSteps() {
       {/* Rail track + scrubbed gold fill (decorative, transform-only) */}
       <div
         aria-hidden
-        className="absolute top-2 bottom-2 left-[7px] w-[2px] bg-st-line"
+        className="js-track absolute top-2 bottom-2 left-[7px] w-[2px] bg-st-line"
       />
       <div
         aria-hidden

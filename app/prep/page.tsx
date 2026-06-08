@@ -124,18 +124,19 @@ export default function PrepPage() {
               licensed financial advice. When something calls for a licensed
               professional, you will be pointed toward one.
             </p>
-            <p className="mt-3 font-st-sans text-st-small font-medium text-st-ink">
-              stratafinancialplanning.com
-              <span className="mx-2 text-st-muted/50" aria-hidden>
-                /
-              </span>
+            <div className="mt-3 flex flex-col gap-1 font-st-sans text-st-small font-medium text-st-ink sm:flex-row sm:items-center sm:gap-3">
+              <span>stratafinancialplanning.com</span>
+              <span
+                aria-hidden
+                className="hidden h-3 w-px bg-st-line sm:block"
+              />
               <a
                 href={`mailto:${SITE.email}`}
                 className="text-st-accent underline decoration-st-accent/40 underline-offset-4"
               >
                 {SITE.email}
               </a>
-            </p>
+            </div>
           </footer>
         </article>
       </Container>

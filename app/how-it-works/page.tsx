@@ -17,29 +17,6 @@ export const metadata: Metadata = {
 /*  Content (real, production copy in the founder's voice)            */
 /* ------------------------------------------------------------------ */
 
-const STEPS: ReadonlyArray<{ title: string; body: string }> = [
-  {
-    title: "You send a message",
-    body: "Use the contact form or email me directly. Tell me a little about your situation and the one thing that is on your mind. A sentence or two is plenty. You do not need anything prepared.",
-  },
-  {
-    title: "I read it and reply",
-    body: "I will get back to you myself, usually within a few days, to find a time to talk. That might be a short call or a back-and-forth over email, whichever is easier for you. There is no cost and no obligation to keep going.",
-  },
-  {
-    title: "We talk it through",
-    body: "You bring your real numbers and I will listen. We go through what is actually happening in plain language, with no jargon and no judgment. If it helps to gather a few things first, there is a short prep sheet you can use.",
-  },
-  {
-    title: "You leave with something you can use",
-    body: "I will help you see what your numbers are telling you, lay out the options in front of you, and name a clear next step or two you can act on. If anything calls for a licensed professional, I will say so and point you toward one.",
-  },
-  {
-    title: "We stay in touch if it helps",
-    body: "You are welcome to come back with follow-up questions whenever they come up. Nothing about this turns into a bill later. It stays free, every time.",
-  },
-];
-
 const DOES: readonly string[] = [
   "Explain how your money works in plain language, so the numbers stop feeling like a black box.",
   "Help you read your own numbers: cash flow, a slow season, debts, the cost of a decision you are weighing.",
@@ -84,47 +61,6 @@ export default function HowItWorksPage() {
             none of it costs anything.
           </p>
         </Reveal>
-      </Section>
-
-      {/* What happens after you reach out */}
-      <Section tone="surface">
-        <Reveal variant="fade" duration={0.8}>
-          <h2>
-            <Eyebrow>What happens after you reach out</Eyebrow>
-          </h2>
-        </Reveal>
-        <Reveal variant="fade" delay={0.15} duration={0.9}>
-          <p className="mt-6 max-w-2xl text-st-body-lg text-st-muted">
-            Reaching out is the whole first step. You do not need to prepare
-            anything or have your finances figured out. Here is what follows, in
-            order.
-          </p>
-        </Reveal>
-
-        <ol className="mt-14 grid gap-px overflow-hidden rounded-st-lg border border-st-line bg-st-line">
-          {STEPS.map((step, i) => (
-            <li key={step.title} className="bg-st-surface">
-              <Reveal variant="up" delay={i * 0.06}>
-                <div className="flex flex-col gap-4 p-7 sm:flex-row sm:gap-8 sm:p-9">
-                  <span
-                    aria-hidden
-                    className="font-st-display text-st-h3 leading-none text-st-accent/70 sm:w-16"
-                  >
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div className="max-w-2xl">
-                    <h3 className="font-st-display text-st-h3 text-st-ink">
-                      {step.title}
-                    </h3>
-                    <p className="mt-3 text-st-body leading-relaxed text-st-muted">
-                      {step.body}
-                    </p>
-                  </div>
-                </div>
-              </Reveal>
-            </li>
-          ))}
-        </ol>
       </Section>
 
       {/* Pull-quote */}
@@ -276,9 +212,9 @@ export default function HowItWorksPage() {
         <div className="mt-8 space-y-6">
           <Reveal variant="fade" delay={0.1} duration={0.9}>
             <p className="text-st-body-lg text-st-ink">
-              The short answer: clear financial guidance is expensive, and the
-              people who most need it are usually the least able to pay for it.
-              That always struck me as backwards.
+              The short answer: good financial guidance usually costs money,
+              which quietly puts it out of reach for the people who would gain
+              the most from it. That ordering never sat right with me.
             </p>
           </Reveal>
           <Reveal variant="fade" delay={0.2} duration={0.9}>
@@ -298,6 +234,29 @@ export default function HowItWorksPage() {
             </p>
           </Reveal>
         </div>
+      </Section>
+
+      {/* The short version (the full step-by-step lives on /process) */}
+      <Section spacing="sm" container="narrow">
+        <Reveal variant="fade" duration={0.8}>
+          <h2>
+            <Eyebrow>The short version</Eyebrow>
+          </h2>
+        </Reveal>
+        <Reveal variant="fade" delay={0.15} duration={0.9}>
+          <p className="mt-6 max-w-2xl text-st-body-lg text-st-muted">
+            You reach out with a sentence about what is on your mind, we talk it
+            through, and you leave with a written plan and a clear next step or
+            two. If you want it broken down step by step, that is what the{" "}
+            <a
+              href="/process"
+              className="text-st-accent underline decoration-st-accent/40 underline-offset-4 transition-colors duration-(--st-dur-fast) hover:decoration-st-accent"
+            >
+              process page
+            </a>{" "}
+            is for.
+          </p>
+        </Reveal>
       </Section>
 
       {/* Closing CTA */}
