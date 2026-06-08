@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
+import { NewsletterSignup } from "@/components/layout/newsletter-signup";
 import { FOOTER_EXPLORE_LINKS, LEGAL_LINKS, SITE } from "@/lib/site";
 
 /** Multi-column site footer on inverse (deep navy) ground. */
@@ -79,6 +80,11 @@ export function SiteFooter() {
               </li>
             </ul>
           </div>
+        </div>
+
+        {/* Newsletter signup */}
+        <div className="mt-14 border-t border-st-line-dark pt-10">
+          <NewsletterSignup />
         </div>
 
         {/* Bottom bar */}
