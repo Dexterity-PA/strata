@@ -40,11 +40,15 @@ function validate(values: FormValues): FormErrors {
   return errors;
 }
 
-/** Contact form — client-side validation only. */
+/** Contact form — validates client-side, then delivers via POST /api/contact. */
 export function ContactForm() {
   const [values, setValues] = useState<FormValues>(INITIAL_VALUES);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [pending, setPending] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  // Honeypot — humans never see this field; the API rejects filled values.
+  const [company, setCompany] = useState("");
   const reducedMotion = useReducedMotion();
 
   function setField(field: keyof FormValues, value: string) {
@@ -53,16 +57,41 @@ export function ContactForm() {
     setErrors((prev) => (prev[field] ? { ...prev, [field]: undefined } : prev));
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (pending) return;
     const nextErrors = validate(values);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
-    // TODO(Phase 2): wire this up to a real backend/email send. Until then,
-    // submissions are NOT delivered anywhere — this only shows the success
-    // state for the UI flow.
-    setSubmitted(true);
+    setPending(true);
+    setSubmitError(null);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...values, company }),
+      });
+      if (response.ok) {
+        setSubmitted(true);
+        return;
+      }
+      const data = (await response.json().catch(() => null)) as {
+        error?: string;
+      } | null;
+      // Surface validation messages; keep everything else calm and generic.
+      setSubmitError(
+        response.status === 400 && data?.error
+          ? data.error
+          : "Something went wrong sending your message. Please try again.",
+      );
+    } catch {
+      setSubmitError(
+        "We couldn't reach the server. Please check your connection and try again.",
+      );
+    } finally {
+      setPending(false);
+    }
   }
 
   const transition = reducedMotion
@@ -95,8 +124,25 @@ export function ContactForm() {
           transition={reducedMotion ? { duration: 0 } : { duration: DUR.fast }}
           onSubmit={handleSubmit}
           noValidate
-          className="grid gap-6"
+          className="relative grid gap-6"
         >
+          {/* Honeypot: visually hidden and skipped by keyboard/screen readers.
+              Bots that auto-fill every field reveal themselves here. */}
+          <div
+            aria-hidden="true"
+            className="absolute -left-[9999px] top-0 h-px w-px overflow-hidden"
+          >
+            <label htmlFor="contact-company">Company</label>
+            <input
+              id="contact-company"
+              name="company"
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+            />
+          </div>
           <div className="grid gap-6 sm:grid-cols-2">
             <Field label="Name" htmlFor="contact-name" error={errors.name}>
               <Input
@@ -161,8 +207,20 @@ export function ContactForm() {
               }
             />
           </Field>
-          <div>
-            <Button type="submit">Send message</Button>
+          <div className="grid gap-3">
+            <div>
+              <Button type="submit" disabled={pending}>
+                {pending ? "Sending…" : "Send message"}
+              </Button>
+            </div>
+            {submitError && (
+              <p
+                className="font-st-sans text-st-small text-st-accent"
+                role="alert"
+              >
+                {submitError}
+              </p>
+            )}
           </div>
         </motion.form>
       )}

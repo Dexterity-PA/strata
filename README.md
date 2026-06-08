@@ -17,6 +17,17 @@ The foundation is built: design tokens, fonts, smooth scroll, animation utilitie
 
 ---
 
+## Environment variables
+
+The contact form (`app/api/contact/route.ts`) sends mail through [Resend](https://resend.com) and needs `RESEND_API_KEY` (see `.env.example`):
+
+- **Locally:** copy `.env.example` to `.env.local` and paste a key from [resend.com/api-keys](https://resend.com/api-keys).
+- **Vercel:** add `RESEND_API_KEY` under Project → Settings → Environment Variables.
+
+The key is read server-side only. The from-address is currently the Resend sandbox sender (`onboarding@resend.dev`), which only delivers to the Resend account owner's inbox — once the domain is verified in Resend, swap `FROM_ADDRESS` in `app/api/contact/route.ts` to a domain sender.
+
+---
+
 ## Design tokens
 
 All tokens live in `app/globals.css` under `@theme` and are prefixed `st`. Tailwind v4 generates utilities from them:
