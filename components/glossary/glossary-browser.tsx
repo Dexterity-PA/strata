@@ -173,7 +173,7 @@ export function GlossaryBrowser({ terms }: GlossaryBrowserProps) {
                 </h2>
                 <span aria-hidden className="h-px flex-1 bg-st-line" />
               </div>
-              <div className="mt-6 grid gap-px overflow-hidden rounded-st-md border border-st-line bg-st-line sm:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-6 grid overflow-hidden rounded-st-md border border-st-line sm:grid-cols-2 lg:grid-cols-3">
                 {group.entries.map((entry) => (
                   <TermCard
                     key={entry.term}
