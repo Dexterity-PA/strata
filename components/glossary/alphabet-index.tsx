@@ -6,9 +6,10 @@ interface AlphabetIndexProps {
 }
 
 /**
- * A to Z jump bar. Letters with matching terms link to their group; letters
- * with none are shown dimmed and are not interactive. Numeric terms (such as
- * 401(k) or 1099) group under the "#" anchor at the top of the list.
+ * A to Z jump bar. Letters with matching terms link to their group. Letters
+ * with none render in the same active color but as plain, non-interactive
+ * text: no link, not focusable, and not announced as actionable. Numeric
+ * terms (such as 401(k) or 1099) group under the "#" anchor at the top.
  */
 export function AlphabetIndex({ activeLetters }: AlphabetIndexProps) {
   const items = ["#", ...LETTERS];
@@ -23,8 +24,7 @@ export function AlphabetIndex({ activeLetters }: AlphabetIndexProps) {
           return (
             <span
               key={letter}
-              aria-hidden
-              className="inline-flex h-9 w-9 items-center justify-center rounded-st-sm font-st-sans text-st-small text-st-muted/40"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-st-sm font-st-sans text-st-small font-medium text-st-ink"
             >
               {letter}
             </span>
