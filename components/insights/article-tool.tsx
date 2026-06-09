@@ -26,17 +26,17 @@ export function ArticleTool({ tool }: ArticleToolProps) {
     <Section tone="surface" container="none" spacing="base">
       <Container size="wide" className="max-w-4xl">
         <header className="mb-10 max-w-2xl">
-          <Reveal variant="fade">
+          <Reveal trigger="mount" variant="fade">
             <Eyebrow>Try it with your numbers</Eyebrow>
           </Reveal>
-          <Reveal variant="up" delay={0.1}>
+          <Reveal trigger="mount" variant="up" delay={0.1}>
             <p className="mt-5 font-st-sans text-st-body-lg leading-relaxed text-st-muted">
               The same calculation from this post, live. Put in your figures and
               watch the buffer target update.
             </p>
           </Reveal>
         </header>
-        <Reveal variant="up" delay={0.05}>
+        <Reveal trigger="mount" variant="up" delay={0.05}>
           <BufferCalculator />
         </Reveal>
       </Container>

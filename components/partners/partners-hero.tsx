@@ -22,7 +22,7 @@ export function PartnersHero() {
       />
       <div className="relative mx-auto w-full max-w-5xl px-st-gutter">
         <header className="max-w-2xl">
-          <Reveal variant="fade" duration={0.8}>
+          <Reveal trigger="mount" variant="fade" duration={0.8}>
             <Eyebrow>For schools and partners</Eyebrow>
           </Reveal>
           <SplitText
@@ -32,7 +32,7 @@ export function PartnersHero() {
           >
             Free financial education for your school or group
           </SplitText>
-          <Reveal variant="up" delay={0.1} className="mt-7">
+          <Reveal trigger="mount" variant="up" delay={0.1} className="mt-7">
             <p className="font-st-sans text-st-body-lg leading-relaxed text-st-muted">
               Strata is a student-led volunteer initiative offering free,
               plain-language financial education. Everything we make is open for

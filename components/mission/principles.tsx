@@ -30,13 +30,13 @@ const PRINCIPLES: ReadonlyArray<{ title: string; body: string }> = [
 export function Principles() {
   return (
     <Section container="narrow">
-      <Reveal variant="fade" duration={0.8}>
+      <Reveal trigger="mount" variant="fade" duration={0.8}>
         <h2>
           <Eyebrow>What we hold to</Eyebrow>
         </h2>
       </Reveal>
 
-      <Reveal variant="fade" delay={0.15} duration={0.9}>
+      <Reveal trigger="mount" variant="fade" delay={0.15} duration={0.9}>
         <p className="mt-6 max-w-2xl text-st-body-lg text-st-muted">
           A mission is only as good as the lines it refuses to cross. These are
           the ones that keep this effort worth doing.
@@ -45,7 +45,12 @@ export function Principles() {
 
       <div className="mt-12 grid gap-8 sm:grid-cols-2 sm:gap-x-st-gutter">
         {PRINCIPLES.map((principle, i) => (
-          <Reveal key={principle.title} variant="up" delay={i * 0.08}>
+          <Reveal
+            trigger="mount"
+            key={principle.title}
+            variant="up"
+            delay={i * 0.08}
+          >
             <div className="h-full rounded-st-lg border border-st-line bg-st-surface p-8">
               <span aria-hidden className="block h-px w-8 bg-st-accent" />
               <h3 className="mt-6 font-st-display text-st-h3 text-st-ink">

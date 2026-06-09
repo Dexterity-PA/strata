@@ -37,10 +37,10 @@ const STEPS = [
  * Each step's marker scales in as it enters the viewport, then "fills" gold
  * the instant the rail's fill crosses that marker's vertical center. Fill and
  * rail share ONE ScrollTrigger progress value, so a dot can never light up
- * before the line reaches it. Title/body rise in via <Reveal>.
+ * before the line reaches it. Title/body rise in via <Reveal trigger="mount">.
  *
  * Reduced motion: the rail renders complete, every marker renders filled and
- * in place, and <Reveal> renders its children statically — the whole flow is
+ * in place, and <Reveal trigger="mount"> renders its children statically — the whole flow is
  * visible with no dependence on scroll animation.
  */
 export function ProcessSteps() {
@@ -172,7 +172,7 @@ export function ProcessSteps() {
               <span className="relative block h-full w-full rounded-full border border-st-accent bg-st-bg transition-colors duration-500 ease-st-out group-data-[active=true]/marker:bg-st-accent" />
             </span>
 
-            <Reveal>
+            <Reveal trigger="mount">
               <span className="font-st-sans text-st-eyebrow font-medium tracking-[0.18em] text-st-accent uppercase">
                 {String(i + 1).padStart(2, "0")}
               </span>

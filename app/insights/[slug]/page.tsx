@@ -53,7 +53,7 @@ export default async function Page({ params }: PageProps) {
         container="narrow"
         className="pt-44 pb-st-section-sm"
       >
-        <Reveal variant="fade">
+        <Reveal trigger="mount" variant="fade">
           <Eyebrow>Insights</Eyebrow>
         </Reveal>
         <SplitText
@@ -63,12 +63,12 @@ export default async function Page({ params }: PageProps) {
         >
           {post.title}
         </SplitText>
-        <Reveal variant="fade" delay={0.45}>
+        <Reveal trigger="mount" variant="fade" delay={0.45}>
           <p className="mt-6 font-st-sans text-st-small text-st-muted">
             {formatDate(post.date)} · {readingTime(post)}
           </p>
         </Reveal>
-        <Reveal variant="fade" delay={0.55}>
+        <Reveal trigger="mount" variant="fade" delay={0.55}>
           <div className="mt-8 h-px w-16 bg-st-accent/40" />
         </Reveal>
       </Section>
@@ -81,7 +81,7 @@ export default async function Page({ params }: PageProps) {
             {post.body.map((block, i) => {
               if (block.type === "h2") {
                 return (
-                  <Reveal key={i} variant="fade" duration={0.8}>
+                  <Reveal trigger="mount" key={i} variant="fade" duration={0.8}>
                     <h2 className="mt-16 scroll-mt-28 font-st-display text-st-h3 tracking-tight text-st-ink">
                       {block.text}
                     </h2>
@@ -90,7 +90,7 @@ export default async function Page({ params }: PageProps) {
               }
               if (block.type === "quote") {
                 return (
-                  <Reveal key={i} variant="fade" duration={0.8}>
+                  <Reveal trigger="mount" key={i} variant="fade" duration={0.8}>
                     <blockquote className="mt-10 border-l-2 border-st-accent/50 pl-6 font-st-display text-st-h3 leading-snug text-st-ink">
                       {block.text}
                     </blockquote>
@@ -98,7 +98,7 @@ export default async function Page({ params }: PageProps) {
                 );
               }
               return (
-                <Reveal key={i} variant="fade" duration={0.8}>
+                <Reveal trigger="mount" key={i} variant="fade" duration={0.8}>
                   <p
                     className={
                       "mt-7 text-st-body-lg leading-relaxed text-st-ink-soft" +
@@ -122,7 +122,7 @@ export default async function Page({ params }: PageProps) {
             })}
           </div>
 
-          <Reveal variant="fade" duration={0.8}>
+          <Reveal trigger="mount" variant="fade" duration={0.8}>
             <div className="mt-12">
               <Button variant="ghost" href="/insights">
                 ← All insights

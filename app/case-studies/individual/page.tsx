@@ -242,7 +242,12 @@ export default function IndividualCaseStudyPage() {
 
         <div className="mt-12 grid gap-6 lg:gap-8">
           {TRADE_OFFS.map((item, i) => (
-            <Reveal key={item.title} variant="up" delay={i * 0.05}>
+            <Reveal
+              trigger="mount"
+              key={item.title}
+              variant="up"
+              delay={i * 0.05}
+            >
               <div className="rounded-st-lg border border-st-line bg-st-surface p-7 sm:p-8">
                 <h3 className="font-st-display text-st-h3 text-st-ink">
                   {item.title}

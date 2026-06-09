@@ -31,16 +31,20 @@ export function ServiceList({
 }: ServiceListProps) {
   return (
     <Section id={id} tone={tone}>
-      <Reveal variant="fade" duration={0.8}>
+      <Reveal trigger="mount" variant="fade" duration={0.8}>
         <Eyebrow>{eyebrow}</Eyebrow>
       </Reveal>
-      <Reveal variant="clip">
+      <Reveal trigger="mount" variant="clip">
         <h2 className="mt-6 max-w-2xl font-st-display text-st-h1">{title}</h2>
       </Reveal>
       <ul className="mt-14 border-t border-st-line">
         {items.map((item, i) => (
           <li key={item.lead} className="border-b border-st-line">
-            <Reveal variant="up" delay={Math.min(i * 0.08, 0.32)}>
+            <Reveal
+              trigger="mount"
+              variant="up"
+              delay={Math.min(i * 0.08, 0.32)}
+            >
               <div className="grid gap-3 py-8 md:grid-cols-[5rem_minmax(0,18rem)_1fr] md:items-baseline md:gap-8">
                 <span
                   aria-hidden

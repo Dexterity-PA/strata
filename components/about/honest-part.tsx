@@ -10,13 +10,13 @@ import { Section } from "@/components/layout/section";
 export function HonestPart() {
   return (
     <Section tone="inverse" container="narrow">
-      <Reveal variant="fade" duration={0.8}>
+      <Reveal trigger="mount" variant="fade" duration={0.8}>
         <h2>
           <Eyebrow tone="inverse">The honest part</Eyebrow>
         </h2>
       </Reveal>
 
-      <Reveal delay={0.15} duration={0.9}>
+      <Reveal trigger="mount" delay={0.15} duration={0.9}>
         <p className="mt-8 font-st-display text-st-h3 text-st-paper">
           Strata offers education and planning support, not licensed financial
           advice. I&rsquo;ll always be upfront about what I can and can&rsquo;t
@@ -33,7 +33,7 @@ export function HonestPart() {
         </p>
       </Reveal>
 
-      <Reveal variant="fade" delay={0.3} className="mt-12">
+      <Reveal trigger="mount" variant="fade" delay={0.3} className="mt-12">
         <Button
           href="/contact"
           className="bg-st-paper text-st-ink hover:bg-st-surface hover:shadow-st-md"

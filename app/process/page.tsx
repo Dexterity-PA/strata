@@ -17,7 +17,7 @@ export default function Page() {
   return (
     <>
       <Section spacing="none" className="pt-44 pb-st-section">
-        <Reveal variant="fade" duration={0.8}>
+        <Reveal trigger="mount" variant="fade" duration={0.8}>
           <Eyebrow>Process</Eyebrow>
         </Reveal>
         <SplitText
@@ -34,13 +34,13 @@ export default function Page() {
       </Section>
 
       <Section tone="surface" container="narrow">
-        <Reveal duration={0.9}>
+        <Reveal trigger="mount" duration={0.9}>
           <p className="font-st-display text-st-h3 text-st-ink">
             Every step is free, and you&rsquo;re never under any obligation to
             continue.
           </p>
         </Reveal>
-        <Reveal variant="fade" delay={0.2} duration={0.9}>
+        <Reveal trigger="mount" variant="fade" delay={0.2} duration={0.9}>
           <div className="mt-10">
             <Button href="/contact">Reach out</Button>
           </div>

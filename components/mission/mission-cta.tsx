@@ -23,20 +23,20 @@ export function MissionCta() {
         className="opacity-80"
       />
       <Container size="narrow" className="relative">
-        <Reveal variant="fade" duration={0.8}>
+        <Reveal trigger="mount" variant="fade" duration={0.8}>
           <h2>
             <Eyebrow tone="inverse">Put it to use</Eyebrow>
           </h2>
         </Reveal>
 
-        <Reveal variant="fade" delay={0.15} duration={0.9}>
+        <Reveal trigger="mount" variant="fade" delay={0.15} duration={0.9}>
           <p className="mt-8 max-w-2xl font-st-display text-st-h3 text-st-paper">
             If any of this is the kind of help you have been looking for, the
             door is open and there is no cost to walk through it.
           </p>
         </Reveal>
 
-        <Reveal variant="fade" delay={0.3} className="mt-10">
+        <Reveal trigger="mount" variant="fade" delay={0.3} className="mt-10">
           <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
             <Button
               href="/services"
