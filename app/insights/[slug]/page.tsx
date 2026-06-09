@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ReadingProgress } from "@/components/insights/reading-progress";
 import { ArticleTool } from "@/components/insights/article-tool";
 import { PostFooter } from "@/components/insights/post-footer";
+import { ProseLink } from "@/components/case-studies/prose-link";
 import { POSTS, formatDate, getPost, readingTime } from "../posts";
 
 interface PageProps {
@@ -104,7 +105,17 @@ export default async function Page({ params }: PageProps) {
                       (i === firstParagraph ? ` ${DROP_CAP}` : "")
                     }
                   >
-                    {block.text}
+                    {typeof block.text === "string"
+                      ? block.text
+                      : block.text.map((span, j) =>
+                          typeof span === "string" ? (
+                            span
+                          ) : (
+                            <ProseLink key={j} href={span.href}>
+                              {span.text}
+                            </ProseLink>
+                          ),
+                        )}
                   </p>
                 </Reveal>
               );

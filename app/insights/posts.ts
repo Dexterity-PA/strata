@@ -4,10 +4,26 @@
  * existing typography, without a markdown pipeline.
  */
 
+/**
+ * A run of inline content inside a paragraph: a plain string, or a prose link
+ * (rendered with the site's gold-underline ProseLink). Lets a paragraph carry
+ * an inline link to a tool or glossary page without a markdown pipeline.
+ */
+export type Inline = string | { text: string; href: string };
+
 export type PostBlock =
-  | { type: "p"; text: string }
+  | { type: "p"; text: string | Inline[] }
   | { type: "h2"; text: string }
   | { type: "quote"; text: string };
+
+/** Flatten a block to plain text, for word counts and meta. */
+function blockText(block: PostBlock): string {
+  const { text } = block;
+  if (typeof text === "string") return text;
+  return text
+    .map((span) => (typeof span === "string" ? span : span.text))
+    .join("");
+}
 
 /** An interactive tool embedded near the end of an article body. */
 export type PostTool = "buffer" | "debt";
@@ -29,7 +45,8 @@ const WORDS_PER_MINUTE = 200;
 /** Reading time computed from the actual body word count. */
 export function readingTime(post: Post): string {
   const words = post.body.reduce(
-    (count, block) => count + block.text.split(/\s+/).filter(Boolean).length,
+    (count, block) =>
+      count + blockText(block).split(/\s+/).filter(Boolean).length,
     0,
   );
   return `${Math.max(1, Math.round(words / WORDS_PER_MINUTE))} min read`;
@@ -61,6 +78,80 @@ export function getPost(slug: string): Post | undefined {
 }
 
 export const POSTS: Post[] = [
+  {
+    slug: "what-an-interest-rate-actually-costs-you",
+    title: "What an interest rate actually costs you",
+    excerpt:
+      "A rate is easy to nod at and hard to feel. Turning the percentage back into dollars is how the cost stops being abstract.",
+    date: "2026-06-08",
+    body: [
+      {
+        type: "p",
+        text: "A rate is easy to nod at and hard to feel. “Twenty-two percent” sounds like a number on a statement, not like money leaving your pocket. So it helps to turn the percentage back into dollars, because that is the form the cost actually arrives in.",
+      },
+      {
+        type: "p",
+        text: "Say you carry $3,000 on a card at 22 percent and pay only the minimum. Most of that first payment does not touch what you borrowed. It goes to interest, the fee for keeping the balance another month. The principal, the actual $3,000, barely moves. The next month, interest is charged again on a balance that is almost as big as it was before. That is the part that catches people: you can make a payment every month, on time, and watch the balance sit nearly still. You are paying to stand in place.",
+      },
+      {
+        type: "p",
+        text: "The longer a balance lives, the more this compounds against you. A debt you stretch over years can quietly cost you a large share of the original amount again, just in interest, before it is gone. The same logic runs in reverse on the saving side, where time works for you instead of against you. On debt, time is the thing charging rent.",
+      },
+      {
+        type: "p",
+        text: "Two numbers change the story more than anything else: the rate, and how long you carry the balance. A lower rate slows the meter. A shorter payoff window shuts it off sooner. You do not need a formula to use this. You need to know that every extra month is another month of rent on money you already spent, and that paying anything above the minimum goes after the balance itself, which is the only thing that actually ends the cycle.",
+      },
+      {
+        type: "p",
+        text: [
+          "If you want to see this in real numbers for a debt you are carrying, the ",
+          { text: "single-debt cost tool", href: "/tools/debt-cost" },
+          " shows what one balance costs you over time and how long it takes to clear. Seeing your own figure tends to land harder than any example.",
+        ],
+      },
+      {
+        type: "p",
+        text: "None of this is a verdict on your situation. It is just the mechanism, laid out plainly, so the number on the statement stops being abstract.",
+      },
+    ],
+  },
+  {
+    slug: "emergency-fund-how-big-and-why",
+    title: "Emergency fund: how big, and why",
+    excerpt:
+      "“Three to six months” answers a question you have not asked yet. Start with what you are actually protecting against, and the size follows.",
+    date: "2026-06-06",
+    body: [
+      {
+        type: "p",
+        text: "Most advice about emergency funds skips the only question that matters to the person asking: how much is enough? “Three to six months of expenses” gets repeated so often it has stopped meaning anything. It is a fine starting point, but it is an answer to a question you have not asked yet, which is what you are actually protecting against.",
+      },
+      {
+        type: "p",
+        text: "An emergency fund is not a savings goal in the usual sense. It is insurance you pay yourself. Its job is narrow: to keep one bad event, a lost job, a broken-down car, a medical bill, a slow month, from turning into a cascade where you borrow at a high rate, miss other payments, and dig a hole that takes far longer to climb out of than the original problem deserved. The fund exists to absorb the shock so the rest of your finances keep standing.",
+      },
+      {
+        type: "p",
+        text: "That reframing answers the size question better than any rule of thumb. The right number depends on how exposed you are and how fast money would stop. Someone with steady pay, low fixed costs, and other people who could help is exposed to less than someone with irregular income, a mortgage, dependents, and no backstop. A one-income household needs a deeper cushion than a two-income one, because there is no second paycheck to lean on while the first is rebuilt. The more uneven your income or the higher your fixed costs, the more months you want sitting in reserve.",
+      },
+      {
+        type: "p",
+        text: "The other half of the picture is where it lives. An emergency fund only works if you can reach it the day you need it, without selling something at a loss or waiting days for a transfer. That usually points toward something boring and liquid rather than anything invested for growth. The point of this money is not to earn; it is to be there.",
+      },
+      {
+        type: "p",
+        text: [
+          "The hardest part is rarely the logic. It is starting when the full target feels impossibly far off. A first cushion, even a small one, changes your options the next time something goes wrong, and you build toward the larger number from there. If you want a figure to aim at based on your own costs, the ",
+          { text: "emergency fund tool", href: "/tools/emergency-fund" },
+          " sizes a target and shows how long it would take to build at a pace you set.",
+        ],
+      },
+      {
+        type: "p",
+        text: "This is the reasoning, not a recommendation for your situation. What counts as enough is yours to decide, and the honest answer is that it depends on what you are protecting.",
+      },
+    ],
+  },
   {
     slug: "reading-your-own-cash-flow",
     title: "Reading your own cash flow",
