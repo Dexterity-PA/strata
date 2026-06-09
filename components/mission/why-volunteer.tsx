@@ -13,14 +13,14 @@ const LINK_CLASS =
 export function WhyVolunteer() {
   return (
     <Section tone="surface" container="narrow">
-      <Reveal variant="fade" duration={0.8}>
+      <Reveal trigger="mount" variant="fade" duration={0.8}>
         <h2>
           <Eyebrow>Why student-led, why volunteer</Eyebrow>
         </h2>
       </Reveal>
 
       <div className="mt-8 space-y-6">
-        <Reveal variant="fade" delay={0.1} duration={0.9}>
+        <Reveal trigger="mount" variant="fade" delay={0.1} duration={0.9}>
           <p className="text-st-body-lg text-st-ink">
             Strata is run by a high school student, on a volunteer basis. That
             is not a disclaimer to apologize for. It is the part that keeps the
@@ -28,7 +28,7 @@ export function WhyVolunteer() {
           </p>
         </Reveal>
 
-        <Reveal variant="fade" delay={0.2} duration={0.9}>
+        <Reveal trigger="mount" variant="fade" delay={0.2} duration={0.9}>
           <p className="text-st-body-lg text-st-muted">
             With no fees to collect and no products to place, there is nothing
             quietly steering the conversation away from your interests. The
@@ -38,7 +38,7 @@ export function WhyVolunteer() {
           </p>
         </Reveal>
 
-        <Reveal variant="fade" delay={0.3} duration={0.9}>
+        <Reveal trigger="mount" variant="fade" delay={0.3} duration={0.9}>
           <p className="text-st-body-lg text-st-muted">
             You can read more about who is behind Strata on the{" "}
             <a href="/about" className={LINK_CLASS}>

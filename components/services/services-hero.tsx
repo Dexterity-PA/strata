@@ -7,7 +7,7 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 export function ServicesHero() {
   return (
     <Section className="pt-44">
-      <Reveal variant="fade" duration={0.8}>
+      <Reveal trigger="mount" variant="fade" duration={0.8}>
         <Eyebrow>Services</Eyebrow>
       </Reveal>
       <SplitText
@@ -18,6 +18,7 @@ export function ServicesHero() {
         Services
       </SplitText>
       <Reveal
+        trigger="mount"
         variant="fade"
         delay={0.7}
         duration={0.9}

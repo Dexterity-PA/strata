@@ -174,7 +174,7 @@ export default function Page() {
         container="narrow"
         className="pt-44 pb-st-section-sm"
       >
-        <Reveal variant="fade" duration={0.8}>
+        <Reveal trigger="mount" variant="fade" duration={0.8}>
           <Eyebrow>FAQ</Eyebrow>
         </Reveal>
         <SplitText
@@ -187,7 +187,7 @@ export default function Page() {
       </Section>
 
       <Section spacing="none" container="narrow" className="pb-st-section">
-        <Reveal variant="fade" delay={0.3}>
+        <Reveal trigger="mount" variant="fade" delay={0.3}>
           <div className="space-y-16">
             {FAQ_SECTIONS.map((section, i) => (
               <div key={section.title}>
@@ -203,7 +203,7 @@ export default function Page() {
             ))}
           </div>
         </Reveal>
-        <Reveal variant="up" delay={0.15}>
+        <Reveal trigger="mount" variant="up" delay={0.15}>
           <div className="mt-16">
             <p className="font-st-display text-st-h3 text-st-ink">
               Still have a question?

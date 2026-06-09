@@ -29,17 +29,17 @@ export function CaseStudyCta({ headline }: CaseStudyCtaProps) {
         className="opacity-80"
       />
       <Container size="narrow" className="relative">
-        <Reveal variant="fade" duration={0.8}>
+        <Reveal trigger="mount" variant="fade" duration={0.8}>
           <h2>
             <Eyebrow tone="inverse">One way of thinking, not advice</Eyebrow>
           </h2>
         </Reveal>
-        <Reveal variant="fade" delay={0.15} duration={0.9}>
+        <Reveal trigger="mount" variant="fade" delay={0.15} duration={0.9}>
           <p className="mt-8 font-st-display text-st-h3 text-st-paper">
             {headline}
           </p>
         </Reveal>
-        <Reveal variant="fade" delay={0.25} duration={0.9}>
+        <Reveal trigger="mount" variant="fade" delay={0.25} duration={0.9}>
           <p className="mt-6 max-w-2xl text-st-body text-st-paper/70">
             This walkthrough used made-up numbers to show how someone might
             reason through a situation like this. It is education, not financial
@@ -47,7 +47,7 @@ export function CaseStudyCta({ headline }: CaseStudyCtaProps) {
             someone, that is what a conversation is for.
           </p>
         </Reveal>
-        <Reveal variant="fade" delay={0.35} className="mt-10">
+        <Reveal trigger="mount" variant="fade" delay={0.35} className="mt-10">
           <Button
             href="/contact"
             className="bg-st-paper text-st-ink hover:bg-st-surface hover:shadow-st-md"

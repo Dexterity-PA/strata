@@ -52,15 +52,15 @@ export function WhatWeOffer() {
     <Section container="none" className="bg-st-bg">
       <div className="mx-auto w-full max-w-5xl px-st-gutter">
         <div className="max-w-2xl">
-          <Reveal variant="fade" duration={0.8}>
+          <Reveal trigger="mount" variant="fade" duration={0.8}>
             <Eyebrow>What is available</Eyebrow>
           </Reveal>
-          <Reveal variant="clip">
+          <Reveal trigger="mount" variant="clip">
             <h2 className="mt-6 font-st-display text-st-h1 text-st-ink">
               Free materials you can use today
             </h2>
           </Reveal>
-          <Reveal variant="up" delay={0.1}>
+          <Reveal trigger="mount" variant="up" delay={0.1}>
             <p className="mt-6 font-st-sans text-st-body leading-relaxed text-st-muted">
               Everything below is already on this site, free to use with a
               class, a club, or a community group. Take what is useful, work
@@ -69,7 +69,7 @@ export function WhatWeOffer() {
           </Reveal>
         </div>
 
-        <Reveal variant="up" delay={0.05} className="mt-12">
+        <Reveal trigger="mount" variant="up" delay={0.05} className="mt-12">
           <ul className="grid gap-px overflow-hidden rounded-st-md border border-st-line bg-st-line sm:grid-cols-2">
             {OFFERINGS.map((offering) => (
               <li key={offering.href} className="h-full">

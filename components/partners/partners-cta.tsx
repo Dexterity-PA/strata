@@ -19,14 +19,14 @@ export function PartnersCta() {
         <SplitText as="h2" className="font-st-display text-st-h1 text-st-paper">
           Start a conversation
         </SplitText>
-        <Reveal variant="fade" delay={0.5}>
+        <Reveal trigger="mount" variant="fade" delay={0.5}>
           <p className="mt-7 text-st-body-lg text-st-paper/70">
             If you would like to use these materials with your group, or talk
             about a session, get in touch and tell us a little about your school
             or organization. There is no cost and no obligation.
           </p>
         </Reveal>
-        <Reveal variant="fade" delay={0.75}>
+        <Reveal trigger="mount" variant="fade" delay={0.75}>
           <div className="mt-11">
             <Button
               href="/contact"
@@ -36,7 +36,7 @@ export function PartnersCta() {
             </Button>
           </div>
         </Reveal>
-        <Reveal variant="fade" delay={0.9}>
+        <Reveal trigger="mount" variant="fade" delay={0.9}>
           <p className="mt-8 text-st-body text-st-paper/70">
             Or email directly:{" "}
             <a

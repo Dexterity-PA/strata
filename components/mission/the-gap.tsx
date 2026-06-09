@@ -10,14 +10,14 @@ import { Section } from "@/components/layout/section";
 export function TheGap() {
   return (
     <Section tone="surface" container="narrow">
-      <Reveal variant="fade" duration={0.8}>
+      <Reveal trigger="mount" variant="fade" duration={0.8}>
         <h2>
           <Eyebrow>The gap</Eyebrow>
         </h2>
       </Reveal>
 
       <div className="mt-8 space-y-6">
-        <Reveal variant="fade" delay={0.1} duration={0.9}>
+        <Reveal trigger="mount" variant="fade" delay={0.1} duration={0.9}>
           <p className="text-st-body-lg text-st-ink">
             Good financial guidance has long been organized around people who
             already have money to manage. Most of it is sold as a service, which
@@ -27,7 +27,7 @@ export function TheGap() {
           </p>
         </Reveal>
 
-        <Reveal variant="fade" delay={0.2} duration={0.9}>
+        <Reveal trigger="mount" variant="fade" delay={0.2} duration={0.9}>
           <p className="text-st-body-lg text-st-muted">
             At the same time, ordinary money decisions have not gotten any
             simpler. Choosing a repayment order, sizing a savings buffer,
@@ -39,7 +39,7 @@ export function TheGap() {
           </p>
         </Reveal>
 
-        <Reveal variant="fade" delay={0.3} duration={0.9}>
+        <Reveal trigger="mount" variant="fade" delay={0.3} duration={0.9}>
           <p className="text-st-body-lg text-st-muted">
             Strata does not pretend to fix that gap at any scale. It is one
             person offering to sit on the same side of the table as you and work

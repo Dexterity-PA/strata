@@ -22,7 +22,7 @@ export default function Page() {
         container="narrow"
         className="pt-44 pb-st-section-sm"
       >
-        <Reveal variant="fade" duration={0.8}>
+        <Reveal trigger="mount" variant="fade" duration={0.8}>
           <Eyebrow>Insights</Eyebrow>
         </Reveal>
         <SplitText
@@ -32,7 +32,7 @@ export default function Page() {
         >
           Notes on money, made readable
         </SplitText>
-        <Reveal variant="fade" delay={0.7} duration={0.9}>
+        <Reveal trigger="mount" variant="fade" delay={0.7} duration={0.9}>
           <p className="mt-6 max-w-xl text-st-body-lg text-st-muted">
             Short, practical writing on the financial questions small businesses
             and individuals actually face, with no jargon and nothing to sell.
@@ -52,7 +52,12 @@ export default function Page() {
               key={post.slug}
               className="-mt-px -ml-px border-t border-l border-st-line bg-st-surface"
             >
-              <Reveal variant="up" delay={i * 0.08} className="h-full">
+              <Reveal
+                trigger="mount"
+                variant="up"
+                delay={i * 0.08}
+                className="h-full"
+              >
                 <Link
                   href={`/insights/${post.slug}`}
                   className="group flex h-full flex-col p-8"
@@ -83,7 +88,12 @@ export default function Page() {
               slots after it in the final row stay paper, so the count of
               posts never matters. */}
           <li className="-mt-px -ml-px border-t border-l border-st-line bg-st-surface">
-            <Reveal variant="up" delay={POSTS.length * 0.08} className="h-full">
+            <Reveal
+              trigger="mount"
+              variant="up"
+              delay={POSTS.length * 0.08}
+              className="h-full"
+            >
               <div className="flex h-full flex-col justify-center p-8">
                 <span aria-hidden className="h-px w-8 bg-st-accent" />
                 <p className="mt-6 font-st-display text-st-h3 text-st-ink">
@@ -97,7 +107,7 @@ export default function Page() {
             </Reveal>
           </li>
         </ul>
-        <Reveal variant="fade" delay={0.15}>
+        <Reveal trigger="mount" variant="fade" delay={0.15}>
           <div className="mt-12 text-center">
             <Button href="/contact">Start a conversation</Button>
           </div>

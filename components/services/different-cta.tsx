@@ -10,10 +10,10 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 export function DifferentCta() {
   return (
     <Section tone="inverse" container="narrow">
-      <Reveal variant="fade" duration={0.8}>
+      <Reveal trigger="mount" variant="fade" duration={0.8}>
         <Eyebrow tone="inverse">How we&rsquo;re different</Eyebrow>
       </Reveal>
-      <Reveal variant="clip">
+      <Reveal trigger="mount" variant="clip">
         <p className="mt-8 font-st-display text-st-h2 leading-snug text-st-paper">
           We don&rsquo;t sell anything. We&rsquo;re not paid by banks, funds, or
           anyone else. There&rsquo;s no upsell at the end because there&rsquo;s
@@ -21,7 +21,7 @@ export function DifferentCta() {
           you, not a product.
         </p>
       </Reveal>
-      <Reveal variant="fade" delay={0.3} className="mt-12">
+      <Reveal trigger="mount" variant="fade" delay={0.3} className="mt-12">
         <Button
           href="/contact"
           className="bg-st-paper text-st-ink hover:bg-st-surface hover:shadow-st-md"

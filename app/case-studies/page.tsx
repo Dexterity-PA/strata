@@ -78,7 +78,7 @@ export default function CaseStudiesIndexPage() {
         <ul className="grid gap-6 lg:gap-8">
           {CASE_STUDIES.map((study, i) => (
             <li key={study.href}>
-              <Reveal variant="up" delay={i * 0.05}>
+              <Reveal trigger="mount" variant="up" delay={i * 0.05}>
                 <Link
                   href={study.href}
                   className="group block rounded-st-lg border border-st-line bg-st-bg p-8 transition-[border-color,box-shadow,transform] duration-(--st-dur-fast) ease-st-out hover:-translate-y-0.5 hover:border-st-accent hover:shadow-st-md sm:p-10"

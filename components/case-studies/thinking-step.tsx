@@ -31,7 +31,7 @@ export function ThinkingStep({
 }: ThinkingStepProps) {
   return (
     <article className={cn("max-w-3xl", className)}>
-      <Reveal variant="fade">
+      <Reveal trigger="mount" variant="fade">
         <div className="flex items-center gap-4">
           <span
             aria-hidden
@@ -42,10 +42,10 @@ export function ThinkingStep({
           <Eyebrow>{label}</Eyebrow>
         </div>
       </Reveal>
-      <Reveal variant="fade" delay={0.1}>
+      <Reveal trigger="mount" variant="fade" delay={0.1}>
         <h2 className="mt-5 font-st-display text-st-h2 text-st-ink">{title}</h2>
       </Reveal>
-      <Reveal variant="fade" delay={0.15}>
+      <Reveal trigger="mount" variant="fade" delay={0.15}>
         <div className="mt-6 space-y-5 text-st-body-lg text-st-muted">
           {children}
         </div>

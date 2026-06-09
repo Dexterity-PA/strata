@@ -28,7 +28,7 @@ export default function ResourcesPage() {
         />
         <div className="relative mx-auto w-full max-w-5xl px-st-gutter">
           <header className="max-w-2xl">
-            <Reveal variant="fade">
+            <Reveal trigger="mount" variant="fade">
               <Eyebrow>Resources</Eyebrow>
             </Reveal>
             <SplitText
@@ -37,7 +37,7 @@ export default function ResourcesPage() {
             >
               Guides and worksheets to take with you
             </SplitText>
-            <Reveal variant="up" delay={0.1}>
+            <Reveal trigger="mount" variant="up" delay={0.1}>
               <p className="mt-6 font-st-sans text-st-body-lg leading-relaxed text-st-muted">
                 A curated set of printable guides and fillable worksheets for
                 the everyday work of planning: building a budget, watching your
@@ -58,7 +58,7 @@ export default function ResourcesPage() {
         <div className="flex flex-col gap-16 lg:gap-20">
           {RESOURCE_GROUPS.map((group) => (
             <div key={group.category}>
-              <Reveal variant="up">
+              <Reveal trigger="mount" variant="up">
                 <div className="max-w-2xl">
                   <h2 className="font-st-display text-st-h2 text-st-ink">
                     {group.category}
@@ -68,7 +68,12 @@ export default function ResourcesPage() {
                   </p>
                 </div>
               </Reveal>
-              <Reveal variant="up" delay={0.05} className="mt-8">
+              <Reveal
+                trigger="mount"
+                variant="up"
+                delay={0.05}
+                className="mt-8"
+              >
                 <ul className="grid gap-px overflow-hidden rounded-st-md border border-st-line bg-st-line sm:grid-cols-2">
                   {group.resources.map((resource) => (
                     <li key={resource.href} className="h-full">
@@ -97,14 +102,14 @@ export default function ResourcesPage() {
           >
             Want a second set of eyes?
           </SplitText>
-          <Reveal variant="fade" delay={0.5}>
+          <Reveal trigger="mount" variant="fade" delay={0.5}>
             <p className="mt-7 text-st-body-lg text-st-paper/70">
               These templates are yours to use freely. If working through one
               raises a question, start a conversation and we can look at it
               together.
             </p>
           </Reveal>
-          <Reveal variant="fade" delay={0.75}>
+          <Reveal trigger="mount" variant="fade" delay={0.75}>
             <div className="mt-11">
               <Button
                 href="/contact"

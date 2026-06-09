@@ -34,22 +34,22 @@ export function PostFooter({ post }: PostFooterProps) {
 
       <Container size="narrow" className="relative">
         {/* Author + CTA */}
-        <Reveal variant="fade">
+        <Reveal trigger="mount" variant="fade">
           <Eyebrow>Written by</Eyebrow>
         </Reveal>
-        <Reveal variant="up" delay={0.08}>
+        <Reveal trigger="mount" variant="up" delay={0.08}>
           <p className="mt-5 font-st-display text-st-h3 text-st-ink">
             Praneeth Annapureddy
           </p>
         </Reveal>
-        <Reveal variant="fade" delay={0.16}>
+        <Reveal trigger="mount" variant="fade" delay={0.16}>
           <p className="mt-3 max-w-md font-st-sans text-st-body text-st-muted">
             Strata is a student-led volunteer initiative offering free financial
             education and planning support.
           </p>
         </Reveal>
 
-        <Reveal variant="up" delay={0.24}>
+        <Reveal trigger="mount" variant="up" delay={0.24}>
           <div className="mt-10 rounded-st-lg border border-st-line bg-st-surface p-8 shadow-st-sm sm:p-10">
             <p className="font-st-display text-st-h3 text-st-ink">
               Start a conversation. It&rsquo;s free.
@@ -67,13 +67,13 @@ export function PostFooter({ post }: PostFooterProps) {
         {/* Keep reading */}
         {keepReading.length > 0 ? (
           <div className="mt-16 border-t border-st-line pt-10">
-            <Reveal variant="fade">
+            <Reveal trigger="mount" variant="fade">
               <Eyebrow>Keep reading</Eyebrow>
             </Reveal>
             <ul className="mt-8 grid gap-px overflow-hidden rounded-st-md border border-st-line bg-st-line sm:grid-cols-2">
               {keepReading.map((other, i) => (
                 <li key={other.slug}>
-                  <Reveal variant="fade" delay={0.1 + i * 0.1}>
+                  <Reveal trigger="mount" variant="fade" delay={0.1 + i * 0.1}>
                     <Link
                       href={`/insights/${other.slug}`}
                       className="group flex h-full flex-col bg-st-bg p-7 transition-colors duration-(--st-dur-base) ease-st-out hover:bg-st-surface"

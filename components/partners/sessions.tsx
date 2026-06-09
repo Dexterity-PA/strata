@@ -31,15 +31,15 @@ const TOPICS = [
 export function Sessions() {
   return (
     <Section tone="surface" container="narrow">
-      <Reveal variant="fade" duration={0.8}>
+      <Reveal trigger="mount" variant="fade" duration={0.8}>
         <Eyebrow>Volunteer-led sessions</Eyebrow>
       </Reveal>
-      <Reveal variant="clip">
+      <Reveal trigger="mount" variant="clip">
         <h2 className="mt-6 font-st-display text-st-h1 text-st-ink">
           Sessions for classes and community groups
         </h2>
       </Reveal>
-      <Reveal variant="up" delay={0.1} className="mt-7">
+      <Reveal trigger="mount" variant="up" delay={0.1} className="mt-7">
         <p className="font-st-sans text-st-body-lg leading-relaxed text-st-muted">
           Beyond the materials you can use on your own, our volunteers can meet
           with a class or a community group to walk through a financial topic
@@ -51,7 +51,11 @@ export function Sessions() {
       <ul className="mt-12 border-t border-st-line">
         {TOPICS.map((topic, i) => (
           <li key={topic.lead} className="border-b border-st-line">
-            <Reveal variant="up" delay={Math.min(i * 0.08, 0.32)}>
+            <Reveal
+              trigger="mount"
+              variant="up"
+              delay={Math.min(i * 0.08, 0.32)}
+            >
               <div className="grid gap-2 py-6 md:grid-cols-[minmax(0,16rem)_1fr] md:items-baseline md:gap-8">
                 <h3 className="font-st-display text-st-h3 text-st-ink">
                   {topic.lead}
@@ -65,7 +69,7 @@ export function Sessions() {
         ))}
       </ul>
 
-      <Reveal variant="up" delay={0.1} className="mt-10">
+      <Reveal trigger="mount" variant="up" delay={0.1} className="mt-10">
         <p className="font-st-sans text-st-body leading-relaxed text-st-muted">
           Because Strata is run by student volunteers, sessions are arranged as
           people and time allow. A session is education and planning support,
