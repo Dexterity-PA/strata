@@ -430,9 +430,9 @@ function Confirmation({
 
       <div className="grid gap-4 text-st-body-lg text-st-muted">
         <p>
-          I will read this myself and get back to you, usually within a few
-          days, to find a time to talk. That might be a short call or a
-          back-and-forth over email, whichever is easier for you.
+          I will read this myself and get back to you to find a time to talk.
+          That might be a short call or a back-and-forth over email, whichever
+          is easier for you.
         </p>
         <p>
           There is no cost and no obligation, and nothing here turns into a
