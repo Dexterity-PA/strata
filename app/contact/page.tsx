@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
   title: "Contact",
   description:
-    "The first step is just a few short questions. Tell me what is on your mind and I'll get back to you, usually within a few days.",
+    "The first step is just a few short questions. Tell me what is on your mind and I'll get back to you to find a time to talk.",
 };
 
 const CONTACT_EMAIL = "hello@stratafinancialplanning.com";
@@ -36,7 +36,7 @@ export default function Page() {
           <p className="mt-6 max-w-xl text-st-body-lg text-st-muted">
             The first step is just a few short questions, no pressure and no
             obligation. Tell me what is on your mind and I&apos;ll get back to
-            you, usually within a few days.
+            you to find a time to talk.
           </p>
         </Reveal>
       </Section>

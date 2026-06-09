@@ -61,7 +61,7 @@ export function Hero() {
 
         <Reveal variant="fade" delay={0.95} duration={0.9}>
           <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
-            <Button href="/contact">Start a conversation</Button>
+            <Button href="/start">Start here</Button>
             <ScrollToButton target="#process">See how it works</ScrollToButton>
           </div>
         </Reveal>

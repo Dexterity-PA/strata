@@ -28,7 +28,7 @@ const OFFERINGS: Offering[] = [
     kind: "Planning tools",
     name: "Interactive calculators",
     description:
-      "Plain-language tools for breakeven, cash runway, pricing, an emergency fund target, and two ways to look at debt. Nothing is stored, and every result is an educational estimate.",
+      "Plain-language tools for breakeven, cash runway, pricing and margin, a slow-season buffer, an emergency fund target, compound growth, and two ways to look at debt. Nothing is stored, and every result is an educational estimate.",
     href: "/tools",
   },
   {

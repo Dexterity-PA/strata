@@ -31,6 +31,7 @@ export function isNavGroup(item: NavItem): item is NavGroup {
  */
 export const NAV_LINKS: readonly NavItem[] = [
   { label: "Home", href: "/" },
+  { label: "Start here", href: "/start" },
   { label: "Services", href: "/services" },
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
@@ -71,5 +72,6 @@ function flattenNavItems(items: readonly NavItem[]): NavLink[] {
 export const FOOTER_EXPLORE_LINKS: readonly NavLink[] = [
   ...flattenNavItems(NAV_LINKS).filter((l) => l.href !== "/"),
   { label: "For schools", href: "/partners" },
+  { label: "Prep sheet", href: "/prep" },
   { label: "FAQ", href: "/faq" },
 ];

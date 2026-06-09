@@ -9,6 +9,7 @@ import { POSTS } from "@/app/insights/posts";
  */
 const STATIC_ROUTES = [
   "",
+  "/start",
   "/services",
   "/pricing",
   "/about",
