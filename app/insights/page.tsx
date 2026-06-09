@@ -42,9 +42,16 @@ export default function Page() {
       </Section>
 
       <Section spacing="none" className="pb-st-section">
-        <ul className="grid gap-px overflow-hidden rounded-st-md border border-st-line bg-st-line sm:grid-cols-2 lg:grid-cols-3">
+        {/* Hairlines are drawn by each cell's own top/left border (pulled over
+            its neighbor with negative margins), and the container background is
+            paper. So an incomplete final row reads as paper rather than the
+            border color, for any number of posts. */}
+        <ul className="grid overflow-hidden rounded-st-md border border-st-line bg-st-surface sm:grid-cols-2 lg:grid-cols-3">
           {POSTS.map((post, i) => (
-            <li key={post.slug} className="bg-st-surface">
+            <li
+              key={post.slug}
+              className="-mt-px -ml-px border-t border-l border-st-line bg-st-surface"
+            >
               <Reveal variant="up" delay={i * 0.08} className="h-full">
                 <Link
                   href={`/insights/${post.slug}`}
@@ -72,10 +79,10 @@ export default function Page() {
               </Reveal>
             </li>
           ))}
-          {/* Filler cell: keeps the last grid row complete (6 cells = even
-              rows at both 2 and 3 columns) so the gap color never shows
-              through as a blank block. */}
-          <li className="bg-st-surface">
+          {/* "More on the way" cell. It is just another card; any unused
+              slots after it in the final row stay paper, so the count of
+              posts never matters. */}
+          <li className="-mt-px -ml-px border-t border-l border-st-line bg-st-surface">
             <Reveal variant="up" delay={POSTS.length * 0.08} className="h-full">
               <div className="flex h-full flex-col justify-center p-8">
                 <span aria-hidden className="h-px w-8 bg-st-accent" />

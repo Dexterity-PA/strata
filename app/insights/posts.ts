@@ -83,7 +83,7 @@ export const POSTS: Post[] = [
     title: "What an interest rate actually costs you",
     excerpt:
       "A rate is easy to nod at and hard to feel. Turning the percentage back into dollars is how the cost stops being abstract.",
-    date: "2026-06-08",
+    date: "2026-06-09",
     body: [
       {
         type: "p",
@@ -120,7 +120,7 @@ export const POSTS: Post[] = [
     title: "Emergency fund: how big, and why",
     excerpt:
       "“Three to six months” answers a question you have not asked yet. Start with what you are actually protecting against, and the size follows.",
-    date: "2026-06-06",
+    date: "2026-06-08",
     body: [
       {
         type: "p",
