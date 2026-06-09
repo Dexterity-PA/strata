@@ -22,7 +22,10 @@ export function ToolPage({ eyebrow, title, intro, children }: ToolPageProps) {
     <Section container="none" className="bg-st-bg">
       <div className="mx-auto w-full max-w-5xl px-st-gutter">
         <ToolHeader eyebrow={eyebrow} title={title} intro={intro} />
-        <Reveal variant="up" delay={0.05}>
+        {/* The calculator is tall, so it can never reach the scroll trigger's
+            in-view threshold on load and would sit stuck at opacity:0. Use the
+            mount trigger so the interactive panel always appears immediately. */}
+        <Reveal variant="up" delay={0.05} trigger="mount">
           {children}
         </Reveal>
       </div>

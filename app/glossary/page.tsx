@@ -81,18 +81,21 @@ export default function GlossaryPage() {
           className="opacity-70"
         />
         <Container size="narrow" className="relative text-center">
-          <Reveal variant="fade" duration={0.9}>
+          {/* This CTA sits below the full A to Z list, which makes the page
+              many thousands of pixels tall. A scroll trigger here leaves the
+              block stuck at opacity:0 on load, so use the mount trigger. */}
+          <Reveal variant="fade" duration={0.9} trigger="mount">
             <p className="font-st-display text-st-h2 leading-snug text-st-paper">
               Ran into a word that still feels fuzzy?
             </p>
           </Reveal>
-          <Reveal variant="up" delay={0.15}>
+          <Reveal variant="up" delay={0.15} trigger="mount">
             <p className="mx-auto mt-5 max-w-xl text-st-body-lg text-st-paper/80">
               Tell us the term and we will explain it in plain language and add
               it here for the next person.
             </p>
           </Reveal>
-          <Reveal variant="up" delay={0.25}>
+          <Reveal variant="up" delay={0.25} trigger="mount">
             <div className="mt-8">
               <Button href="/contact">Start a conversation</Button>
             </div>
