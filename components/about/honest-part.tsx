@@ -21,7 +21,15 @@ export function HonestPart() {
           Strata offers education and planning support, not licensed financial
           advice. I&rsquo;ll always be upfront about what I can and can&rsquo;t
           help with, and when something calls for a licensed professional,
-          I&rsquo;ll tell you directly.
+          I&rsquo;ll tell you directly. If you want the fuller picture of why I
+          built it, that&rsquo;s{" "}
+          <a
+            href="/mission"
+            className="underline decoration-st-accent-bright/50 underline-offset-4 transition-colors duration-(--st-dur-fast) hover:decoration-st-accent-bright"
+          >
+            the mission behind Strata
+          </a>
+          .
         </p>
       </Reveal>
 
